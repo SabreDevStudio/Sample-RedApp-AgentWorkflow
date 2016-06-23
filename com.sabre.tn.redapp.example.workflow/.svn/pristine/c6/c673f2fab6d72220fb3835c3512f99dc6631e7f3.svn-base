@@ -1,0 +1,88 @@
+<html>
+<head>
+<script language="javascript">
+
+	var glova="nasa";
+
+	function submitHandler(){
+		
+		document.getElementById("txtSub").value = "tttt";
+		return false;
+	}
+	
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	
+	function getTravelAgentFromSRW(){ 
+	
+	setTimeout(function(){
+	
+		try{
+		var agtPCC = SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getPcc",null);
+		var agtName = SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getFirstName",null);
+		var agtSurname = SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getLastName",null);
+		document.getElementById("greetings").innerText =  ("Hello " + agtName + " " + agtSurname + ", u are logged using PCC " + agtPCC + ".");
+		}catch(e){
+			alert(e);
+			glova = e;
+			document.getElementById("greetings").innerText =  ("Hello, can't get your ID, make sure u are logged in. ");
+			
+		}
+		
+		
+		
+		return false;
+		
+		}, 3000);
+	}
+	
+	function getQsValue(){
+		
+		//var resAgt = SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getAgentId");
+		
+		
+		document.getElementById("whatsInQs").innerText = getParameterByName("qs");
+		
+		
+		
+	}
+	
+	/*
+	document.addEventListener('DOMContentLoaded', function() {
+   		getTravelAgentFromSRW();
+	}, false);
+	*/
+	
+	document.onreadystatechange = function(){
+     if(document.readyState === 'complete'){
+        getTravelAgentFromSRW();
+     }
+	}
+	
+	
+</script>
+</head>
+<body>Flight Availability Assistant<hr/>
+
+<p id="greetings">&nbsp;</p>
+
+<p>The Destination u are looking for is located at the Country of {country}</p>
+<p>The average Carbon Emission to flight such distance should be {avgco2}.</p>
+
+<pre id="whatsInQs"></pre>
+ 
+
+<input type="button" value="Close Me" onclick="return CloseApi.close();" />
+
+
+
+
+</body>
+</html>

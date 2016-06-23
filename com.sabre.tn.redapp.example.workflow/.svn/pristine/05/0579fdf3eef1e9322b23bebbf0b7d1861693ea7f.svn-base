@@ -1,0 +1,76 @@
+package com.sabre.tn.redapp.example.workflow.views;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.part.ViewPart;
+import com.sabre.tn.redapp.example.workflow.uiparts.AgentProfileWidget;
+import com.sabre.tn.redapp.example.workflow.uiparts.EmuCommandWidget;
+import com.sabre.tn.redapp.example.workflow.uiparts.IWidgetAction;
+
+
+public class SampleView extends ViewPart {
+
+	private String content="";
+	private IWidgetAction defaultAction=null;
+	Group grMain;
+	public SampleView() {
+		
+	}
+
+	@Override
+	public void createPartControl(Composite parent) {
+		
+		parent.setLayout(new FillLayout());
+		
+		grMain = new Group(parent,SWT.FILL);
+		grMain.setText(content);
+		
+		grMain.setLayout(new FillLayout(SWT.VERTICAL));
+		
+		
+		
+		EmuCommandWidget emu = new EmuCommandWidget(grMain, SWT.NONE);
+		
+		
+		AgentProfileWidget ap = new AgentProfileWidget(grMain, SWT.NONE);
+		
+
+		
+		Button btnOk = new Button(grMain,SWT.NONE);
+		btnOk.setText("Default Action");
+		btnOk.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent evt) {
+
+				if(defaultAction!=null)
+					defaultAction.defaultActionSelected();
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent evt) {
+				this.widgetSelected(evt);
+				
+			}
+		});
+	}
+
+	@Override
+	public void setFocus() {
+		
+	}
+	
+	public void setContent(String content){
+		this.content = content;
+		grMain.setText(content);
+	}
+	public void setDefaultAction(IWidgetAction action){
+		this.defaultAction = action;
+	}
+}

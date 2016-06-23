@@ -1,0 +1,22 @@
+package com.sabre.tn.redapp.example.workflow.uiparts;
+
+import com.sabre.edge.cf.core.registry.service.ISRWCommunication;
+import com.sabre.edge.cf.emu.data.EmulatorCommand;
+import com.sabre.edge.cf.emu.data.requests.EmulatorCommandRequest;
+import com.sabre.edge.cf.emu.external.ExecuteInEmuServiceClient;
+import com.sabre.tn.redapp.example.workflow.Activator;
+
+public class ShowPopupAction implements IWidgetAction {
+
+	String content;
+	public ShowPopupAction(String content){
+		this.content = content;
+	}
+
+	@Override
+	public void defaultActionSelected() {
+		new PopupDialogs().showDialog(content, null);
+		
+	}
+
+}

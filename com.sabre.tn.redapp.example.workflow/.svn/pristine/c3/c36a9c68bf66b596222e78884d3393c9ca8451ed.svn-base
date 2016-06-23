@@ -1,0 +1,16 @@
+package com.sabre.tn.redapp.example.workflow.editor;
+
+import com.sabre.edge.platform.optional.browser.inputs.BrowserEditorInput;
+import com.sabre.tn.redapp.example.workflow.Activator;
+
+public class CustomBrowserEditorInput extends BrowserEditorInput {
+
+	
+	public CustomBrowserEditorInput(String pUrl) {
+		super(Activator.PLUGIN_ID, pUrl);
+	}
+	public CustomBrowserEditorInput() {
+		super(Activator.PLUGIN_ID, "file://" +  Activator.getDefault().getDataDirectory(Activator.PLUGIN_ID).getAbsolutePath() + "/resources/BrowserKit.htmL");
+	}
+
+}

@@ -1,0 +1,31 @@
+package com.sabre.tn.redapp.example.workflow.uiparts;
+
+import com.sabre.edge.cf.core.registry.service.ISRWCommunication;
+import com.sabre.edge.cf.emu.data.EmulatorCommand;
+import com.sabre.edge.cf.emu.data.requests.EmulatorCommandRequest;
+import com.sabre.edge.cf.emu.external.ExecuteInEmuServiceClient;
+import com.sabre.tn.redapp.example.workflow.Activator;
+
+public class SendEmuCommandAction implements IWidgetAction {
+
+	String actionCode, actionData;
+	
+	public SendEmuCommandAction(String cmdToSend) {
+		actionData = cmdToSend;
+	}
+	
+	@Override
+	public void defaultActionSelected() {
+		ISRWCommunication comm = Activator.getDefault().getServiceReference(ISRWCommunication.class);
+		String cmdToShow = actionData;
+		
+		EmulatorCommand cmd = new EmulatorCommand(cmdToShow);
+		EmulatorCommandRequest rq = new EmulatorCommandRequest(cmd);
+		
+		ExecuteInEmuServiceClient execEmu = new ExecuteInEmuServiceClient(comm);
+		execEmu.send(rq);
+
+		
+	}
+
+}

@@ -1,0 +1,18 @@
+<CFBundle>
+	<RedApp id="0123456789012345678909" >
+		<Authorization name="com.sabre.edge.cf.emu.ExecuteInEmulator" threshold="1" />
+		<Authorization name="com.sabre.edge.cf.emu.ShowInEmulator" threshold="1" />
+		<Authorization name="com.sabre.edge.cf.sws.SWS" threshold="1" />
+		<Authorization name="com.sabre.edge.cf.host.Locking" threshold="1" />
+	</RedApp>
+	
+	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CommandModificationService" action_code="6"/>
+	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CommandBlockService" action_code="ER" />
+	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CustomCommandService" action_code="CUSTOMCMD" />
+
+    <!-- EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.EventListener" state="POST" action_code="" /-->
+    <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.AvailabilityListener" state="POST" action_code="1" />
+    <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.SellListener" state="POST" action_code="0" />
+    
+	
+</CFBundle>

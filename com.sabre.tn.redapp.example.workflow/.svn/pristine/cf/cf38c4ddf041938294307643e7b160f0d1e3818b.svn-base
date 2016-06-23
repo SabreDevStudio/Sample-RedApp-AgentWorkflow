@@ -1,0 +1,27 @@
+package com.sabre.tn.redapp.example.workflow.listeners;
+
+import com.sabre.edge.platform.optional.firstrun.worker.AbstractFirstRunWorker;
+import com.sabre.edge.platform.optional.notifications.types.Priority;
+import com.sabre.edge.platform.optional.notifications.types.SideBarColor;
+import com.sabre.tn.redapp.example.workflow.uiparts.NotifService;
+import com.sabre.tn.redapp.example.workflow.uiparts.PopupDialogs;
+import com.sabre.tn.redapp.example.workflow.uiparts.ShowPopupAction;
+
+public class RedAppFirstRunHandler extends AbstractFirstRunWorker {
+
+	@Override
+	protected boolean performActions() {
+		// On first run, let the user be aware of the App, show a notification about it.
+		new NotifService().showNotification(
+				"Agent Workflow Sample App", 
+				"The Agent Workflow Sample App was installed and that's the first time it runs, self configuration being completed...", 
+				3000, 
+				Priority.HIGH, 
+				SideBarColor.GREEN, 
+				null
+			);	
+		
+		return false;
+	}
+
+}

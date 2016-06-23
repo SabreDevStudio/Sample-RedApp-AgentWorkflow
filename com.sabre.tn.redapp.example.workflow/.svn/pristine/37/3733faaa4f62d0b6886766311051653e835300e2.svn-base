@@ -1,0 +1,103 @@
+package com.sabre.tn.redapp.example.workflow.uiparts;
+
+
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.sabre.edge.platform.core.sso.base.IAgentProfileService;
+import com.sabre.tn.redapp.example.workflow.Activator;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+
+
+public class AgentProfileWidget extends Composite{
+
+	public AgentProfileWidget(Composite parent, int style) {
+		super(parent, style);
+		
+		this.setParent(parent);
+		this.setLayout(new FillLayout());
+		
+		Group compHolder = new Group(this,SWT.FILL);
+		compHolder.setText("Agent Profile Services");
+		
+		compHolder.setLayout(new FillLayout());
+		//compHolder.setBackground(new Color(null, 0, 100, 0));
+		
+		ScrolledComposite compScrl = new ScrolledComposite(compHolder, SWT.H_SCROLL | SWT.V_SCROLL );
+		//compScrl.setBackground(new Color(null, 100, 0, 0));
+		//compScrl.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+		
+		Composite compMain = new Composite(compScrl, SWT.FILL);
+		
+		//compMain.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		compMain.setLayout(new GridLayout(2,false));
+		//compMain.setSize(500, 500);
+		//compScrl.setContent(compMain);
+		
+		IAgentProfileService svc =  Activator.getDefault().getServiceReference(IAgentProfileService.class);
+		
+		for (Method m : svc.getClass().getMethods()) {
+			
+			if(m.getName().startsWith("get") && m.getParameterCount()==0){
+				Label lbl = new Label(compMain, SWT.NONE);
+				lbl.setText(m.getName());
+				lbl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				
+				Text txt = new Text(compMain, SWT.FILL);
+				txt.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				txt.setText("");
+				
+				try {
+					
+					Object res = m.invoke(svc);
+					if(res!=null) {
+						
+						txt.setText(res.toString());
+					}
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+			}
+			
+			
+			
+		}
+		
+		compMain.layout(true,true);
+		compScrl.setContent(compMain);
+		
+		
+		compScrl.setExpandHorizontal(true);
+		compScrl.setExpandVertical(true);
+		
+		//compScrl.setAlwaysShowScrollBars(true);
+		
+		compScrl.setMinSize(compMain.computeSize(-1, -1));
+
+		
+		
+	}
+
+}

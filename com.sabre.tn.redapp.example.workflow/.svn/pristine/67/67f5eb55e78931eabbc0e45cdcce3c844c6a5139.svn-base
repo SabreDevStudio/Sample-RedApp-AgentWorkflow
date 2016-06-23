@@ -1,0 +1,12 @@
+<html>
+<head>
+<script language="javascript">
+	function testBridge(){
+	
+		alert("javaBridge:"+window.javaBridge());
+	}
+</script>
+</head>
+<body>Browser Kit</body>
+<input type="button" onclick="testBridge();">Try Me</input>
+</html>

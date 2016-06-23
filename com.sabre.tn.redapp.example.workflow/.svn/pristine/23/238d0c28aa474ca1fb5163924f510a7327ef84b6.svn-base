@@ -1,0 +1,41 @@
+package com.sabre.tn.redapp.example.workflow.preferences;
+
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.jface.preference.IPreferenceStore;
+
+import com.sabre.tn.redapp.example.workflow.Activator;
+
+/**
+ * Class used to initialize default preference values.
+ */
+public class PreferenceInitializer extends AbstractPreferenceInitializer {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
+	 */
+	public void initializeDefaultPreferences() {
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		
+		store.setDefault(PreferenceConstants.P_LISTEN_AVAIL, true);
+		store.setDefault(PreferenceConstants.P_LISTEN_SELL, true);
+		store.setDefault(PreferenceConstants.P_MODIFY_RCVDFROM, true);
+		store.setDefault(PreferenceConstants.P_BLOCK_ER, true);
+		
+/*		for(int i=1;i<=5;i++){
+			store.setDefault(PreferenceConstants.P_CMDLISTEN + i, "");
+			store.setDefault(PreferenceConstants.P_ONEVENT + i, "");
+			store.setDefault(PreferenceConstants.P_ONDISMISS + i,"");
+			store.setDefault(PreferenceConstants.P_MESSAGE + i,"");
+			
+			
+			
+		}
+		
+		store.setDefault(PreferenceConstants.P_INTBLOCK_CMD,"");
+		store.setDefault(PreferenceConstants.P_INTMODIFY_CMD,"");
+		store.setDefault(PreferenceConstants.P_INTMODIFYPREPREND_CMD,"");*/
+	}
+
+}

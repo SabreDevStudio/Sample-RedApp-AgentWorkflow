@@ -1,0 +1,50 @@
+package com.sabre.tn.redapp.example.workflow.uiparts;
+
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+
+import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
+import com.sabre.edge.platform.optional.notifications.INotificationService;
+import com.sabre.edge.platform.optional.notifications.types.Notification;
+import com.sabre.edge.platform.optional.notifications.types.Priority;
+import com.sabre.edge.platform.optional.notifications.types.SideBarColor;
+import com.sabre.tn.redapp.example.workflow.Activator;
+
+public class NotifService {
+	
+	public void showNotification(String title, String content, int time, Priority priority, SideBarColor sbColor, IWidgetAction defaultAction){
+		
+		final INotificationService svc = Activator.getDefault().getServiceReference(INotificationService.class);
+		final Notification not = new Notification();
+		final IWidgetAction defAction = defaultAction;
+		not.setWindowTitle(title);
+		not.setPriority(priority);
+		not.setContent(content);
+		not.setLeftSideBarColor(sbColor);
+		not.setNotificationTime(time);	
+		
+		if(defAction!=null){
+			not.setMoreLabel("more...");
+			not.setMoreListener(new Listener() {
+				
+				@Override
+				public void handleEvent(Event arg0) {
+					defAction.defaultActionSelected();
+					
+				}
+			});
+		}
+		
+		UiThreadInvoker<Object> invoker = new UiThreadInvoker<Object>() {
+			
+			@Override
+			protected Object invoke() {
+				svc.createNotification(not);
+				return null;
+			}
+		};
+		
+		invoker.asyncExec();
+		
+	}
+}

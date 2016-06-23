@@ -1,0 +1,50 @@
+<html>
+<head>
+<script language="javascript">
+
+	function addTaw(){
+		document.getElementById("btnAddTAW").innerText = "please wait...";
+		SrwAsyncApi.executeInEmu("7TAW/",true,true,addTawCb);
+	}
+	function addTawCb(res){
+		document.getElementById("btnAddTAW").innerText = res;
+	}
+
+	function addPhone(){
+		document.getElementById("btnAddPhone").innerText = "please wait...";
+		SrwAsyncApi.executeInEmu("9SAO9989-9999",true,true,addPhoneCb);
+	}
+	function addPhoneCb(res){
+		document.getElementById("btnAddPhone").innerText = res;
+	}
+	
+	function addQCOK(){
+		document.getElementById("btnQCOk").innerText = "please wait...";
+		SrwAsyncApi.executeInEmu("*A",true,true,addQCOKCb);
+		
+	}
+	function addQCOKCb(res){
+		CloseApi.close();
+	}
+	
+	
+</script>
+</head>
+<body onload="">
+<p>After Sell Quality Services<br/>Please ensure quality control standards for the segment(s) u just sold</p>
+<hr/>
+
+<p>Check Time Limits</p>
+<button id="btnAddTAW" onclick="return addTaw();">Add Ticketing/TimeLimit</button>
+
+<p>Check Identification </p>
+<button id="btnAddPhone" onclick="return addPhone();">Add Phone field</button>
+
+<p>Acknowledge</p>
+<button id="btnQCOk" onclick="return addQCOK();">QC OK</button>
+
+<hr/>
+<input type="button" value="Close Me" onclick="return CloseApi.close();" />
+
+</body>
+</html>

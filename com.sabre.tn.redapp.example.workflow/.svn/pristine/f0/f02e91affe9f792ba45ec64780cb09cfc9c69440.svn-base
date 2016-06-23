@@ -1,0 +1,40 @@
+<html>
+<head>
+<script language="javascript">
+	function submitHandler(){
+		
+		document.getElementById("txtSub").value = "tttt";
+		return false;
+	}
+	
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	
+	function getQsValue(){
+		
+		//var resAgt = SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getAgentId");
+		
+		
+		document.getElementById("whatsInQs").innerText = getParameterByName("qs");
+		
+	}
+	
+</script>
+</head>
+<body onload="return getQsValue();">EMU Asynchronous Command Listener<hr/>
+<p>The view presented here was triggered by an event listener, the fundamental aspect of this workflow is to "enrich" the content presented during the usage of emulator commands, in an non intrusive approach, were the App doesn't necessarily requires exclusive attention  </p>
+
+<pre id="whatsInQs"></pre>
+ 
+
+<input type="button" value="click to close" onclick="return CloseApi.close();" />
+
+</body>
+</html>

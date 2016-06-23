@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.4"?><plugin>
+
+   <extension point="org.eclipse.ui.editors">
+   <editor 
+   		class="com.sabre.tn.redapp.example.workflow.editor.SampleEditorEditor" 
+   		icon="images/editor_icon.png" 
+   		id="com.sabre.tn.redapp.example.workflow.SampleEditorEditor" 
+   		name="SampleEditor" 
+   		default="false"/>
+   </extension>
+   
+   <extension point="com.sabre.edge.platform.core.editor.editorApp">
+   <editorApp 
+   		class="com.sabre.tn.redapp.example.workflow.editor.SampleEditorEditor" 
+   		editorId="com.sabre.tn.redapp.example.workflow.SampleEditorEditor" 
+   		inputClass="com.sabre.tn.redapp.example.workflow.editor.SampleEditorEditorInput" 
+   		name="SampleEditor" 
+   		toolTipText="Sample Editor Container"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            OLDESTclass="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor"
+            class="com.sabre.edge.platform.optional.webkit.editors.DefaultWebkitEditor"
+            default="false"
+            icon="images/icon.png"
+            id="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor"
+            name="Default Browser Editor">
+      </editor>
+   </extension>
+
+   <extension point="com.sabre.edge.platform.core.editor.editorApp">
+      <editorApp
+            OLDESTclass="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor"
+            class="com.sabre.edge.platform.optional.webkit.editors.DefaultWebkitEditor"
+            editorId="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor"
+            NOUSEinputClass="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditorInput"
+            name="Default Browser Editor"
+            toolTipText="Sample of Default Browser Editor using Webkit Internal Engine">
+      </editorApp>
+   </extension>
+   
+   <extension point="org.eclipse.ui.elementFactories">
+   	<!--factory class="com.sabre.tn.redapp.example.workflow.editor.SampleEditorElementFactory" id="com.sabre.tn.redapp.example.workflow.SampleEditorElementFactory"/-->
+   </extension>
+   
+   
+   <extension point="org.eclipse.ui.views">
+      <view allowMultiple="true" 
+      category="com.sabre.edge.app.ui.category" 
+      class="com.sabre.tn.redapp.example.workflow.views.MainView" 
+      icon="images/redapp_view_icon.png" 
+      id="com.sabre.tn.redapp.example.workflow.redapp.view"
+      name="Main View"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="com.sabre.edge.app.ui.perspective">
+         <view 
+         	closeable="true" 
+         	id="com.sabre.tn.redapp.example.workflow.redapp.view:*" 
+         	minimized="false" 
+         	moveable="false" 
+         	ratio="0.70" 
+         	relationship="right" 
+         	relative="org.eclipse.ui.editorss" 
+         	showTitle="true" 
+         	standalone="true" 
+         	visible="false"/>
+      </perspectiveExtension>
+   </extension>
+   
+   
+   <extension point="org.eclipse.ui.commands">
+	   <command 
+	   		id="com.sabre.tn.redapp.example.workflow.redapp.view.command" 
+	   		name="Open RedApp View">
+       <commandParameter 
+       		id="viewId" 
+       		name="viewId"/>
+      </command>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers">
+   		<handler 
+   			class="com.sabre.edge.platform.core.ui.handlers.OpenViewHandler" 
+   			commandId="com.sabre.tn.redapp.example.workflow.redapp.view.command"/>
+   		<!--handler class="com.sabre.edge.platform.core.editor.commands.handlers.FocusOrOpenEditorHandler" commandId="com.sabre.tn.redapp.example.workflow.SampleEditor.command"/-->
+   </extension>
+   
+   
+   
+<extension point="com.sabre.edge.platform.core.ui.viewApp">
+	<viewApp
+	   xowserURL="${plugin_resources}/resources/BrowserKit.html"
+	   browserURL="https://html5test.com"
+	   viewId="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView" />
+</extension>
+
+<extension point="org.eclipse.ui.views">
+  <view
+	allowMultiple="true"
+	class="com.sabre.edge.platform.optional.webkit.views.WebkitView"
+	icon="images/icon.png"
+	id="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView"
+	name="Webkit Sample View"
+	restorable="true">
+  </view>
+</extension>
+
+
+<extension point="org.eclipse.ui.commands">
+	  <command
+		defaultHandler="com.sabre.edge.platform.core.common.handlers.OpenBrowserViewHandler"
+		id="com.sabre.tn.redapp.example.workflow.view.OpenWebKitSampleView"
+		name="Open Webkit View">
+		
+		 <commandParameter
+		       id="viewId"
+		       name="viewId"
+		       optional="true">
+		 </commandParameter>
+		
+		 <commandParameter
+		       id="url"
+		       name="url"
+		       optional="true">
+		 </commandParameter>
+	
+	  </command>
+
+</extension>
+
+   <extension point="org.eclipse.ui.menus">
+
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.sabre.edge.toolbar.sidebar">
+
+         <command
+               commandId="com.sabre.tn.redapp.example.workflow.view.OpenWebKitSampleView"
+               icon="images/icon.png"
+               label="Open Webkit Sample View"
+               style="push">
+
+            <parameter
+                  name="viewId"
+                  value="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView">
+            </parameter>
+
+         </command>
+
+      </menuContribution>
+
+   </extension>
+   
+   
+   
+   
+   <extension point="org.eclipse.ui.menus">
+
+   <menuContribution locationURI="toolbar:com.sabre.edge.toolbar.sidebar">
+         <command 
+         	commandId="com.sabre.tn.redapp.example.workflow.redapp.view.command" 
+         	icon="images/redapp_view_icon.png" 
+         	label="Open Sample View" 
+         	style="push" 
+         	tooltip="Sample ViewPort Container">
+            <parameter 
+            	name="viewId" 
+            	value="com.sabre.tn.redapp.example.workflow.redapp.view"/>
+         </command>
+      </menuContribution>
+
+   </extension>
+   
+   <extension point="com.sabre.edge.redapp.contactdetails.provider">
+      <contactDetails company="TN" contactName="Alex" email="alexandre.meneghello@sabre.com" phoneNumber="31461500" website="">
+      </contactDetails>
+   </extension>
+   <extension point="com.sabre.edge.cf.redapp">
+   </extension>
+   <extension point="org.eclipse.ui.preferencePages">
+      <page 
+      	category="com.sabre.edge.cf.core.preferences.RedAppsSettings" 
+      	class="com.sabre.tn.redapp.example.workflow.preferences.AppPreferencePage" 
+      	id="com.sabre.tn.redapp.example.workflow.preferences.AppPreferencePage" 
+      	name="Agent Workflow Preferences">
+      </page>
+   </extension>
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="com.sabre.tn.redapp.example.workflow.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+
+   
+   
+   <extension
+         point="com.sabre.edge.redapp.pluginresources">
+      <files>
+         <file
+               override="true"
+               path="resources/TravelItineraryReadRQ.xml">
+         </file>
+         <file
+               override="true"
+               path="resources/BrowserKit.html">
+         </file>
+      </files>
+   </extension>
+   <extension point="com.sabre.edge.platform.optional.firstrun">
+	  <client
+	  	class="com.sabre.tn.redapp.example.workflow.listeners.RedAppFirstRunHandler"
+	    versionId="1">
+	  </client>
+   </extension>
+   <extension
+         point="com.sabre.edge.platform.optional.webkit.js.handler">
+      <handler
+            class="com.sabre.tn.redapp.example.workflow.uiparts.WebKitJSBridge"
+            jsVarReferenceName="javaBridge">
+      </handler>
+   </extension>
+   
+   
+   
+
+   
+   
+</plugin>

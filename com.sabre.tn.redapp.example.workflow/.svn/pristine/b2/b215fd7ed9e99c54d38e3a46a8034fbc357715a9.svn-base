@@ -1,0 +1,41 @@
+<html>
+<head>
+<script language="javascript">
+	function submitHandler(){
+		
+		document.getElementById("txtSub").value = "tttt";
+		return false;
+	}
+	
+/*	function javaBridge(){
+		alert('this function should be replaced by RedApp SDK on page load');
+	}*/
+	
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	
+	function getQsValue(){
+		
+		document.getElementById("whatsInQs").innerText = javaBridge();
+
+	}
+	
+</script>
+</head>
+<body onload="return getQsValue();">Sample Browser Editor (custom)<hr/>
+<p>The sample Browser editor presented here was triggered by user action, the fundamental aspect of this workflow is to support the user on tasks not directly related to the emulator / PNR or where there's need of "full screen" attention to the contents.</p>
+
+<pre id="whatsInQs"></pre>
+ 
+<p>The RedApp SDK has the ability to inject javascript functions on the web pages, so when they are called they are routed to the java side of the RedApp, allowing a miriad of customization and access to the underlying communication framework</p>
+<input type="button" onclick="alert(javaBridge())" value="try me!"/>
+
+</body>
+</html>

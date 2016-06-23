@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Carbon_CalculatorRQ Version="1.0" xmlns="http://webservices.sabre.com/triprecord">
+ <Reservation>
+ 	<Locator></Locator>
+ 	<RequestType>Stateful</RequestType>
+ </Reservation>
+ </Carbon_CalculatorRQ>
