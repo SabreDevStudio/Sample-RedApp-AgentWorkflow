@@ -38,7 +38,7 @@ public class MainView extends ViewPart {
 		
 		Label txtContent1 = new Label(compMain, SWT.WRAP );
 		txtContent1.setText("The AgentWorkFlow sample Red App is intended to demonstrate the iteraction that usually occur when Travel Agents are using Red Apps inside the Sabre Red Workspace.");
-		//txtContent1.setAlignment(SWT.CENTER);
+
 		txtContent1.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false));
 
 		Label txtContent2 = new Label(compMain, SWT.WRAP );

@@ -29,7 +29,7 @@ public class CustomPopupDialog extends MySabreTrayDialog {
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		// super.createButtonsForButtonBar(parent);
+
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 	}
 	
@@ -40,7 +40,7 @@ public class CustomPopupDialog extends MySabreTrayDialog {
 		area.setLayout(new GridLayout(1,true));
 		((FillLayout)area.getLayout()).marginWidth = 10;
 		((FillLayout)area.getLayout()).marginHeight = 10;
-		//Text txtContent = new Text(area,SWT.MULTI | SWT.WRAP | SWT.BORDER); 
+
 		Label txtContent = new Label(area,SWT.WRAP );
 		txtContent.setText("About the App");
 		txtContent.setAlignment(SWT.CENTER);

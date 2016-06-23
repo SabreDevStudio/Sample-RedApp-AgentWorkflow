@@ -42,6 +42,7 @@ public class CfServicesHelper {
 		if( rsp.isSuccess()){
 			SWSResponse responsePl = rsp.getPayload();
 
+//			Get the response payload as Dom document			
 //			docRet = responsePl.getResponse();
 
 //			String resStr = responsePl.getResponseText();
@@ -69,6 +70,9 @@ public class CfServicesHelper {
 			for(IError err : rsp.getErrors()){
 				strResponse += err.getCode() + "-" + err.getDescription() + "\n";
 			}
+
+			//Logs the exception
+			Activator.getDefault().getLoggerService().warning(strResponse);
 			throw new Exception(strResponse);
 		}
 

@@ -28,7 +28,7 @@ public class SamplePopupDialog extends MySabreTrayDialog {
 		area.setLayout(new FillLayout());
 		((FillLayout)area.getLayout()).marginWidth = 10;
 		((FillLayout)area.getLayout()).marginHeight = 10;
-		//Text txtContent = new Text(area,SWT.MULTI | SWT.WRAP | SWT.BORDER);
+		
 		Label txtContent = new Label(area,SWT.WRAP );
 		
 		txtContent.setText(dialogContent);
