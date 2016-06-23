@@ -1,7 +1,0 @@
-package com.sabre.tn.redapp.example.workflow.uiparts;
-
-public interface IWidgetAction {
-	
-	public void defaultActionSelected();
-
-}

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TravelItineraryReadRQ Version="3.6.0" TimeStamp="2012-09-19T10:00:00-06:00" xmlns="http://services.sabre.com/res/tir/v3_6">
-    <MessagingDetails>
-        <SubjectAreas>
-            <SubjectArea>FULL</SubjectArea>
-        </SubjectAreas>
-    </MessagingDetails>
-    <EchoToken/>
-</TravelItineraryReadRQ>
