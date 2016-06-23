@@ -27,9 +27,6 @@ Flow
 
 Basic workflow of creating an travel itinerary, consisting search and booking of a flight for one passenger, also completing the passenger name record (PNR) according to the system. 
 
-Possible do an "Sit on Agent chair" and drive the full flow once at begining. (3Min.)
-
-
 
 - Asynchronous Event listener
 
