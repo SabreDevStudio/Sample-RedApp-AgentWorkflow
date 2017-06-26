@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: AgentWorkFlow Sample Red App
-Bundle-SymbolicName: com.sabre.tn.redapp.example.workflow;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: TTX 2017 Agent Workflow Test
+Bundle-SymbolicName: com.sabre.tn.redapp.example.ttx.workflow;singleton:=true
+Bundle-Version: 1.0.1.qualifier
 Bundle-Activator: com.sabre.tn.redapp.example.workflow.Activator
 Bundle-Vendor: Sabre Travel Network
 Require-Bundle: org.eclipse.ui,
@@ -21,6 +21,14 @@ Require-Bundle: org.eclipse.ui,
  com.sabre.edge.redapp.pluginresources;bundle-version="1.0.1",
  com.sabre.edge.platform.optional.firstrun;bundle-version="1.0.1",
  com.sabre.edge.platform.optional.browser;bundle-version="2.2.6",
- com.sabre.edge.platform.optional.webkit;bundle-version="1.0.8"
+ com.sabre.edge.platform.optional.webkit;bundle-version="1.0.8",
+ com.sabre.edge.dynamo.ext.cdm;bundle-version="3.4.24",
+ com.sabre.edge.dynamo.transformer;bundle-version="3.4.33",
+ com.sabre.edge.dynamo.flow;bundle-version="1.0.0",
+ com.sabre.edge.dynamo.cdm;bundle-version="3.4.33",
+ com.sabre.edge.dynamo.services.impl;bundle-version="3.4.33"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/WorkflowDataService.xml
+Eclipse-RegisterBuddy: com.sabre.edge.dynamo.transformer
+Export-Package: com.sabre.tn.redapp.example.workflow.xtpointservices

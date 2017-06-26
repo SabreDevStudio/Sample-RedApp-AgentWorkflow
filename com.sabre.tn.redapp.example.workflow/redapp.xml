@@ -1,5 +1,5 @@
 <CFBundle>
-	<RedApp id="0123456789012345678909" >
+	<RedApp id="5bL09l4OQk-0KlGdzId9tg" >
 		<Authorization name="com.sabre.edge.cf.emu.ExecuteInEmulator" threshold="1" />
 		<Authorization name="com.sabre.edge.cf.emu.ShowInEmulator" threshold="1" />
 		<Authorization name="com.sabre.edge.cf.sws.SWS" threshold="1" />
@@ -15,5 +15,8 @@
     <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.AvailabilityListener" state="POST" action_code="1" />
     <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.SellListener" state="POST" action_code="0" />
     
-	
+	<!-- Business Events for nSRW -->
+	<EventListener event_filter="END_TRANSACTION" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="PRE" action_code="" />
+	<EventListener event_filter="PNR_CHANGE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="PRE" action_code="" />
+		
 </CFBundle>

@@ -1,15 +1,13 @@
 package com.sabre.tn.redapp.example.workflow.uiparts;
 
-import java.util.HashMap;
-
-import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import com.sabre.edge.platform.core.common.handlers.OpenBrowserViewHandler;
 import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
-import com.sabre.edge.platform.optional.webkit.handlers.FocusOrOpenWebkitEditorHandler;
+import com.sabre.edge.platform.core.ui.utils.LauncherParams;
+import com.sabre.edge.platform.core.ui.utils.WorkbenchUtils;
+
 import com.sabre.tn.redapp.example.workflow.Activator;
 
 
@@ -40,8 +38,17 @@ public class OpenThingsHelper {
 							e.printStackTrace();
 						}
 					}
+					
+					LauncherParams pmtsToOpenView = new LauncherParams.LauncherParamsBuilder(
+							"com.sabre.tn.redapp.example.workflow.view.WebKitSampleView", 
+							"Advanced WebBrowser View", 
+							Activator.PLUGIN_ID)
+						.url(url)
+						.build();
+					
+					new WorkbenchUtils().openBrowserView("com.sabre.tn.redapp.example.workflow.redapp.webkitview.command", pmtsToOpenView);
 
-					OpenBrowserViewHandler.showView("com.sabre.tn.redapp.example.workflow.view.WebKitSampleView",url);
+					//OpenBrowserViewHandler.showView("com.sabre.tn.redapp.example.workflow.view.WebKitSampleView",url);
 				}else{
 					 
 				}
@@ -64,8 +71,17 @@ public class OpenThingsHelper {
 				if(url.indexOf("${plugin_resources}")>=0){
 					url = url.replace("${plugin_resources}", Activator.getDefault().getDataDirectory(Activator.PLUGIN_ID).toURI().toString() );
 				}
+				
+				LauncherParams pmtsToOpenEditor = new LauncherParams.LauncherParamsBuilder(
+						"com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor", 
+						"Advanced WebBrowser Editor", 
+						Activator.PLUGIN_ID)
+					.url(url)
+					.build();
 						 
-						
+				new WorkbenchUtils().openBrowserEditor("com.sabre.tn.redapp.example.workflow.webkiteditor.command", pmtsToOpenEditor);
+				
+				/*
 				HashMap<String,String> mp = new HashMap<String,String>();
 				mp.put("editorId", "com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor");
 				mp.put("name", "Advanced WebBrowser Editor");
@@ -77,7 +93,7 @@ public class OpenThingsHelper {
 				}catch(Exception e){
 					e.printStackTrace();
 				}
-						
+					*/	
 
 				return null;
 		

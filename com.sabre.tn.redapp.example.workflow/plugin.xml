@@ -32,6 +32,15 @@
       icon="images/redapp_view_icon.png" 
       id="com.sabre.tn.redapp.example.workflow.redapp.view"
       name="AgentWorkFlow Red App"/>
+      
+        <view
+			allowMultiple="true"
+			class="com.sabre.edge.platform.optional.webkit.views.WebkitView"
+			icon="images/icon.png"
+			id="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView"
+			name="Advanced WebBrowser View"
+			restorable="true">
+	  	</view>
    </extension>
 
    <extension point="org.eclipse.ui.perspectiveExtensions">
@@ -59,6 +68,32 @@
        		id="viewId" 
        		name="viewId"/>
       </command>
+
+
+	   <command 
+	   		defaultHandler="com.sabre.edge.platform.optional.webkit.handlers.OpenWebkitViewHandler"
+	   		id="com.sabre.tn.redapp.example.workflow.redapp.webkitview.command" 
+	   		name="Open RedApp WebKitView">
+       <commandParameter 
+       		id="viewId" 
+       		name="viewId"
+       		optional = "true"/>
+      </command>
+      
+      <command 
+       defaultHandler="com.sabre.edge.platform.optional.webkit.handlers.FocusOrOpenWebkitEditorHandler" 
+       id="com.sabre.tn.redapp.example.workflow.webkiteditor.command"
+       name="Open Webkit Editor">
+
+      <commandParameter 
+             id="editorId" 
+             name="editorId"
+             optional="true"/> 
+     	
+
+		</command> 
+      
+      
    </extension>
 
    <extension point="org.eclipse.ui.handlers">
@@ -76,16 +111,6 @@
 	   viewId="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView" />
 </extension>
 
-<extension point="org.eclipse.ui.views">
-  <view
-	allowMultiple="true"
-	class="com.sabre.edge.platform.optional.webkit.views.WebkitView"
-	icon="images/icon.png"
-	id="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView"
-	name="Advanced WebBrowser View"
-	restorable="true">
-  </view>
-</extension>
 
 
 
@@ -171,8 +196,24 @@
    </extension>
    
    
+      <extension point="com.sabre.edge.dynamo.web.module">
+		<modules>
+               <module id="sabre-tn-redapp-example-workflow-mod" />
+        </modules>
+   </extension>
    
 
+<extension
+         point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
+      <flowExtensionPoint
+            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.IWorkflowXTService:execute"
+            extensionPointId="execute"
+            flowId="dynamo.api.executor">
+      </flowExtensionPoint>
+   </extension> 
+
+  
+	
    
    
 </plugin>
