@@ -11,12 +11,16 @@ package com.sabre.tn.redapp.example.workflow.xtpointservices;
 
 import java.util.Optional;
 
+import org.eclipse.jface.preference.IPreferenceStore;
+
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtControlAction;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointCommand;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointDataOperation;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointRequestWrapper;
 import com.sabre.stl.pos.srw.nextgen.redapp.airshopping.rq.v1.RedAppAirShoppingRq;
 import com.sabre.stl.pos.srw.nextgen.redapp.airshopping.rq.v1.RedAppOriginDestinationInfo;
+import com.sabre.tn.redapp.example.workflow.Activator;
+import com.sabre.tn.redapp.example.workflow.preferences.PreferenceConstants;
 import com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopHandler;
 
 /**
@@ -31,45 +35,34 @@ public class BeforeShopHandler implements IBeforeShopHandler
     @Override
     public FlowExtPointCommand execute(FlowExtPointCommand extPointCommand)
     {
+    	IPreferenceStore st = Activator.getDefault().getPreferenceStore();
 
-        Optional <Airline> airlineOptional =
-            fetchRequest(extPointCommand, Airline.class);
-
-        if (airlineOptional.isPresent())
-        {
-            String iataCode = airlineOptional.get().getIataCode().trim();
-            Optional <FlowExtPointRequestWrapper> rqWrapper =
-                fetchRequestWrapper(extPointCommand, RedAppAirShoppingRq.class);
-
-            if (rqWrapper.isPresent() && !iataCode.isEmpty())
-            {
-                RedAppAirShoppingRq airShoppingRq =
-                    (RedAppAirShoppingRq) rqWrapper.get().getRequest();
-                airShoppingRq.getAdvancedOptions().getPreferredCarriers().clear();
-                airShoppingRq.getAdvancedOptions().getPreferredCarriers().add(iataCode);
-                rqWrapper.get().setOperation(FlowExtPointDataOperation.MODIFY);
-            }
-        }else{
-            Optional <FlowExtPointRequestWrapper> rqWrapper =
-                    fetchRequestWrapper(extPointCommand, RedAppAirShoppingRq.class);
-
-                if (rqWrapper.isPresent())
-                {
-                    RedAppAirShoppingRq airShoppingRq =
-                        (RedAppAirShoppingRq) rqWrapper.get().getRequest();
-                    
-                    for(RedAppOriginDestinationInfo odInfo : airShoppingRq.getOriginDestinationInfo()) {
-						if(odInfo.getDestination().equalsIgnoreCase("NYC")){
-							airShoppingRq.getAdvancedOptions().getPreferredCarriers().clear();
-							airShoppingRq.getAdvancedOptions().getPreferredCarriers().add("DL");
-							rqWrapper.get().setOperation(FlowExtPointDataOperation.MODIFY);
-							break;
-						}
-                    }
-                }
+		boolean shouldListenBeforeShop=st.getBoolean(PreferenceConstants.P_BEF_SHOP_FLOW_EXT);
+		
+		if(shouldListenBeforeShop){    	
+    	
+    	
+			Optional <FlowExtPointRequestWrapper> rqWrapper =
+			            fetchRequestWrapper(extPointCommand, RedAppAirShoppingRq.class);
+			
+		        if (rqWrapper.isPresent())
+		        {
+		            RedAppAirShoppingRq airShoppingRq = (RedAppAirShoppingRq) rqWrapper.get().getRequest();
+		            
+		            String destFilter = st.getString(PreferenceConstants.P_DESTFILTER_SHOP_FLOW_EXT);
+		            String airlineFilter = st.getString(PreferenceConstants.P_AIRLINEFILTER_SHOP_FLOW_EXT);
+		            
+		            for(RedAppOriginDestinationInfo odInfo : airShoppingRq.getOriginDestinationInfo()) {
+		            	if(odInfo.getDestination().equalsIgnoreCase(destFilter)){
+		            		airShoppingRq.getAdvancedOptions().getPreferredCarriers().clear();
+		            		airShoppingRq.getAdvancedOptions().getPreferredCarriers().add(airlineFilter.isEmpty()?"":airlineFilter);
+		            		rqWrapper.get().setOperation(FlowExtPointDataOperation.MODIFY);
+		            		break;
+	            		}
+		            }
+			    }
         	
-        }
-
+		}
         //extPointCommand.setFlowControlAction(FlowExtControlAction.CANCEL);
         return extPointCommand;
     }

@@ -31,7 +31,7 @@ Require-Bundle: org.eclipse.ui,
  com.sabre.edge.dynamo.redapp.cdm
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/ModifyAirlineService.xml,
- OSGI-INF/DisplayUpdateAirlineService.xml, OSGI-INF/BeforeEndExtensionService.xml, OSGI-INF/BeforeEndExtensionManualService.xml
+Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/BeforeShopHandler.xml,
+ OSGI-INF/BeforeShopManualHandler.xml, OSGI-INF/BeforeEndHandler.xml, OSGI-INF/BeforeEndManualHandler.xml
 Eclipse-RegisterBuddy: com.sabre.edge.dynamo.transformer
 Export-Package: com.sabre.tn.redapp.example.workflow.xtpointservices
