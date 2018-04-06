@@ -39,10 +39,10 @@ import com.sabre.edge.platform.core.common.plugin.base.AbstractEdgeBasePlugin;
 public class Activator extends AbstractEdgeBasePlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "com.sabre.tn.redapp.example.ttx.workflow";
+	public static final String PLUGIN_ID = "com.sabre.tn.redapp.example.workflow";
 
 	// The plug-in name
-	public static final String PLUGIN_NAME = "Red App SandBox";
+	public static final String PLUGIN_NAME = "ShowCase RedApp";
 
 	// The shared instance
 	private static Activator plugin;

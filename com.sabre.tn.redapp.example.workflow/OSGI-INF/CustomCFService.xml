@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.sabre.tn.redapp.example.workflow.xtpointservices.CustomCFService">
+   <implementation class="com.sabre.tn.redapp.example.workflow.xtpointservices.CustomSvcHandler"/>
+   <service>
+      <provide interface="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.ICustomSvc"/>
+   </service>
+</scr:component>

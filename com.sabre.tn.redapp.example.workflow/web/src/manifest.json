@@ -1,6 +1,0 @@
-{
-  "name": "sabre-tn-redapp-example-workflow-mod",
-  "dependencies": [
-    "sabre-ngv-core"
-  ]
-}

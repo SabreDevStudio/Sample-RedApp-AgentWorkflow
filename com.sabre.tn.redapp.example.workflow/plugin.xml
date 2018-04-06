@@ -31,7 +31,7 @@
       class="com.sabre.tn.redapp.example.workflow.views.MainView" 
       icon="images/redapp_view_icon.png" 
       id="com.sabre.tn.redapp.example.workflow.redapp.view"
-      name="AgentWorkFlow Red App"/>
+      name="ShowCase Red App"/>
       
         <view
 			allowMultiple="true"
@@ -125,7 +125,7 @@
          <command 
          	commandId="com.sabre.tn.redapp.example.workflow.redapp.view.command" 
          	icon="images/redapp_view_icon.png" 
-         	label="About AgentWorkFlow RedApp" 
+         	label="About ShowCase RedApp" 
          	style="push" 
          	tooltip="Just information about this sample Red App">
             <parameter 
@@ -152,7 +152,7 @@
       	category="com.sabre.edge.cf.core.preferences.RedAppsSettings" 
       	class="com.sabre.tn.redapp.example.workflow.preferences.AppPreferencePage" 
       	id="com.sabre.tn.redapp.example.workflow.preferences.AppPreferencePage" 
-      	name="Agent Workflow Preferences">
+      	name="ShowCase RedApp Preferences">
       </page>
    </extension>
    <extension point="org.eclipse.core.runtime.preferences">
@@ -198,7 +198,7 @@
    
       <extension point="com.sabre.edge.dynamo.web.module">
 		<modules>
-               <module id="sabre-tn-redapp-example-workflow-mod" />
+           <module id="sabre-tn-redapp-example-workflow-mod" />
         </modules>
    </extension>
    
@@ -206,13 +206,47 @@
 <extension
          point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
       <flowExtensionPoint
-            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.IWorkflowXTService:execute"
+            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.ICustomSvc:execute"
             extensionPointId="execute"
             flowId="dynamo.api.executor">
       </flowExtensionPoint>
    </extension> 
 
-  
+   <extension
+         point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
+      <flowExtensionPoint
+            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopManualHandler:execute"
+            flowId="dynamo.air.lowfareshopping"
+            extensionPointId="beforeShoppingRequest"
+			type="manual">
+      </flowExtensionPoint>
+   </extension>
+      <extension
+         point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
+      <flowExtensionPoint
+            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopHandler:execute"
+            flowId="dynamo.air.lowfareshopping"
+            extensionPointId="beforeShoppingRequest">
+      </flowExtensionPoint>
+   </extension>
+      <extension
+            point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
+         <flowExtensionPoint
+               callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler:execute"
+               extensionPointId="beforeEndCommand"
+               flowId="dynamo.pnr.end">
+         </flowExtensionPoint>
+      </extension>
+      <extension
+            point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
+         <flowExtensionPoint
+               callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndManualHandler:execute"
+               extensionPointId="beforeEndCommand"
+               flowId="dynamo.pnr.end"
+               type="manual">
+         </flowExtensionPoint>
+      </extension>  
+
 	
    
    

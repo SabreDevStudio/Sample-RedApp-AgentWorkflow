@@ -17,6 +17,7 @@ import com.sabre.edge.cf.model.element.ServiceContext;
 import com.sabre.edge.platform.core.sso.base.IAgentProfileService;
 import com.sabre.edge.platform.core.ui.handlers.OpenViewHandler;
 import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
+import com.sabre.tn.redapp.example.workflow.Activator;
 import com.sabre.tn.redapp.example.workflow.uiparts.CfServicesHelper;
 import com.sabre.tn.redapp.example.workflow.uiparts.CoreServicesHelper;
 import com.sabre.tn.redapp.example.workflow.uiparts.OpenThingsHelper;
@@ -42,21 +43,46 @@ public class CustomCommandService implements IService {
 		Random rGen = new Random();
 		int rInt = rGen.nextInt(quotes.length);
 		
-
-		
-		new UiThreadInvoker<Object>() {
-			@Override
-			protected Object invoke() {
-				//Straight forward ShowView method, just give the viewId from extensions (plugin.xml)...
-				OpenViewHandler.showView("com.sabre.tn.redapp.example.workflow.redapp.view");
-				return null;
-			};
-		}.asyncExec();
-		
-		
 		IRequest rq = context.getRequest();
-		EmulatorCommandResponse cmdResponse = new EmulatorCommandResponse();
-		((ServiceContext) context).setResponse(cmdResponse);
+		
+		String cmdPostFix="";
+		
+		if(rq instanceof EmulatorCommandRequest){
+			EmulatorCommand cmd = ((EmulatorCommandRequest) rq).getEmulatorCommand();
+			cmdPostFix = cmd.getCommand().replace("CUSTOMCMD", "");
+		}
+		
+		if(cmdPostFix.isEmpty()){
+			new UiThreadInvoker<Object>() {
+				@Override
+				protected Object invoke() {
+					//Straight forward ShowView method, just give the viewId from extensions (plugin.xml)...
+					OpenViewHandler.showView("com.sabre.tn.redapp.example.workflow.redapp.view");
+					return null;
+				};
+			}.asyncExec();
+			
+			
+			//IRequest rq = context.getRequest();
+			EmulatorCommandResponse cmdResponse = new EmulatorCommandResponse();
+			((ServiceContext) context).setResponse(cmdResponse);
+			
+		}else if (cmdPostFix.matches("MULT")) {
+			
+			
+		}else if (cmdPostFix.startsWith("¤")) {
+			String pcc = CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getPcc();
+			Activator.getDefault().getLoggerService().info("Area changed: PCC " + pcc);
+		}else if(cmdPostFix.startsWith("WEBKIT")){
+			if(cmdPostFix.contains("HTTP") || cmdPostFix.contains("FILE:")){
+				// OpenThingsHelper.showBrowserEditor(cmdPostFix.replace("WEBKIT", ""));
+				OpenThingsHelper.showAdvWebView(cmdPostFix.replace("WEBKIT", ""),null);
+			}else{
+				OpenThingsHelper.showBrowserEditor("file:///C:/Dev/redapps/eclipse/runtime-nSRW/.metadata/.plugins/com.sabre.tn.redapp.example.ttx.workflow//resources/AvAssistant.html?destIata=NYC&detCommand=VA*1/2/3/4/5/6/7/8/9/10/11");
+				// https://gtu.getthere.com/media/kuba/formatfinder3/alpha_0.1/
+			}
+		}
+		
 
 
 	}

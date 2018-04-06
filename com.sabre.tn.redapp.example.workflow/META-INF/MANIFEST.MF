@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: TTX 2017 Agent Workflow Test
-Bundle-SymbolicName: com.sabre.tn.redapp.example.ttx.workflow;singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Name: ShowCase RedApp
+Bundle-SymbolicName: com.sabre.tn.redapp.example.workflow;singleton:=true
+Bundle-Version: 1.0.3.qualifier
 Bundle-Activator: com.sabre.tn.redapp.example.workflow.Activator
 Bundle-Vendor: Sabre Travel Network
 Require-Bundle: org.eclipse.ui,
@@ -26,9 +26,12 @@ Require-Bundle: org.eclipse.ui,
  com.sabre.edge.dynamo.transformer;bundle-version="3.4.33",
  com.sabre.edge.dynamo.flow;bundle-version="1.0.0",
  com.sabre.edge.dynamo.cdm;bundle-version="3.4.33",
- com.sabre.edge.dynamo.services.impl;bundle-version="3.4.33"
+ com.sabre.edge.dynamo.services.impl;bundle-version="3.4.33",
+ com.sabre.edge.dynamo.cf,
+ com.sabre.edge.dynamo.redapp.cdm
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/WorkflowDataService.xml
+Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/ModifyAirlineService.xml,
+ OSGI-INF/DisplayUpdateAirlineService.xml, OSGI-INF/BeforeEndExtensionService.xml, OSGI-INF/BeforeEndExtensionManualService.xml
 Eclipse-RegisterBuddy: com.sabre.edge.dynamo.transformer
 Export-Package: com.sabre.tn.redapp.example.workflow.xtpointservices

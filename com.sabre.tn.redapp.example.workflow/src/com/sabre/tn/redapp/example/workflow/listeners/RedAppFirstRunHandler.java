@@ -22,9 +22,9 @@ public class RedAppFirstRunHandler extends AbstractFirstRunWorker {
 		final Notification not = new Notification();
 		
 		
-		not.setWindowTitle("1st Run Notification - Agent Workflow");
+		not.setWindowTitle("1st Run Notification - ShowCase Red App");
 		not.setPriority(Priority.NORMAL);
-		not.setContent("The Agent Workflow Sample App was installed and that's the first time it runs, self configuration being completed...");
+		not.setContent("The ShowCase Red App was installed and that's the first time it runs, self configuration being completed...");
 		not.setLeftSideBarColor(SideBarColor.GREEN);
 		not.setNotificationTime(0);	
 		not.setId("1stRunNotification");

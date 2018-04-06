@@ -1,0 +1,215 @@
+
+<!-- Provide templates in this directory -->
+<div class="container-fluid">
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Use Cases</a>
+  </li>
+  <!--li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+  </li-->
+  <li class="nav-item">
+    <a class="nav-link" id="dataset-tab" data-toggle="tab" href="#dataset" role="tab" aria-controls="dataset" aria-selected="false">Dataset</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="display-tab" data-toggle="tab" href="#display" role="tab" aria-controls="display" aria-selected="false">UI - output</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="forms-tab" data-toggle="tab" href="#forms" role="tab" aria-controls="forms" aria-selected="false">UI - input</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    {{#if ctDEC}}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Decision Support Widget</h3>
+        </div>
+        <div class="panel-body">
+          Panel content
+        </div>
+      </div>    
+
+    {{/if}}
+    {{#if ctSEG}}
+      <div class="panel panel-default">
+        <!--div class="panel-heading">
+          <h3 class="panel-title">Air Segment Widget</h3>
+        </div-->
+        <div class="panel-body">
+          <div class="row">
+            {{#with ucList}}
+            {{#each uc}}
+            <div class="col col-md-2">
+              <ul class="list-unstiled">
+                <li class="headSel">  
+                  <label>
+                    <input type="radio" name="optionsUC" id="selectUC1" value="{{id}}" checked />
+                    Select {{id}}
+                    </label>
+                </li>
+                <li class="bodyUC"><p>{{desc}}</p></li>
+                <li class="footerUC">{{ft}}</li>
+              </ul>
+            </div>
+            {{/each}}
+
+            {{/with}}
+
+            <!--div class="col">
+              <ul class="">
+                <li class="headSel">  
+                  <label>
+                    <input type="radio" name="optionsUC" id="selectUC2" value="addOTH" />
+                    Select
+                    </label>
+                </li>
+                <li class="bodyUC"><p>Use case description</p></li>
+                <li class="footerUC">footer</li>
+              </ul>
+            </div-->
+
+          </div>
+        </div>
+      </div>
+
+    {{/if}}
+
+  </div>
+  <!--div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div-->
+  <div class="tab-pane fade" id="dataset" role="tabpanel" aria-labelledby="dataset-tab"><p>the following payload is available through Command Flow model:</p> <code>{{ availData }}</code></div>
+  <div class="tab-pane fade" id="display" role="tabpanel" aria-labelledby="display-tab">
+         <h3>Collection of HTML Elements available on Templates</h3>
+      <hr/>
+      <p>This interface Showcases the HTML Elements that could be used inside containers. As nSRW global style is based on a modified bootstrap framework, the class nomenclature is equivalent for basic elements.</p>
+
+    <table class="table table-striped"> <thead> <tr> <th>#</th> <th>First Name</th> <th>Last Name</th> <th>Username</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>@mdo</td> </tr> <tr> <th scope="row">2</th> <td>Jacob</td> <td>Thornton</td> <td>@fat</td> </tr> <tr> <th scope="row">3</th> <td>Larry</td> <td>the Bird</td> <td>@twitter</td> </tr> </tbody> </table>
+    <div class="row">
+        <p>
+          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Link with href
+          </a>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Button with data-target
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">Panel heading without title</div>
+        <div class="panel-body">
+          Panel content
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Panel title</h3>
+        </div>
+        <div class="panel-body">
+          Panel content
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="forms" role="tabpanel" aria-labelledby="forms-tab">
+    <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Example block-level help text here.</p>
+      </div>
+      <div class="form-group">
+          <label for="exampleFormControlInput1">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Example multiple select</label>
+          <select multiple class="form-control" id="exampleFormControlSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>      
+         <div class="form-group">
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="">
+    Option one is this and that&mdash;be sure to include why it's great
+  </label>
+</div>
+<div class="checkbox disabled">
+  <label>
+    <input type="checkbox" value="" disabled>
+    Option two is disabled
+  </label>
+</div>
+
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    Option one is this and that&mdash;be sure to include why it's great
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+    Option two can be something else and selecting it will deselect option one
+  </label>
+</div>
+<div class="radio disabled">
+  <label>
+    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+    Option three is disabled
+  </label>
+</div>
+         </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Check me out
+        </label>
+      </div>
+      <!--button type="submit" class="btn btn-default">Submit</button-->
+      <div class="row">
+      <button type="button" class="btn btn-primary">
+        Notifications <span class="badge badge-light">4</span>
+      </button>
+      </div>      
+    </form>
+
+  </div>
+
+</div>
+
+</div>

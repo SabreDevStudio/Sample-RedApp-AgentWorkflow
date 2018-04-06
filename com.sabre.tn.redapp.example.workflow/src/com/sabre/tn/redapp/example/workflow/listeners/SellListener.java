@@ -48,7 +48,7 @@ public class SellListener implements IEventListener {
 				
 				if(shouldListenSell && cmdTyped.startsWith("0")){
 					//sell flight segment command, show notification with link to editor extras
-					showNotificationThenEditor("U just sold an segment for this PNR, please ensure Quality Control policies by following the link below", "${plugin_resources}/resources/AfterSellQC.html");
+					showNotificationThenEditor("You just sold an segment for this PNR, please ensure Quality Control policies by following the link below", "${plugin_resources}/resources/AfterSellQC.html");
 					
 				}
 			}

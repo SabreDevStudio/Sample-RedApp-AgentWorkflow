@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.sabre.tn.redapp.example.workflow.xtpointservices.BeforeEndHandler">
+   <implementation class="com.sabre.tn.redapp.example.workflow.xtpointservices.BeforeEndHandler"/>
+   <service>
+      <provide interface="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler"/>
+   </service>
+</scr:component>

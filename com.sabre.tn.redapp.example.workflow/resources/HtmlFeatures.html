@@ -1,0 +1,42 @@
+<html>
+<head>
+<script language="javascript">
+
+var getReservationRQ = function(locator) {
+        var payload = "<GetReservationRQ Version=\"1.18.0\" xmlns=\"http://webservices.sabre.com/pnrbuilder/v1_18\">"
+        + "<Locator><\/Locator>"
+                        + "<RequestType>Stateful<\/RequestType>"
+                        + "<ReturnOptions>"
+                        + "<ViewName>FullWithOpenRes<\/ViewName>"
+                        + "<ResponseFormat>STL<\/ResponseFormat>"
+                        + "<\/ReturnOptions>"
+                        + "<\/GetReservationRQ>";
+        return SrwApi.sws(payload, "getReservationRQ");
+    };
+
+	
+</script>
+</head>
+<body>HtmlFeatures<hr/>
+<a href="./AvAssistant.html">Link to other page</a>
+<a href="./AvAssistant.html" target="_blank">Link to other Frame</a>
+<a href="#" title="no comment for this transaction" onclick="window.open('./AvAssistant.html', '_blank', 'toolbar=1, scrollbars=1, resizable=1, width=1015, height=800')">test</a>
+
+<!--
+// window.open(&#39;./AvAssistant.html?TrnType=INV&TrnNumber=29543&DocId=-1&Booking=12044531&FromBooking=yes&#39;,null,&#39;toolbar=no,menubar=no,personalbar=no,scrollbars=yes,resizable=yes,dependent=yes,z-lock=yes&#39;)">INV 29543</a>
+
+
+// window.open(skey, "_blank", "toolbar=1, scrollbars=1, resizable=1, width=" + 1015 + ", height=" + 800)
+-->
+<button id="getDestDetails" value="" onclick="return window.open('./AfterSellQC.html','_blank','toolbar=no,menubar=no,personalbar=no,width=800,height=600,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes');">Try Me w.open</button>
+
+&#39;
+<button id="getDestDetails1" value="" onclick="return window.location.href = './AfterSellQC.html';">Try Me href</button>
+<hr/>
+<input type="button" value="Close this view" onclick="return CloseApi.close();" />
+<input type="button" value="Close this view" onclick="return window.parent.CloseApi.close();" />
+
+
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "sabre-tn-redapp-example-workflow-mod",
+  "version": "1.0.0",
+  "description": "NGV module",
+  "author": {
+    "name": "Alex Meneghello",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "publishConfig": {
+    "registry": "http://nexus.sabre.com/content/repositories/npm-internal/"
+  }
+}

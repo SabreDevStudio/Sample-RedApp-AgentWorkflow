@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.part.ViewPart;
 
+import com.sabre.tn.redapp.example.workflow.uiparts.CoreServicesHelper;
+
 
 
 public class MainView extends ViewPart {
@@ -31,13 +33,13 @@ public class MainView extends ViewPart {
 		compMain.setLayout(new GridLayout(1, true));
 		
 		Label txtContent = new Label(compMain,SWT.WRAP );
-		txtContent.setText("About this App");
+		txtContent.setText("About this App" + CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getPcc()+" "+CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getAaaPcc());
 		txtContent.setAlignment(SWT.CENTER);
 		
 		
 		
 		Label txtContent1 = new Label(compMain, SWT.WRAP );
-		txtContent1.setText("The AgentWorkFlow sample Red App is intended to demonstrate the iteraction that usually occur when Travel Agents are using Red Apps inside the Sabre Red Workspace.");
+		txtContent1.setText("The ShowCase Red App is intended to demonstrate the iteraction that usually occur when Travel Consultants are using Red Apps inside the Sabre Red Workspace.");
 
 		txtContent1.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false));
 

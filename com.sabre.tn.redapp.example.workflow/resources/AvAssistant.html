@@ -34,9 +34,9 @@
 			var agtPCC = parseBridgeResponse(SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getPcc",null)).string;
 			var agtName = parseBridgeResponse(SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getFirstName",null)).string;
 			var agtSurname = parseBridgeResponse(SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getLastName",null)).string;
-			document.getElementById("greetings").innerText =  ("Hello " + agtName + ", u are logged using PCC " + agtPCC + ".");
+			document.getElementById("greetings").innerText =  ("Hello " + agtName + ", you are logged using PCC " + agtPCC + ".");
 		}catch(e){
-			document.getElementById("greetings").innerText =  ("Hello, can't get your ID, make sure u are logged in stranger... ");
+			document.getElementById("greetings").innerText =  ("Hello, can't get your ID, make sure you are logged in stranger... ");
 		}
 		
 		
@@ -45,7 +45,19 @@
 		
 		}, 3000);
 	}
+
+	function callOSGIServices(){
+		
+		try{
+			var agtPCC = parseBridgeResponse(SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getPcc",null)).string;
+			var agtName = parseBridgeResponse(SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getFirstName",null)).string;
+			var agtSurname = parseBridgeResponse(SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getLastName",null)).string;
+			document.getElementById("greetings").innerText =  ("Hello " + agtName + ", you are logged using PCC " + agtPCC + ".");
+		}catch(e){
+			document.getElementById("greetings").innerText =  ("Hello, can't get your ID, make sure you are logged in stranger... ");
+		}
 	
+	}
 	function getQsValue(){
 		
 		//var resAgt = SrwOSGiApi.callOSGIService("com.sabre.edge.platform.core.sso.base.IAgentProfileService","getAgentId");
@@ -99,7 +111,7 @@
 	
 	function processQueryParameters(){
 		if(getParameterByName("destIata")!==""){
-			document.getElementById("destDetails").innerText = "U can obtain more information about the " + getParameterByName("destIata") + " airport surroundings !";
+			document.getElementById("destDetails").innerText = "You can obtain more information about the " + getParameterByName("destIata") + " airport surroundings !";
 			document.getElementById("getDestDetails").value = getParameterByName("destIata");
 		}else{
 			document.getElementById("destDetails").innerText = "Unable to identify destination airport.";
@@ -108,7 +120,7 @@
 		}
 
 		if(getParameterByName("detCommand")!==""){
-			document.getElementById("avDetails").innerText = "Or maybe u more interested on details about returned flights, i can send a host command " + getParameterByName("detCommand") + " without disturbing results displayed on your Emulator screen !";
+			document.getElementById("avDetails").innerText = "Or maybe you're more interested on details about returned flights, i can send a host command " + getParameterByName("detCommand") + " without disturbing results displayed on your Emulator screen !";
 			document.getElementById("getAvDetails").value = getParameterByName("detCommand");
 		}else{
 			document.getElementById("avDetails").innerText = "Unable to identify destination airport.";
@@ -130,7 +142,7 @@
 <button id="getDestDetails" value="" onclick="return procDestDetails(this.value);">Try Me</button>
 
 
-<p id="avDetails">Or maybe u more interested on details about returned flights</p>
+<p id="avDetails">Or maybe you're more interested on details about returned flights</p>
 <button id="getAvDetails" value="" onclick="return callAvAssist(this.value);">Yes, check details...</button>
 <pre id="whatsInAvDetails"></pre>
 

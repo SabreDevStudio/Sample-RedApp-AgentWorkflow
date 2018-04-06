@@ -2,19 +2,21 @@ package com.sabre.tn.redapp.example.workflow.uiparts;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
+import com.sabre.edge.platform.core.ui.handlers.OpenViewHandler;
 import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
 import com.sabre.edge.platform.core.ui.utils.LauncherParams;
 import com.sabre.edge.platform.core.ui.utils.WorkbenchUtils;
-
 import com.sabre.tn.redapp.example.workflow.Activator;
 
 
 public class OpenThingsHelper {
 	
 	
-	public static void showAdvWebView(String urlToLoad, Object dtToPass){
+	public static void showAdvWebView(String urlToLoad, String jsToPass){
 		
 		new UiThreadInvoker<Object>() {
 			@Override
@@ -28,8 +30,8 @@ public class OpenThingsHelper {
 						
 					}
 					
-
-					if(dtToPass!=null){
+/*
+					if(jToPass!=null){
 						try {
 							//url = url.concat( "?" + URLEncoder.encode(dtToPass.toString(),"UTF-8"));
 							url = url.concat( "?" + dtToPass.toString());
@@ -37,13 +39,14 @@ public class OpenThingsHelper {
 							
 							e.printStackTrace();
 						}
-					}
+					}*/
 					
 					LauncherParams pmtsToOpenView = new LauncherParams.LauncherParamsBuilder(
 							"com.sabre.tn.redapp.example.workflow.view.WebKitSampleView", 
 							"Advanced WebBrowser View", 
 							Activator.PLUGIN_ID)
 						.url(url)
+						.insertJavaScript(jsToPass)
 						.build();
 					
 					new WorkbenchUtils().openBrowserView("com.sabre.tn.redapp.example.workflow.redapp.webkitview.command", pmtsToOpenView);
@@ -81,20 +84,6 @@ public class OpenThingsHelper {
 						 
 				new WorkbenchUtils().openBrowserEditor("com.sabre.tn.redapp.example.workflow.webkiteditor.command", pmtsToOpenEditor);
 				
-				/*
-				HashMap<String,String> mp = new HashMap<String,String>();
-				mp.put("editorId", "com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor");
-				mp.put("name", "Advanced WebBrowser Editor");
-				mp.put("url", url );
-				mp.put("pluginId", Activator.PLUGIN_ID);
-					
-				try{
-					new FocusOrOpenWebkitEditorHandler().execute(new ExecutionEvent(mp, null, null));
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-					*/	
-
 				return null;
 		
 			}
@@ -120,6 +109,19 @@ public class OpenThingsHelper {
 		
 		
 		return res;
+	}
+	
+	public static void closeView(String viewId){
+
+		new UiThreadInvoker<Object>() {
+			@Override
+			protected Object invoke() {
+				IViewPart clView = OpenViewHandler.getViewIfOpenedOrHidden(viewId);
+				OpenViewHandler.closeView(clView, true);
+				return null;
+			}
+		}.asyncExec();
+	
 	}
 
 }

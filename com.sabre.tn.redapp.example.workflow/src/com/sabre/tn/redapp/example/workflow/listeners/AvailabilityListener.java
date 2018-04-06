@@ -49,7 +49,7 @@ public class AvailabilityListener implements IEventListener {
 				
 				//Use regular expression to capture all line numbers returned from availability display
 				String cmdResp = cmdRS.getEmulatorResponse()!=null?cmdRS.getEmulatorResponse().getResponse():"";
-				Pattern ptLineNum = Pattern.compile("^([0-9]{1}).*", Pattern.MULTILINE );
+				Pattern ptLineNum = Pattern.compile("^[ ]{0,1}([0-9]{1,2})[A-Z]{2}[/| |*]{1}.*", Pattern.MULTILINE );
 				Matcher mtLineNum = ptLineNum.matcher(cmdResp);
 				
 				
@@ -61,19 +61,14 @@ public class AvailabilityListener implements IEventListener {
 				if(!strAllLines.isEmpty())
 					qsToPass = qsToPass.concat("&detCommand=VA*" + strAllLines);
 				
-				
-				
-				
 			}
-			
-			
-			
 			
 			if(cmdTyped!=null && !cmdTyped.isEmpty()){
 				
 				if(shouldListenAvailability && cmdTyped.startsWith("1")){
 					//availability command, show WebKit View
-					OpenThingsHelper.showAdvWebView("${plugin_resources}/resources/AvAssistant.html", qsToPass);
+					//OpenThingsHelper.closeView("com.sabre.tn.redapp.example.workflow.view.WebKitSampleView");
+					OpenThingsHelper.showAdvWebView("${plugin_resources}/resources/AvAssistant.html".concat(qsToPass!=null?"?".concat(qsToPass):""), "callOSGIServices()");
 					
 					
 				}

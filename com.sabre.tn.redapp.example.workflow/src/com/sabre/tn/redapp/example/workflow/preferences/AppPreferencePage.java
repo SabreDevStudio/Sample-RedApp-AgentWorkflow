@@ -60,7 +60,28 @@ public class AppPreferencePage
 					"Listen for Sell commands (0...)",
 					SWT.WRAP,
 					getFieldEditorParent()));
+		
+		addField(
+				new BooleanFieldEditor(
+					PreferenceConstants.P_BEF_SHOP_FLOW_EXT,
+					"Enable Manual Workflow Extension / Modification, before SHOP PNR",
+					SWT.WRAP,
+					getFieldEditorParent()));
 
+		
+		addField(
+				new StringFieldEditor(
+					PreferenceConstants.P_DESTFILTER_SHOP_FLOW_EXT,
+					"Destination IATA to activate Shop handler",
+					SWT.WRAP,
+					getFieldEditorParent()));
+
+		addField(
+				new StringFieldEditor(
+					PreferenceConstants.P_AIRLINEFILTER_SHOP_FLOW_EXT,
+					"Airline Filter to add to Shopping request",
+					SWT.WRAP,
+					getFieldEditorParent()));
 		
 		addField(
 				new BooleanFieldEditor(
@@ -74,6 +95,13 @@ public class AppPreferencePage
 				new BooleanFieldEditor(
 					PreferenceConstants.P_BLOCK_ER,
 					"Command BLOCK pattern, on End & Redisplay formats (E/ER).",
+					SWT.WRAP,
+					getFieldEditorParent()));
+		
+		addField(
+				new BooleanFieldEditor(
+					PreferenceConstants.P_BEF_END_FLOW_EXT,
+					"Enable Manual Workflow Extension, before END PNR",
 					SWT.WRAP,
 					getFieldEditorParent()));
 

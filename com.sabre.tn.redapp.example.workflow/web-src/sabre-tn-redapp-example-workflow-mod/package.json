@@ -1,0 +1,54 @@
+{
+  "name": "sabre-tn-redapp-example-workflow-mod-src",
+  "version": "1.0.0",
+  "description": "NGV module",
+  "author": {
+    "name": "Alex Meneghello",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "publishConfig": {
+    "registry": "http://nexus.sabre.com/content/repositories/npm-internal/"
+  },
+  "dependencies": {
+    "sabre-ngv-UIComponents": "file:modules/sabre-ngv-UIComponents-3.17.22.tgz",
+    "sabre-ngv-app": "file:modules/sabre-ngv-app-3.17.22.tgz",
+    "sabre-ngv-bridging": "file:modules/sabre-ngv-bridging-3.17.22.tgz",
+    "sabre-ngv-commandQueue": "file:modules/sabre-ngv-commandQueue-3.17.22.tgz",
+    "sabre-ngv-core": "file:modules/sabre-ngv-core-3.17.22.tgz",
+    "sabre-ngv-cpa": "file:modules/sabre-ngv-cpa-3.17.22.tgz",
+    "sabre-ngv-fareAdjustment": "file:modules/sabre-ngv-fareAdjustment-3.17.22.tgz",
+    "sabre-ngv-ioc": "file:modules/sabre-ngv-ioc-3.17.22.tgz",
+    "sabre-ngv-matrixDrawer": "file:modules/sabre-ngv-matrixDrawer-3.17.22.tgz",
+    "sabre-ngv-profiles": "file:modules/sabre-ngv-profiles-3.17.22.tgz",
+    "sabre-ngv-profiles-display": "file:modules/sabre-ngv-profiles-display-3.17.22.tgz",
+    "sabre-ngv-profiles-view": "file:modules/sabre-ngv-profiles-view-3.17.22.tgz",
+    "sabre-ngv-rightToolbar": "file:modules/sabre-ngv-rightToolbar-3.17.22.tgz",
+    "sabre-ngv-routehappy": "file:modules/sabre-ngv-routehappy-3.17.22.tgz",
+    "sabre-ngv-state": "file:modules/sabre-ngv-state-3.17.22.tgz",
+    "sabre-ngv-tripProposal": "file:modules/sabre-ngv-tripProposal-3.17.22.tgz",
+    "sabre-ngv-tripSummary": "file:modules/sabre-ngv-tripSummary-3.17.22.tgz",
+    "sabre-ngv-xp": "file:modules/sabre-ngv-xp-3.17.22.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "6.0.54",
+    "@types/react": "15.0.39",
+    "@types/react-bootstrap": "0.0.37",
+    "@types/react-dom": "15.5.0",
+    "@types/react-redux": "4.4.35",
+    "@types/jquery": "2.0.46",
+    "@types/bootstrap": "3.3.28",
+    "@types/moment": "2.11.28",
+    "redux": "3.6.0",
+    "redux-saga": "0.14.8",
+    "inversify": "4.1.0",
+    "rxdb": "5.3.0",
+    "rxjs": "5.4.3",
+    "moment": "2.20.1",
+    "prop-types": "15.6.0"
+  },
+  "optionalDependencies": {}
+}
