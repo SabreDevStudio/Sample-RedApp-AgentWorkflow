@@ -15,7 +15,7 @@ import { ManualExtensionPointEventData } from "../../models/ManualExtensionPoint
 const i18nService: I18nService = getService(I18nService);
 
 @CssClass('profile-details-view')
-// @Template('com-sabre-redapp-example-workflow-extension:AirlineTemplate')
+@Template('sabre-tn-redapp-example-workflow-mod:ModalContent')
 @Initial<AbstractViewOptions>({
     templateOptions: {
         helpers: {

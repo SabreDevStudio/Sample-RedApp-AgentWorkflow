@@ -33,8 +33,11 @@ public class BeforEndManualHandler implements IBeforeEndManualHandler {
 			
 			extPointCommand.getResponses().add(rsWrapper);
 
+			return extPointCommand;
+
+		}else{
+			return null;
 		}
-		return extPointCommand;
 	}
 
 }

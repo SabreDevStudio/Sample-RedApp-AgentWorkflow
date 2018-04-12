@@ -537,7 +537,7 @@ define("sabre-tn-redapp-example-workflow-mod/models/ManualExtensionPointEventDat
     ], ManualExtensionPointEventData);
     exports.ManualExtensionPointEventData = ManualExtensionPointEventData;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/I18nService", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/methods/Bound"], function (require, exports, AbstractView_3, Context_4, I18nService_2, CssClass_6, Initial_6, Bound_1) {
+define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/I18nService", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/methods/Bound"], function (require, exports, AbstractView_3, Context_4, I18nService_2, CssClass_6, Initial_6, Template_3, Bound_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var i18nService = Context_4.getService(I18nService_2.I18nService);
@@ -615,6 +615,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualVie
     ], ExtPointManualView.prototype, "_onSaveAction", null);
     ExtPointManualView = __decorate([
         CssClass_6.CssClass('profile-details-view'),
+        Template_3.Template('sabre-tn-redapp-example-workflow-mod:ModalContent'),
         Initial_6.Initial({
             templateOptions: {
                 helpers: {
@@ -717,7 +718,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel", ["re
     ], RSResultPanel);
     exports.RSResultPanel = RSResultPanel;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultRow", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-app/app/widgets/drawer/mixins/WithDrawer", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/Mixin", "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel"], function (require, exports, AbstractView_4, Template_3, CssClass_7, WithDrawer_1, Initial_9, Mixin_1, RSResultPanel_1) {
+define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultRow", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-app/app/widgets/drawer/mixins/WithDrawer", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/Mixin", "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel"], function (require, exports, AbstractView_4, Template_4, CssClass_7, WithDrawer_1, Initial_9, Mixin_1, RSResultPanel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var RSResultRow = (function (_super) {
@@ -732,7 +733,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultRow", ["requ
         Initial_9.Initial({
             drawerDescriptor: RSResultPanel_1.RSResultPanel
         }),
-        Template_3.Template('sabre-tn-redapp-example-workflow-mod:RSResultRow'),
+        Template_4.Template('sabre-tn-redapp-example-workflow-mod:RSResultRow'),
         CssClass_7.CssClass('flight-row flight-novice-row')
     ], RSResultRow);
     exports.RSResultRow = RSResultRow;
@@ -765,7 +766,7 @@ define("sabre-tn-redapp-example-workflow-mod/models/SampleResults", ["require", 
     ], SampleResults);
     exports.SampleResults = SampleResults;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/renderRS/REResultArea", ["require", "exports", "sabre-ngv-app/app/widgets/container/ListView", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/Mixin", "sabre-ngv-app/app/common/mixins/WithHighlightableChildren", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultRow"], function (require, exports, ListView_1, Initial_11, Mixin_2, WithHighlightableChildren_1, Template_4, CssClass_8, RSResultRow_1) {
+define("sabre-tn-redapp-example-workflow-mod/views/renderRS/REResultArea", ["require", "exports", "sabre-ngv-app/app/widgets/container/ListView", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/Mixin", "sabre-ngv-app/app/common/mixins/WithHighlightableChildren", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultRow"], function (require, exports, ListView_1, Initial_11, Mixin_2, WithHighlightableChildren_1, Template_5, CssClass_8, RSResultRow_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var RSResultArea = (function (_super) {
@@ -778,7 +779,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/REResultArea", ["req
     RSResultArea = __decorate([
         Mixin_2.Mixin(WithHighlightableChildren_1.WithHighlightableChildren),
         CssClass_8.CssClass('novice-output-mode-widget'),
-        Template_4.Template('sabre-tn-redapp-example-workflow-mod:RSResultArea'),
+        Template_5.Template('sabre-tn-redapp-example-workflow-mod:RSResultArea'),
         Initial_11.Initial({
             itemsProperty: 'model.sampleResults',
             itemDescriptor: RSResultRow_1.RSResultRow

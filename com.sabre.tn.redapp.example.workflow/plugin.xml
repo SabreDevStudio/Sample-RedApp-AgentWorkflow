@@ -229,7 +229,7 @@
             extensionPointId="beforeShoppingRequest">
       </flowExtensionPoint>
    </extension>
-      <extension
+      <!--extension
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
          <flowExtensionPoint
                callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler:execute"
@@ -245,7 +245,7 @@
                flowId="dynamo.pnr.end"
                type="manual">
          </flowExtensionPoint>
-      </extension>  
+      </extension-->  
 
 	
    

@@ -34,7 +34,7 @@ public class CustomSvcHandler implements ICustomSvc {
 					strTemplate = strTemplate.replace("[segStatus]", "GK1");
 					//strTemplate = strTemplate.replace("[pkgCode]", pkgCode.subSequence(0, 4));
 					strTemplate = strTemplate.replace("[pkgCode]", "FLOW");
-					strTemplate = strTemplate.replace("[travelDate]", "10OCT");
+					strTemplate = strTemplate.replace("[travelDate]", "10MAY");
 					strTemplate = strTemplate.replace("[pkgName]", "ITEM SOLD");
 					strTemplate = strTemplate.replace("[pkgPrice]", "10USD");
 					strTemplate = strTemplate.replace("[listPax]", "");

@@ -45,6 +45,7 @@ public class BeforeShopHandler implements IBeforeShopHandler
 			Optional <FlowExtPointRequestWrapper> rqWrapper =
 			            fetchRequestWrapper(extPointCommand, RedAppAirShoppingRq.class);
 			
+			
 		        if (rqWrapper.isPresent())
 		        {
 		            RedAppAirShoppingRq airShoppingRq = (RedAppAirShoppingRq) rqWrapper.get().getRequest();
