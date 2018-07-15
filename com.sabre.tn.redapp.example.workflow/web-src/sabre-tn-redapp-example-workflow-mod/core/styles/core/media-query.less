@@ -1,0 +1,54 @@
+@srw-frame-width: 149px;
+@xsmall: (1024px - @srw-frame-width);
+@small: (1280px - @srw-frame-width);
+@medium: (1366px - @srw-frame-width);
+@large: (1600px - @srw-frame-width);
+@xlarge: (1920px - @srw-frame-width);
+
+/* Up to Xtra Small (1024 x 768) */
+/* 1024px - 149px - 1px (helper app + srw frames) = 874px */
+@xxs: ~"screen and (max-width: " (@xsmall - 1px) ~")";
+
+/* Xtra Small (1024 x 768) and Up */
+/* 1024px - 149px (helper app + srw frames) = 875px */
+@xs: ~"screen and (min-width: " @xsmall ~")";
+
+/* Xtra Small (1024 x 768) and Up - 1024 x 768 to 1280 x 1024 */
+@xs-only: ~"screen and (min-width: " @xsmall ~") and (max-width: " (@small - 1px) ~")";
+
+/* Xtra Small or smaller (includes xxs, xs-only) - 0 to 1279 x 1024 */
+@xs-upto: ~"screen and (max-width: " (@small - 1px) ~")";
+
+/* Small (1280 x 1024) and Up */
+/* 1280px - 149px = 1131px */
+@sm: ~"screen and (min-width: " @small ~")";
+
+/* Small Only - 1280 x 1024 to 1366 x 768 */
+@sm-only: ~"screen and (min-width: " @small ~") and (max-width: " (@medium - 1px) ~")";
+
+/* Small or smaller (includes xxs, xs-only, sm-only) - 0 to 1365 */
+@sm-upto: ~"screen and (max-width: " (@medium - 1px) ~")";
+
+/* Medium (1366 x 768) and Up */
+/* 1366px - 149px = 1217px */
+@md: ~"screen and (min-width: " @medium ~")";
+
+/* Medium Only - 1366 x 768 to 1600 x 900 */
+@md-only: ~"screen and (min-width: " @medium ~") and (max-width: " (@large - 1px) ~")";
+
+/* Medium or smaller (includes xxs, xs-only, sm-only, md-only) - 0 to 1599 */
+@md-upto: ~"screen and (max-width: " (@large - 1px) ~")";
+
+/* Large (1600 x 900) and Up */
+/* 1600px - 149px = 1451px */
+@lg: ~"screen and (min-width: " @large ~")";
+
+/* Large Only */
+@lg-only: ~"screen and (min-width: " @large ~") and (max-width: " (@xlarge - 1px) ~")";
+
+/* Large or smaller (includes xxs, xs-only, sm-only, md-only, lg-only) - 0 to 1919px */
+@md-upto: ~"screen and (max-width: " (@xlarge - 1px) ~")";
+
+/* Xtra Large (1920 x 1080) and Up */
+/* 1920px - 149px = 1771px */
+@xl: ~"screen and (min-width: " @xlarge ~")";

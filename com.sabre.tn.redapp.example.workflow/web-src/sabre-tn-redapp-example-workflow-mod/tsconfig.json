@@ -8,9 +8,8 @@
       "dom"
     ],
     "outFile": "./build/tsc/module.js",
-    "removeComments": true,
+    "removeComments": false,
     "stripInternal": true,
-    "noImplicitAny": true,
     "preserveConstEnums": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -18,21 +17,20 @@
     "declaration": true,
     "noFallthroughCasesInSwitch": true,
     "pretty": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
     "noImplicitThis": false,
+    "noImplicitReturns": false,
     "newLine": "LF",
     "noEmitOnError": true,
     "traceResolution": true,
-    "moduleResolution": "node",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules"
-    ]
+    "moduleResolution": "node"
   },
   "include": [
     "./src/code/**/*.ts",
     "./src/code/**/*.tsx",
-    "./node_modules/*/module.d.ts"
+    "./node_modules/*/module.d.ts",
+    "./node_modules/*/module-protected.d.ts"
   ],
   "exclude": [
     "./node_modules/sabre-ngv-skeleton/**/*"

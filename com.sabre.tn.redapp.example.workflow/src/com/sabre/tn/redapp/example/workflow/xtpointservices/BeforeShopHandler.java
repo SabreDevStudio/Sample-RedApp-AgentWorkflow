@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtControlAction;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointCommand;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointDataOperation;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointRequestWrapper;

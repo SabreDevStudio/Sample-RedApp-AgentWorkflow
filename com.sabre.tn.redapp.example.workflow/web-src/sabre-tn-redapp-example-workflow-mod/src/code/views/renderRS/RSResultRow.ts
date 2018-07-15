@@ -25,4 +25,6 @@ export class RSResultRow extends AbstractView<SampleResult> implements WithDrawe
     closeDrawer: () => void;
     clopenDrawer: () => void;
     getDrawer: () => RSResultPanel;
+    toggleDrawer: () => void;
 }
+

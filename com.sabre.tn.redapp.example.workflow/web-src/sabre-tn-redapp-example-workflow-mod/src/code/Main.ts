@@ -82,7 +82,7 @@ export class Main extends Module {
         drawer.addConfig('search-result', {
             details: [
                 {
-                    caption: ('Trip Information'),
+                    caption: ('Traveler Information'),
                     print: '{{#with drawer-context-model}}' +
                     '<span class="drawer-detail-caption">' + ('FIELD1') + ': </span>' +
                     '<span class="drawer-detail-value">' + '{{field1}}' + '</span>' +
@@ -94,7 +94,21 @@ export class Main extends Module {
                     '<span class="drawer-detail-value">' + '{{field2}}' + '</span>' +
                     '{{/with}}'
                 }
-            ]
+            ],
+            actions: [{
+                caption: 'Action',
+                actionName: 'custom',
+                type: 'secondary',
+                cssClass: 'btn',
+                className: 'app.common.views.Button'
+            },
+            {
+                caption: 'Other Action',
+                actionName: 'show-popup',
+                type: 'success',
+                cssClass: 'btn',
+                className: 'app.common.views.Button'
+            }]
         });
 
         new WorkFlowListener().registerListener();
@@ -104,5 +118,9 @@ export class Main extends Module {
         //custome extension point service
         registerService(CustomXTPointService);
         dtoSvc.registerDataModel('[d.Structure][o.ExtensionPoint_Summary][workflowdata.CustomSvcRS]', CustomSvcRS);        
+    }
+
+    selfCloseFromHereAction() {
+        console.log('Ping from action');
     }
 }

@@ -15,6 +15,7 @@ export class WorkFlowListener extends AbstractObject {
         this.listenToEventBus('data-received', this.dataReceivedHandler);
     }
 
+
     dataReceivedHandler(data: Data, cf: CommandFlow): void {
         if (data instanceof ManualExtensionPointEventData) {
             getService(LayerService).showInModal(new ExtPointManualView({model:data}), {

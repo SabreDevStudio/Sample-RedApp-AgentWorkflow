@@ -35,7 +35,7 @@ export class LfsTilePopOver extends AbstractView<FlightSegment> {
     selfDrawerContextModelPropagated(availData: FlightSegment) {
         this.getModel().set('availData', JSON.stringify(availData));
         this.getModel().set('ctSEG', true);
-        this.getModel().set('ucList', {uc:[{id:'addOTH',desc:'adds OTH segment to current PNR',ft:'HOST, Refresh Trip Summmary'},{id:'openWeb',desc:'Open WebKit View',ft:'JXBrowser, OpenView'}]})
+        this.getModel().set('ucList', {uc:[{id:'addOTH',desc:'adds OTH segment to current PNR',ft:'HOST, Refresh Trip Summmary'},{id:'openWeb',desc:'Open WebKit View',ft:'JXBrowser, OpenView'},{id:'test',desc:'Custom tests',ft:'Anything'}]})
         this.render();
     }
 
