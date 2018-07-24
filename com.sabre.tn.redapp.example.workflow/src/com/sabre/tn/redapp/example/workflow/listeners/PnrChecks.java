@@ -10,11 +10,16 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
 
+
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 
+
+
+import com.sabre.services.res.tir.v3_10.TravelItineraryReadRS;
 import com.sabre.tn.redapp.example.workflow.Activator;
 import com.sabre.tn.redapp.example.workflow.uiparts.CfServicesHelper;
 
@@ -128,6 +133,25 @@ public class PnrChecks {
 		}
 		return retVal;
 
+	}
+	
+	public static boolean hasRecLocFromGetPNR(){
+		boolean retVal = false;
+		
+		try {
+			TravelItineraryReadRS it = CfServicesHelper.readPNR();
+			if(it.getTravelItinerary()!=null && 
+					it.getTravelItinerary().getItineraryRef()!=null &&
+							it.getTravelItinerary().getItineraryRef().getID()!=null &&
+							 !it.getTravelItinerary().getItineraryRef().getID().isEmpty()){
+				retVal = true;
+			}
+		} catch (Exception e) {
+			Activator.getDefault().getLoggerService().info(e.getMessage());
+
+			retVal = false;
+		}
+		return retVal;
 	}
 
 }

@@ -14,9 +14,12 @@ import com.sabre.edge.cf.model.IService;
 import com.sabre.edge.cf.model.IServiceContext;
 import com.sabre.edge.cf.model.ServiceStatus;
 import com.sabre.edge.cf.model.element.ServiceContext;
+import com.sabre.edge.dynamo.transformer.ITransformer;
 import com.sabre.edge.platform.core.sso.base.IAgentProfileService;
 import com.sabre.edge.platform.core.ui.handlers.OpenViewHandler;
 import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
+import com.sabre.edge.platform.core.ui.widgets.CGradientComposite;
+import com.sabre.services.res.tir.v3_10.TravelItineraryReadRS;
 import com.sabre.tn.redapp.example.workflow.Activator;
 import com.sabre.tn.redapp.example.workflow.uiparts.CfServicesHelper;
 import com.sabre.tn.redapp.example.workflow.uiparts.CoreServicesHelper;
@@ -24,6 +27,9 @@ import com.sabre.tn.redapp.example.workflow.uiparts.OpenThingsHelper;
 
 
 public class CustomCommandService implements IService {
+	
+    private ITransformer transformer = Activator.getDefault().getServiceReference(
+            ITransformer.class);
 	
 	final String[] quotes = {
 			"“All journeys have secret destinations of which the traveler is unaware.” — Martin Buber",
@@ -80,6 +86,15 @@ public class CustomCommandService implements IService {
 			}else{
 				OpenThingsHelper.showBrowserEditor("file:///C:/Dev/redapps/eclipse/runtime-nSRW/.metadata/.plugins/com.sabre.tn.redapp.example.ttx.workflow//resources/AvAssistant.html?destIata=NYC&detCommand=VA*1/2/3/4/5/6/7/8/9/10/11");
 				// https://gtu.getthere.com/media/kuba/formatfinder3/alpha_0.1/
+			}
+		}else if(cmdPostFix.startsWith("GETPNR")) {
+			try {
+				TravelItineraryReadRS res = CfServicesHelper.readPNR();
+				Activator.getDefault().getLoggerService().info("TIR_RESPONSE=>"+transformer.obj2xml(res));
+				
+
+			} catch (Exception e) {
+				Activator.getDefault().getLoggerService().info("TIR_ERROR=>".concat(e.getMessage()));
 			}
 		}
 		

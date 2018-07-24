@@ -1,6 +1,12 @@
 package com.sabre.tn.redapp.example.workflow.uiparts;
 
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,9 +27,13 @@ import com.sabre.edge.cf.model.IError;
 import com.sabre.edge.cf.sws.data.SWSRequest;
 import com.sabre.edge.cf.sws.data.SWSResponse;
 import com.sabre.edge.cf.sws.external.SWSServiceClient;
+import com.sabre.edge.dynamo.cf.pnr.client.GetPnrServiceClient;
+import com.sabre.edge.dynamo.cf.pnr.data.GetPnrRequest;
+import com.sabre.edge.dynamo.cf.pnr.data.GetPnrResponse;
 import com.sabre.edge.dynamo.cf.tripsummary.client.TripSummaryServiceClient;
 import com.sabre.edge.dynamo.cf.tripsummary.data.TripSummaryRequest;
 import com.sabre.edge.dynamo.cf.tripsummary.data.TripSummaryResponse;
+import com.sabre.services.res.tir.v3_10.TravelItineraryReadRS;
 import com.sabre.tn.redapp.example.workflow.Activator;
 
 public class CfServicesHelper {
@@ -220,6 +230,39 @@ public class CfServicesHelper {
 			Activator.getDefault().getLoggerService().info("error refreshing trip summary");
 		}
 		return retVal;
-	}	
+	}
+	
+	public static TravelItineraryReadRS readPNR() throws Exception{
+		ISRWCommunication comm = Activator.getDefault().getServiceReference(ISRWCommunication.class);
+		String strErrors = "";
+		TravelItineraryReadRS tir=null;
+		try{
+		
+			ClientResponse <GetPnrResponse<TravelItineraryReadRS>> rsp = 
+					new GetPnrServiceClient<TravelItineraryReadRS>(comm)
+						.send(new GetPnrRequest("3.10.0"));
+			
+			
+			if(!rsp.isSuccess()){
+				Collection<IError> errors = rsp.getErrors();
+				for(IError er: errors){
+					strErrors = strErrors.concat(er.getDescription()).concat("\r\n");
+				}
+			}else{
+				tir = rsp.getPayload().getTirResponse();
+			}
+			
+		
+		}catch(Exception ex){
+			strErrors = strErrors.concat(ex.getMessage());
+		}finally{
+			if(!strErrors.isEmpty()){
+				throw new Exception("Error using GetPNR -".concat(strErrors));
+			}
+		}
+		
+		return tir;
+
+	}
 
 }

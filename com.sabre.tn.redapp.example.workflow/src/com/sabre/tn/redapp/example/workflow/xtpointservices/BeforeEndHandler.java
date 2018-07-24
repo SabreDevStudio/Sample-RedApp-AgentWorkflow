@@ -48,9 +48,10 @@ public class BeforeEndHandler implements IBeforeEndHandler {
 			
 			
 			//apply logic based if PNR will be retrieved after ended
-			if(!willRedisp && !PnrChecks.hasRecLoc(extPointCommand.getLockId())){
-
-				addError(extPointCommand,  createMajorError("you cannot END a PNR without a Record Locator, try END and Redisplay"));
+			//if useing WebService call from within Workflow Extansion need to pass same token obtained from UI Command Flow. 
+			//if(!willRedisp && !PnrChecks.hasRecLoc(extPointCommand.getLockId())){
+			if(!willRedisp && !PnrChecks.hasRecLocFromGetPNR()){
+				addError(extPointCommand,  createMajorError("you cannot END a PNR without seeing a Record Locator, try END and Redisplay"));
 
 			}			
 			

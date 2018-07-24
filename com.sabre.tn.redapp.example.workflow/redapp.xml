@@ -6,6 +6,7 @@
 		<Authorization name="com.sabre.edge.cf.host.Communication" threshold="1" />
 		<Authorization name="com.sabre.edge.cf.host.Locking" threshold="1" />
 		
+		<Authorization name="com.sabre.edge.dynamo.cf.service.GetPnr" threshold="1" />
 		<Authorization name="com.sabre.edge.dynamo.cf.service.TripSummary" threshold="3" metric="tpm" />
 	</RedApp>
 	

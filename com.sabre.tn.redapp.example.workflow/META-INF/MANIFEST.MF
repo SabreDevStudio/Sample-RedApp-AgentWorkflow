@@ -34,3 +34,4 @@ Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/BeforeShopHandler.xml, OSGI-INF/BeforeShopManualHandler.xml, OSGI-INF/BeforeEndHandler.xml, OSGI-INF/NudgeInit.xml, OSGI-INF/NudgeAction.xml
 Eclipse-RegisterBuddy: com.sabre.edge.dynamo.transformer
 Export-Package: com.sabre.tn.redapp.example.workflow.xtpointservices
+Import-Package: com.sabre.services.res.tir.v3_10
