@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "amd",
+    "module": "commonjs",
     "jsx": "react",
     "lib": [
       "es6",
@@ -23,7 +23,6 @@
     "noImplicitReturns": false,
     "newLine": "LF",
     "noEmitOnError": true,
-    "traceResolution": true,
     "moduleResolution": "node"
   },
   "include": [

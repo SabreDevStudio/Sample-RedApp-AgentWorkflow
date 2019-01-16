@@ -1,6 +1,6 @@
 {
   "name": "sabre-tn-redapp-example-workflow-mod",
-  "version": "4.4.75",
+  "version": "4.7.4",
   "meta": {},
   "dependencies": [
     "sabre-ngv-app",
@@ -24,7 +24,6 @@
     "sabre-tn-redapp-example-workflow-mod/models/SampleResults",
     "sabre-tn-redapp-example-workflow-mod/models/SearchFormRequest",
     "sabre-tn-redapp-example-workflow-mod/models/SearchFormRequestData",
-    "sabre-tn-redapp-example-workflow-mod/test",
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/Action",
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/CmdHelperButton",
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/reducers",

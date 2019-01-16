@@ -17,7 +17,7 @@ import {CssClass} from 'sabre-ngv-core/decorators/classes/view/CssClass';
 export class DsTilePopOver extends AbstractView<ShoppingData> {
 
     selfDrawerContextModelPropagated(availData: ShoppingData) {
-        this.getModel().set('availData', JSON.stringify(availData));
+        this.getModel().set('availData', JSON.stringify(availData, null, '\t'));
         this.getModel().set('ctDEC', true);
         this.render();
     }

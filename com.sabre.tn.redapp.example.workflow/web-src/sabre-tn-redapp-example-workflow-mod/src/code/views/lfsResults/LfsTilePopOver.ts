@@ -35,19 +35,18 @@ export class LfsTilePopOver extends AbstractView<FlightSegment> {
     selfDrawerContextModelPropagated(availData: FlightSegment) {
         this.getModel().set('availData', JSON.stringify(availData));
         this.getModel().set('ctSEG', true);
-        this.getModel().set('ucList', {uc:[{id:'addOTH',desc:'adds OTH segment to current PNR',ft:'HOST, Refresh Trip Summmary'},{id:'openWeb',desc:'Open WebKit View',ft:'JXBrowser, OpenView'},{id:'test',desc:'Custom tests',ft:'Anything'}]})
+        this.getModel().set('ucList', {uc:[{id:'addOTH',desc:'adds OTH segment to current PNR',ft:'HOST, Refresh Trip Summmary'},{id:'openWeb',desc:'Open WebKit View',ft:'JXBrowser, OpenView'}]})
         this.render();
     }
 
     selfSomeAction() {
-        // this.getModel().set('availData', JSON.stringify(this));
+
         let rq: CustomSvcRQ = new CustomSvcRQ();
         let actCode = this.$el.find('input[name=optionsUC]:checked').val();
         rq.actionCode = actCode;
 
         getService(CustomXTPointService).fetchServiceData(new CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
 
-        // this.render();
         
     }
 
@@ -56,22 +55,5 @@ export class LfsTilePopOver extends AbstractView<FlightSegment> {
         this.render();
      }
 
-    /*
 
-    @Bound
-    private updateModel(data: Object) {
-        let response = JSON.parse(data.toString()).responseBody;
-        this.getModel().set('externalServiceResponse', {'response': !_.isUndefined(response.payload.data) ? response.payload.data.substring(0, 500) : ''});
-        console.log(response.success);
-        console.log(response.errors);
-        this.render();
-    }
-
-    @Bound
-    private updateModel2(data: Object) {
-        this.getModel().set('swsResponse2', {'response': data.toString().substring(0, 1200)});
-        this.render();
-    }
-
-    */
 }

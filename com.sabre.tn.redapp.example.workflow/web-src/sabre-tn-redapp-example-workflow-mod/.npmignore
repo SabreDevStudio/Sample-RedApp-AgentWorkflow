@@ -1,7 +1,0 @@
-!build/
-/build/
-/core/typings
-node_modules/
-/src/code/**/*.js
-/src/**/*.map
-*.iml

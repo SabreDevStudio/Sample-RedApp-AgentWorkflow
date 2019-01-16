@@ -2,7 +2,8 @@
   --gray-darker:            #222222;
   --gray-dark-shade:        #262626;
   --gray-dark:              #333333;
-  --gray:                   #666666;
+  --gray-text:              #767676;
+  --gray:                   #555555;
   --gray-light:             #999999;
   --gray-lighter:           #e4e4e4;
   --gray-whisper:           #edecec;
@@ -50,7 +51,7 @@
   --brand-slate:           var(--navy);
 
   --error-red:             #ac0000;
-  --warning-yellow:        #cd8511;
+  --warning-yellow:        @warning-yellow;
   --success-green:         #75a01f;
   --neutral-blue:          #4a5767;
 
@@ -66,6 +67,9 @@
 
   --command-bar-button-border-color: rgba(255, 255, 255, .4);
 
+  --command-bar-height: 36px;
+  --area-bar-height: 24px;
+
 }
 
 // NGV stylesheet variables
@@ -73,7 +77,8 @@
 
 @gray-darker:            #222222;
 @gray-dark:              #333333;
-@gray:                   #666666;
+@gray-text:              #767676;
+@gray:                   #555555;
 @gray-light:             #999999;
 @gray-lighter:           #e4e4e4;
 @gray-whisper:           #edecec;
@@ -123,8 +128,8 @@
 @brand-slate:           @navy;
 
 @error-red:             #ac0000;
-@warning-yellow:        #cd8511;
-@success-green:         #75a01f;
+@warning-yellow:        #b3740e;
+@success-green:         #63871a;
 @neutral-blue:          #4a5767; //#3399CC
 
 @brand-info:            #5bc0de;
@@ -171,7 +176,7 @@
 @sidepanel-inner-background: #fff;
 
 @zindex-input-popover: 50004;
-@zindex-sidepanel: 4700;
+@zindex-sidepanel: 4601;
 @zindex-context-menu: 50007;
 @zindex-input-popover-important: 50006;
 @zindex-exchange-modal-dropdown: 600003;
@@ -191,6 +196,8 @@
 
 @highlighted-cell-border-bluish: rgb(30, 144, 255);
 @highlighted-cell-bluish: rgba(30, 144, 255, .098);
+
+@host-response-font-weight: 700;
 
 @tab-margin-top: 4px;
 @tab-padding-horizontal-small: 6px;

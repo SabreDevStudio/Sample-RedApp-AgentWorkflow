@@ -1,9 +1,11 @@
 import {Action} from 'redux';
-import {select, takeEvery, put} from "redux-saga/effects";
+import {effects} from "redux-saga";
 
 import {EventBus} from 'sabre-ngv-app/app/events/EventBus';
 import {cf} from '../../Context';
 import {SearchFormRequestData} from '../../models/SearchFormRequestData';
+
+const {takeEvery, put, call, select} = effects;
 
 /**
  * @link https://redux-saga.js.org/

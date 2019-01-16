@@ -6,7 +6,6 @@ import { DrawerService } from "sabre-ngv-app/app/services/impl/DrawerService";
 
 import { LargeWidgetDrawerConfig } from 'sabre-ngv-core/configs/drawer/LargeWidgetDrawerConfig';
 import { TileWidgetDrawerConfig } from 'sabre-ngv-core/configs/drawer/TileWidgetDrawerConfig';
-// import { SmallWidgetDrawerConfig } from 'sabre-ngv-core/configs/drawer/SmallWidgetDrawerConfig';
 
 import { DsDrawerTile } from "./views/decisionSupport/DsDrawerTile";
 import { DsTilePopOver } from "./views/decisionSupport/DsTilePopOver";
@@ -63,17 +62,26 @@ export class Main extends Module {
             cssClass: 'dn-panel results-panel-widget-container'
         };
 
-        // const decSupportWidget = new SmallWidgetDrawerConfig( DrawerTile, TilePopOver);
-        const decSupportWidget = new LargeWidgetDrawerConfig( DsDrawerTile, DsTilePopOver, cfgAbstractViewOtionsNoAction);
+ 
+        // const decSupportWidget = new LargeWidgetDrawerConfig( DsDrawerTile, DsTilePopOver, cfgAbstractViewOtionsNoAction);
         const lfsResultWidget = new LargeWidgetDrawerConfig( LfsDrawerTile, LfsTilePopOver, cfgAbstractViewOtions);
 
-       // const lfsResultWidget = new TileWidgetDrawerConfig( LfsDrawerTile );
+         const decSupportWidget = new LargeWidgetDrawerConfig( DsDrawerTile, DsTilePopOver, cfgAbstractViewOtionsNoAction );
 
         drwSvc.addConfig( ['shopping-response'], decSupportWidget);
+        //include DOCUMENTATION about available "tags" for configuring where the tile widget will appear
         drwSvc.addConfig( ['flight-segment-common'], lfsResultWidget);
 
 
         // command helper button contribution
+        // FIXME!!!!!
+        /*
+
+
+            This example needs to be more consistent on the code used, it mixes React+Saga with AbstractView, etc
+            Change the impleentation to use only Abstractview and handlebars templates
+
+        */
         getService(ExtensionPointService).addConfig('novice-buttons', new WidgetXPConfig(CmdHelperButton, -1000));
         dtoSvc.registerDataModel('[d.Structure][o.ExtensionPoint_Summary][workflowdata.RSResultSet][0]', SampleResults);
         dtoSvc.registerDataView(SampleResults, RSResultArea);

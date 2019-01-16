@@ -103,7 +103,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsTilePopOver
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DsTilePopOver.prototype.selfDrawerContextModelPropagated = function (availData) {
-            this.getModel().set('availData', JSON.stringify(availData));
+            this.getModel().set('availData', JSON.stringify(availData, null, '\t'));
             this.getModel().set('ctDEC', true);
             this.render();
         };
@@ -273,16 +273,14 @@ define("sabre-tn-redapp-example-workflow-mod/views/lfsResults/LfsTilePopOver", [
         LfsTilePopOver.prototype.selfDrawerContextModelPropagated = function (availData) {
             this.getModel().set('availData', JSON.stringify(availData));
             this.getModel().set('ctSEG', true);
-            this.getModel().set('ucList', { uc: [{ id: 'addOTH', desc: 'adds OTH segment to current PNR', ft: 'HOST, Refresh Trip Summmary' }, { id: 'openWeb', desc: 'Open WebKit View', ft: 'JXBrowser, OpenView' }, { id: 'test', desc: 'Custom tests', ft: 'Anything' }] });
+            this.getModel().set('ucList', { uc: [{ id: 'addOTH', desc: 'adds OTH segment to current PNR', ft: 'HOST, Refresh Trip Summmary' }, { id: 'openWeb', desc: 'Open WebKit View', ft: 'JXBrowser, OpenView' }] });
             this.render();
         };
         LfsTilePopOver.prototype.selfSomeAction = function () {
-            // this.getModel().set('availData', JSON.stringify(this));
             var rq = new CustomSvcRQ_1.CustomSvcRQ();
             var actCode = this.$el.find('input[name=optionsUC]:checked').val();
             rq.actionCode = actCode;
             Context_1.getService(CustomXTPointService_1.CustomXTPointService).fetchServiceData(new CustomSvcRQData_1.CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
-            // this.render();
         };
         LfsTilePopOver.prototype.afterSomeActionResponse = function (dtaResponse) {
             this.getModel().set('availData', JSON.stringify(dtaResponse));
@@ -390,9 +388,10 @@ define("sabre-tn-redapp-example-workflow-mod/models/SearchFormRequestData", ["re
     }(RequestData_2.RequestData));
     exports.SearchFormRequestData = SearchFormRequestData;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["require", "exports", "redux-saga/effects", "sabre-tn-redapp-example-workflow-mod/Context"], function (require, exports, effects_1, Context_2) {
+define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["require", "exports", "redux-saga", "sabre-tn-redapp-example-workflow-mod/Context"], function (require, exports, redux_saga_1, Context_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var takeEvery = redux_saga_1.effects.takeEvery, put = redux_saga_1.effects.put, call = redux_saga_1.effects.call, select = redux_saga_1.effects.select;
     /**
      * @link https://redux-saga.js.org/
      *
@@ -419,7 +418,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["requi
     function submitFormSideEffectSaga(eventBus) {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, effects_1.takeEvery(isSubmitAction, submitActionHandler, eventBus)];
+                case 0: return [4 /*yield*/, takeEvery(isSubmitAction, submitActionHandler, eventBus)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -432,7 +431,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["requi
     function cancelFormSideEffectSaga(eventBus) {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, effects_1.takeEvery(isCancelAction, cancelActionHandler, eventBus)];
+                case 0: return [4 /*yield*/, takeEvery(isCancelAction, cancelActionHandler, eventBus)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -458,14 +457,14 @@ define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["requi
         var state, commandFlow;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, effects_1.select()];
+                case 0: return [4 /*yield*/, select()];
                 case 1:
                     state = _a.sent();
                     commandFlow = Context_2.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
                         .send();
                     //.addRequestDataObject(new SearchFormRequestData(state))
                     // clean and close form after submit
-                    return [4 /*yield*/, effects_1.put({ type: 'cancel' })];
+                    return [4 /*yield*/, put({ type: 'cancel' })];
                 case 2:
                     //.addRequestDataObject(new SearchFormRequestData(state))
                     // clean and close form after submit
@@ -1040,13 +1039,21 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
                 maximized: true,
                 cssClass: 'dn-panel results-panel-widget-container'
             };
-            // const decSupportWidget = new SmallWidgetDrawerConfig( DrawerTile, TilePopOver);
-            var decSupportWidget = new LargeWidgetDrawerConfig_1.LargeWidgetDrawerConfig(DsDrawerTile_1.DsDrawerTile, DsTilePopOver_1.DsTilePopOver, cfgAbstractViewOtionsNoAction);
+            // const decSupportWidget = new LargeWidgetDrawerConfig( DsDrawerTile, DsTilePopOver, cfgAbstractViewOtionsNoAction);
             var lfsResultWidget = new LargeWidgetDrawerConfig_1.LargeWidgetDrawerConfig(LfsDrawerTile_1.LfsDrawerTile, LfsTilePopOver_1.LfsTilePopOver, cfgAbstractViewOtions);
-            // const lfsResultWidget = new TileWidgetDrawerConfig( LfsDrawerTile );
+            var decSupportWidget = new LargeWidgetDrawerConfig_1.LargeWidgetDrawerConfig(DsDrawerTile_1.DsDrawerTile, DsTilePopOver_1.DsTilePopOver, cfgAbstractViewOtionsNoAction);
             drwSvc.addConfig(['shopping-response'], decSupportWidget);
+            //include DOCUMENTATION about available "tags" for configuring where the tile widget will appear
             drwSvc.addConfig(['flight-segment-common'], lfsResultWidget);
             // command helper button contribution
+            // FIXME!!!!!
+            /*
+    
+    
+                This example needs to be more consistent on the code used, it mixes React+Saga with AbstractView, etc
+                Change the impleentation to use only Abstractview and handlebars templates
+    
+            */
             Context_8.getService(ExtensionPointService_1.ExtensionPointService).addConfig('novice-buttons', new WidgetXPConfig_1.WidgetXPConfig(CmdHelperButton_1.default, -1000));
             dtoSvc.registerDataModel('[d.Structure][o.ExtensionPoint_Summary][workflowdata.RSResultSet][0]', SampleResults_1.SampleResults);
             dtoSvc.registerDataView(SampleResults_1.SampleResults, REResultArea_1.RSResultArea);
@@ -1111,6 +1118,5 @@ define("sabre-tn-redapp-example-workflow-mod", ["require", "exports", "sabre-tn-
     }(Main_1.Main));
     exports.default = Module_sabre_tn_redapp_example_workflow_mod;
 });
-///<amd-module name="sabre-tn-redapp-example-workflow-mod/test" />
 
 //# sourceMappingURL=module.js.map

@@ -3,42 +3,22 @@
   "version": "1.0.0",
   "description": "NGV module",
   "author": {
-    "name": "Alex Meneghello",
+    "name": "Alex Mene",
     "email": "",
     "url": ""
   },
   "contributors": [],
   "private": true,
   "license": "SEE LICENSE IN LICENSE.txt",
-  "publishConfig": {
-    "registry": "http://nexus.sabre.com/content/repositories/npm-internal/"
-  },
-  "dependencies": {
-    "sabre-ngv-app": "file:modules/sabre-ngv-app-3.17.22.tgz",
-    "sabre-ngv-core": "file:modules/sabre-ngv-core-3.17.22.tgz",
-    "sabre-ngv-xp": "file:modules/sabre-ngv-xp-3.17.22.tgz"
-  },
-  "devDependencies": {
-    "@types/node": "6.0.54",
-    "@types/react": "15.0.39",
-    "@types/react-bootstrap": "0.0.37",
-    "@types/react-dom": "15.5.0",
-    "@types/react-redux": "4.4.35",
-    "@types/jquery": "2.0.46",
-    "@types/bootstrap": "3.3.28",
-    "@types/moment": "2.11.28",
-    "redux": "3.6.0",
-    "redux-saga": "0.14.8",
-    "inversify": "4.1.0",
-    "rxdb": "5.3.0",
-    "rxjs": "5.4.3",
-    "moment": "2.20.1",
-    "prop-types": "15.6.0"
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "optionalDependencies": {},
-  "buildDependencies": {
-    "sabre-ngv-app": "*",
-    "sabre-ngv-core": "*",
-    "sabre-ngv-xp": "*"
+  "ngv": {
+    "buildDependencies": {
+      "sabre-ngv-app": "*",
+      "sabre-ngv-core": "*",
+      "sabre-ngv-xp": "*"
+    },
+    "concierge_version_min": "4.7.4"
   }
 }
