@@ -98,7 +98,7 @@ for more information please navigate to Sabre Dev Studio, register yourself, and
 # Support
 
 - [Stack Overflow](http://stackoverflow.com/questions/tagged/sabre "Stack Overflow")
-- Need to report an issue/improvement? Use the built-in [issues] (https://github.com/SabreDevStudio/SACS-Java/issues) section
+- Need to report an issue/improvement? Use the built-in [issues] (https://github.com/SabreDevStudio/Sample-RedApp-AgentWorkflow/issues) section
 - [Sabre Dev Studio](https://developer.sabre.com/)
 
 ## License
