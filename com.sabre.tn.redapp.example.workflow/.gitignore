@@ -1,1 +1,6 @@
 /bin/
+
+build/
+core/
+node_modules/
+
