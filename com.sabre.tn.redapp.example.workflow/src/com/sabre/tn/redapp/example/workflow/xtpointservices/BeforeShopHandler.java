@@ -13,6 +13,12 @@ import java.util.Optional;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import com.sabre.edge.cf.model.IServiceContext;
+import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
+import com.sabre.edge.platform.optional.notifications.INotificationService;
+import com.sabre.edge.platform.optional.notifications.types.Notification;
+import com.sabre.edge.platform.optional.notifications.types.Priority;
+import com.sabre.edge.platform.optional.notifications.types.SideBarColor;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointCommand;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointDataOperation;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointRequestWrapper;
@@ -20,6 +26,7 @@ import com.sabre.stl.pos.srw.nextgen.redapp.airshopping.rq.v1.RedAppAirShoppingR
 import com.sabre.stl.pos.srw.nextgen.redapp.airshopping.rq.v1.RedAppOriginDestinationInfo;
 import com.sabre.tn.redapp.example.workflow.Activator;
 import com.sabre.tn.redapp.example.workflow.preferences.PreferenceConstants;
+import com.sabre.tn.redapp.example.workflow.uiparts.OpenThingsHelper;
 import com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopHandler;
 
 /**
@@ -37,6 +44,7 @@ public class BeforeShopHandler implements IBeforeShopHandler
     	IPreferenceStore st = Activator.getDefault().getPreferenceStore();
 
 		boolean shouldListenBeforeShop=st.getBoolean(PreferenceConstants.P_BEF_SHOP_FLOW_EXT);
+		boolean shouldCheckClientID = st.getBoolean(PreferenceConstants.P_BEF_SHOP_FLOW_EXT_1);
 		
 		if(shouldListenBeforeShop){    	
     	
@@ -62,6 +70,44 @@ public class BeforeShopHandler implements IBeforeShopHandler
 		            }
 			    }
         	
+		}
+		
+		if(shouldCheckClientID) {
+			Optional <FlowExtPointRequestWrapper> rqWrapper =
+		            fetchRequestWrapper(extPointCommand, RedAppAirShoppingRq.class);
+			Optional <FlowExtPointRequestWrapper> rqDataFromUI =
+		            fetchRequestWrapper(extPointCommand, CustomSvcRQ.class);
+				
+		
+	        if (rqWrapper.isPresent())
+	        {
+	        	RedAppAirShoppingRq airShoppingRq = (RedAppAirShoppingRq) rqWrapper.get().getRequest();
+	        	
+	        	if(rqDataFromUI.isPresent()) {
+	        		CustomSvcRQ rq = (CustomSvcRQ)rqDataFromUI.get().getRequest();
+	        		String rqCustomID = rq.getRqPayload()!=null?rq.getRqPayload():"";
+	        		Activator.getDefault().getLoggerService().info(rqCustomID);
+	        		String corpId = !rqCustomID.isEmpty() && rqCustomID.split("#").length>0 ?rqCustomID.split("#")[0]:"";
+	        		String actCode = !rqCustomID.isEmpty() && rqCustomID.split("#").length>1 ?rqCustomID.split("#")[1]:"";
+	        		boolean modifiedPayload = false;
+	        		if(!corpId.isEmpty()) {
+	        			airShoppingRq.getAdvancedOptions().getFareType().getCorporateID().add(corpId);
+	        			modifiedPayload = true;
+	        		}
+	        		if(!actCode.isEmpty()) {
+	        			airShoppingRq.getAdvancedOptions().getFareType().getAccountCode().add(actCode);
+	        			modifiedPayload = true;
+	        		}
+	        		
+	        		if(modifiedPayload) {
+	        			rqWrapper.get().setOperation(FlowExtPointDataOperation.MODIFY);
+	        			
+	        		}
+
+	        	}
+
+	        	
+	        }
 		}
         //extPointCommand.setFlowControlAction(FlowExtControlAction.CANCEL);
         return extPointCommand;

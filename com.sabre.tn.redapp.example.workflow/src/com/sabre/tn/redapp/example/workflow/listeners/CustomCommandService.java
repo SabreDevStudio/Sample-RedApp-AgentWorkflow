@@ -84,18 +84,22 @@ public class CustomCommandService implements IService {
 				// OpenThingsHelper.showBrowserEditor(cmdPostFix.replace("WEBKIT", ""));
 				OpenThingsHelper.showAdvWebView(cmdPostFix.replace("WEBKIT", ""),null);
 			}else{
-				OpenThingsHelper.showBrowserEditor("file:///C:/Dev/redapps/eclipse/runtime-nSRW/.metadata/.plugins/com.sabre.tn.redapp.example.ttx.workflow//resources/AvAssistant.html?destIata=NYC&detCommand=VA*1/2/3/4/5/6/7/8/9/10/11");
+				//OpenThingsHelper.showBrowserEditor("file:///C:/Dev/redapps/eclipse/runtime-nSRW/.metadata/.plugins/com.sabre.tn.redapp.example.ttx.workflow//resources/AvAssistant.html?destIata=NYC&detCommand=VA*1/2/3/4/5/6/7/8/9/10/11");
 				// https://gtu.getthere.com/media/kuba/formatfinder3/alpha_0.1/
+				OpenThingsHelper.showBrowserEditor("https://developer.sabre.com");
+
 			}
 		}else if(cmdPostFix.startsWith("GETPNR")) {
 			try {
 				TravelItineraryReadRS res = CfServicesHelper.readPNR();
-				Activator.getDefault().getLoggerService().info("TIR_RESPONSE=>"+transformer.obj2xml(res));
+				//Activator.getDefault().getLoggerService().info("TIR_RESPONSE=>"+transformer.obj2xml(res));
 				
 
 			} catch (Exception e) {
 				Activator.getDefault().getLoggerService().info("TIR_ERROR=>".concat(e.getMessage()));
 			}
+		}else if(cmdPostFix.startsWith("EVT")){
+			CfServicesHelper.PostEvent();
 		}
 		
 

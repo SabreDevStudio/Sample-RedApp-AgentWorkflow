@@ -8,12 +8,13 @@
             class="com.sabre.edge.platform.optional.webkit.editors.DefaultWebkitEditor"
             default="false"
             icon="images/editor_icon.png"
-            id="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor"
-            name="Advanced WebBrowser Editor">
+            id="com.sabre.tn.redapp.example.workflow.webkiteditor.command"
+            
+            name="Advanced WebBrowser Editorcom.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor">
       </editor>
    </extension>
 
-   <extension point="com.sabre.edge.platform.core.editor.editorApp">
+   <!--extension point="com.sabre.edge.platform.core.editor.editorApp">
       <editorApp
             class="com.sabre.edge.platform.optional.webkit.editors.DefaultWebkitEditor"
             constraintStartup="0"
@@ -21,7 +22,7 @@
             name="Advanced WebBrowser Editor"
             toolTipText="Sample of Default Browser Editor using Advanced Browser Engine">
       </editorApp>
-   </extension>
+   </extension-->
    
   
    
@@ -39,7 +40,7 @@
 			icon="images/icon.png"
 			id="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView"
 			name="Advanced WebBrowser View"
-			restorable="true">
+			restorable="false">
 	  	</view>
    </extension>
 
@@ -102,6 +103,9 @@
    			commandId="com.sabre.tn.redapp.example.workflow.redapp.view.command"/>
 
    </extension>
+   
+   
+   
    
    
    
@@ -178,15 +182,18 @@
                override="true"
                path="resources/AfterSellQC.html">
          </file>
-
+         <file
+               override="true"
+               path="resources/configs.json">
+         </file>
       </files>
    </extension>
-   <extension point="com.sabre.edge.platform.optional.firstrun">
+   <!--extension point="com.sabre.edge.platform.optional.firstrun">
 	  <client
 	  	class="com.sabre.tn.redapp.example.workflow.listeners.RedAppFirstRunHandler"
 	    versionId="1">
 	  </client>
-   </extension>
+   </extension-->
    <extension
          point="com.sabre.edge.platform.optional.webkit.js.handler">
       <handler
@@ -241,11 +248,11 @@
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
          <flowExtensionPoint
                callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndManualHandler:execute"
-               extensionPointId="beforeEndCommand"
-               flowId="dynamo.pnr.end"
-               type="manual">
+               extensionPointId="beforePricingRequest"
+               flowId="dynamo.pricing.advanced">
+               
          </flowExtensionPoint>
-      </extension -->  
+      </extension-->  
       
       
     <!-- Nudge Extensions -->  

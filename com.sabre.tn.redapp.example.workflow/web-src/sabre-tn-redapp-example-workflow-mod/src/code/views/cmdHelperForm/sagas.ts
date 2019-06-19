@@ -4,6 +4,8 @@ import {effects} from "redux-saga";
 import {EventBus} from 'sabre-ngv-app/app/events/EventBus';
 import {cf} from '../../Context';
 import {SearchFormRequestData} from '../../models/SearchFormRequestData';
+import {CustomSvcRQData} from '../../models/CustomSvcRQData';
+import {CustomSvcRQ} from '../../models/CustomSvcRQ';
 
 const {takeEvery, put, call, select} = effects;
 
@@ -53,7 +55,12 @@ function isCancelAction(action: Action): boolean {
  */
 export function* submitActionHandler(eventBus: EventBus, action: Action): any {
     const state = yield select();
+
+    let rq = new CustomSvcRQ();
+    rq.actionCode = "dbQuery";
+    rq.rqPayload = "";
     let commandFlow = cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+        .addRequestDataObject(new CustomSvcRQData(rq))
         .send();
         //.addRequestDataObject(new SearchFormRequestData(state))
 

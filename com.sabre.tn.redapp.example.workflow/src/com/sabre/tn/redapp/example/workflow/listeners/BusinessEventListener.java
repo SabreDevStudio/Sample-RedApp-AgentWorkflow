@@ -67,7 +67,7 @@ public class BusinessEventListener implements IEventListener {
 		
 		invoker.asyncExec();
 		
-		
+
 		if(evt.getId().equalsIgnoreCase("SP_COPY_TO_PNR")){
 			LockManager lm = new LockManager(Activator.getDefault().getServiceReference(ISRWCommunication.class),Activator.getDefault().getLoggerService());
 			try {
@@ -93,6 +93,8 @@ public class BusinessEventListener implements IEventListener {
 		if(evt.getId().equalsIgnoreCase("EMU_RESPONSE")){
 			String pcc = CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getPcc();
 			Activator.getDefault().getLoggerService().info("Chenged Area"+pcc);
+			
+			//CfServicesHelper.executeInEmu("ER");
 		}
 
 		

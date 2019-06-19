@@ -17,15 +17,16 @@
     "buildDependencies": {
       "sabre-ngv-app": "*",
       "sabre-ngv-core": "*",
-      "sabre-ngv-xp": "*"
+      "sabre-ngv-xp": "*",
+      "sabre-ngv-hints": "*",
+      "sabre-ngv-redAppSidePanel": "*"
     },
-    "concierge_version_min": "4.7.4",
+    "concierge_version_min": "4.8.4",
     "buildInfo": {
-      "concierge_version": "4.7.4",
-      "date": "2019-01-16T10:51:17.454Z",
-      "ts": 1547635877454,
-      "rebuildHash": "55825,5dbad2d4c39d83f0bd0c0f03faa5827d,58",
-      "fastMode": false
+      "concierge_version": "4.8.6",
+      "date": "2019-06-19T16:35:10.049Z",
+      "ts": 1560962110049,
+      "rebuildHash": "37cf64f606126829226eab1d664c09fb"
     }
   }
 }

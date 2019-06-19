@@ -17,8 +17,10 @@
     "buildDependencies": {
       "sabre-ngv-app": "*",
       "sabre-ngv-core": "*",
-      "sabre-ngv-xp": "*"
+      "sabre-ngv-xp": "*",
+      "sabre-ngv-hints": "*",
+      "sabre-ngv-redAppSidePanel": "*"
     },
-    "concierge_version_min": "4.7.4"
+    "concierge_version_min": "4.8.4"
   }
 }

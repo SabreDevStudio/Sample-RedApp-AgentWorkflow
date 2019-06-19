@@ -27,9 +27,19 @@
  */
 package com.sabre.tn.redapp.example.workflow;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.osgi.framework.BundleContext;
 
+import com.sabre.edge.cf.core.token.IAuthenticationTokenService;
 import com.sabre.edge.platform.core.common.plugin.base.AbstractEdgeBasePlugin;
+
 
 
 
@@ -43,16 +53,20 @@ public class Activator extends AbstractEdgeBasePlugin {
 
 	// The plug-in name
 	public static final String PLUGIN_NAME = "ShowCase RedApp";
+	
+	public static final String REDAPP_ID = "5bL09l4OQk-0KlGdzId9tg";
 
 	// The shared instance
 	private static Activator plugin;
 
+	private TravelProfile currentProfile;
 	/**
 	 * {@inheritDoc}
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		currentProfile = new TravelProfile();
 	}
 
 	/**
@@ -72,5 +86,14 @@ public class Activator extends AbstractEdgeBasePlugin {
 		
 		return plugin;
 	}
-
+	
+	public TravelProfile getTravelProfile(){
+		return currentProfile;
+	}
+	
+	public String getToken(){
+		IAuthenticationTokenService tkService = getDefault().getServiceReference(IAuthenticationTokenService.class);
+		return tkService.getToken();
+		
+	}
 }

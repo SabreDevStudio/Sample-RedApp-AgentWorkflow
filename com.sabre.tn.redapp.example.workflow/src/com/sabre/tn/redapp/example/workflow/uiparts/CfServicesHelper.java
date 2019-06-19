@@ -14,8 +14,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+
+
+
+
+
+
 import com.sabre.edge.cf.core.registry.service.ClientResponse;
 import com.sabre.edge.cf.core.registry.service.ISRWCommunication;
+import com.sabre.edge.cf.core.registry.service.ISRWRuntime;
 import com.sabre.edge.cf.emu.data.EmulatorCommand;
 import com.sabre.edge.cf.emu.data.requests.EmulatorCommandRequest;
 import com.sabre.edge.cf.emu.external.ExecuteInEmuServiceClient;
@@ -24,6 +31,9 @@ import com.sabre.edge.cf.host.data.HostCommand;
 import com.sabre.edge.cf.host.data.HostResponse;
 import com.sabre.edge.cf.host.service.external.HostServiceClient;
 import com.sabre.edge.cf.model.IError;
+import com.sabre.edge.cf.model.IRequest;
+import com.sabre.edge.cf.model.element.Event;
+import com.sabre.edge.cf.model.element.ServiceContext;
 import com.sabre.edge.cf.sws.data.SWSRequest;
 import com.sabre.edge.cf.sws.data.SWSResponse;
 import com.sabre.edge.cf.sws.external.SWSServiceClient;
@@ -61,8 +71,8 @@ public class CfServicesHelper {
 //			Get the response payload as Dom document			
 //			docRet = responsePl.getResponse();
 
-//			String resStr = responsePl.getResponseText();
-//			Activator.getDefault().getLoggerService().info(resStr);
+			String resStr = responsePl.getResponseText();
+		    Activator.getDefault().getLoggerService().info(resStr);
 			
 			//Just "overriding" the default response Document so i can remove namespaces
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -173,9 +183,9 @@ public class CfServicesHelper {
 		
 		
 		EmulatorCommand cmd = new EmulatorCommand(cmdToExecute);
-		cmd.setIsCommand(true);
+		cmd.setIsCommand(false);
 		cmd.setShowCommand(true);
-		cmd.setShowResponse(false);
+		cmd.setShowResponse(true);
 		EmulatorCommandRequest rq = new EmulatorCommandRequest(cmd);
 		
 		
@@ -263,6 +273,23 @@ public class CfServicesHelper {
 		
 		return tir;
 
+	}
+	
+	public static void PostEvent(){
+		Event evt = new Event();
+		evt.setId("SAMPLE_WORKFLOW_EVENT");
+		evt.setSource(Activator.REDAPP_ID);
+		evt.setAuthKey(Activator.getDefault().getToken());
+		
+		ServiceContext ctx = new ServiceContext();
+		ctx.setRequest(new EvtRequest("EVENT RAISED"));
+		ctx.setResponse(null);
+		
+		evt.setContext(ctx);
+		
+		Activator.getDefault().getServiceReference(ISRWRuntime.class).postEvent(evt);
+	
+			
 	}
 
 }

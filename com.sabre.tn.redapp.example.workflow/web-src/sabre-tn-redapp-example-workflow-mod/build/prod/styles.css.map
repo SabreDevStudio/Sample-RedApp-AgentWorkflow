@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"styles.css","sourcesContent":[]}
+{"version":3,"sources":["styles.less"],"names":[],"mappings":"AACA,2CAEQ,QAAA","file":"styles.css","sourcesContent":["// Provide styles below\r\n.sabre_tn_redapp_example_workflow {\r\n    .myClass {\r\n        display: inline;\r\n    }\r\n}"]}

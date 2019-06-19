@@ -56,11 +56,12 @@ export class RSActionPopup extends AbstractView<SampleResult> {
         let rq: CustomSvcRQ = new CustomSvcRQ();
         let name = this.$el.find('.paxname').val();
         let surname = this.$el.find('.paxsurname').val();
+        let triptype = this.$el.find('.traveltype').val();
         
         // this.getModel().getField1();
 
         rq.actionCode = "copyname";
-        rq.rqPayload = name+"/"+surname;
+        rq.rqPayload = name+"/"+surname+"#"+triptype;
         getService(CustomXTPointService).fetchServiceData(new CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
     }
 

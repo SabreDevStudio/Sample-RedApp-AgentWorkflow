@@ -22,16 +22,18 @@ Require-Bundle: org.eclipse.ui,
  com.sabre.edge.platform.optional.firstrun;bundle-version="1.0.1",
  com.sabre.edge.platform.optional.browser;bundle-version="2.2.6",
  com.sabre.edge.platform.optional.webkit;bundle-version="1.0.8",
- com.sabre.edge.dynamo.ext.cdm;bundle-version="3.4.24",
- com.sabre.edge.dynamo.transformer;bundle-version="3.4.33",
- com.sabre.edge.dynamo.flow;bundle-version="1.0.0",
- com.sabre.edge.dynamo.cdm;bundle-version="3.4.33",
- com.sabre.edge.dynamo.services.impl;bundle-version="3.4.33",
- com.sabre.edge.dynamo.cf,
- com.sabre.edge.dynamo.redapp.cdm
+ com.sabre.edge.dynamo.ext.cdm;bundle-version="3.4.24";resolution:=optional,
+ com.sabre.edge.dynamo.transformer;bundle-version="3.4.33";resolution:=optional,
+ com.sabre.edge.dynamo.flow;bundle-version="1.0.0";resolution:=optional,
+ com.sabre.edge.dynamo.cdm;bundle-version="3.4.33";resolution:=optional,
+ com.sabre.edge.dynamo.services.impl;bundle-version="3.4.33";resolution:=optional,
+ com.sabre.edge.dynamo.cf;resolution:=optional,
+ com.sabre.edge.dynamo.redapp.cdm;resolution:=optional,
+ com.sabre.edge.dynamo.pnr.cdm;bundle-version="3.4.53";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/BeforeShopHandler.xml, OSGI-INF/BeforeShopManualHandler.xml, OSGI-INF/BeforeEndHandler.xml, OSGI-INF/NudgeInit.xml, OSGI-INF/NudgeAction.xml
+Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/BeforeShopHandler.xml, OSGI-INF/BeforeShopManualHandler.xml, OSGI-INF/BeforeEndHandler.xml, OSGI-INF/BeforeEndManualHandler.xml, OSGI-INF/NudgeInit.xml, OSGI-INF/NudgeAction.xml
 Eclipse-RegisterBuddy: com.sabre.edge.dynamo.transformer
 Export-Package: com.sabre.tn.redapp.example.workflow.xtpointservices
-Import-Package: com.sabre.services.res.tir.v3_10
+Bundle-ClassPath: lib/json-simple-1.1.jar,
+ .

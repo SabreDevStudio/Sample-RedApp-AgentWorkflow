@@ -75,13 +75,19 @@ public class OpenThingsHelper {
 					url = url.replace("${plugin_resources}", Activator.getDefault().getDataDirectory(Activator.PLUGIN_ID).toURI().toString() );
 				}
 				
-				LauncherParams pmtsToOpenEditor = new LauncherParams.LauncherParamsBuilder(
+/*				LauncherParams pmtsToOpenEditor = new LauncherParams.LauncherParamsBuilder(
 						"com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor", 
 						"Advanced WebBrowser Editor", 
 						Activator.PLUGIN_ID)
 					.url(url)
+					.build();*/
+				LauncherParams pmtsToOpenEditor = new LauncherParams.LauncherParamsBuilder(
+						"com.sabre.tn.redapp.example.workflow.webkiteditor.command", 
+						"Advanced WebBrowser Editor", 
+						Activator.PLUGIN_ID)
+					.url(url)
 					.build();
-						 
+				
 				new WorkbenchUtils().openBrowserEditor("com.sabre.tn.redapp.example.workflow.webkiteditor.command", pmtsToOpenEditor);
 				
 				return null;

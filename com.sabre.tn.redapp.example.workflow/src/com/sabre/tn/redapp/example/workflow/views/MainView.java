@@ -9,6 +9,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.part.ViewPart;
 
+
+
+
+import com.sabre.edge.platform.optional.jxbrowser.chromium.JxBrowserSecureSimpleFormatter;
+import com.sabre.edge.platform.optional.jxbrowser.chromium.SwtSwingBrowser;
 import com.sabre.tn.redapp.example.workflow.uiparts.CoreServicesHelper;
 
 
@@ -59,7 +64,7 @@ public class MainView extends ViewPart {
 		txtContent5.setText("Core Services\r\n\t- First Run event handler\r\n\t- Red App Settings\r\n\t- Plugin Resources\r\n\t- Logging");
 		txtContent5.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false));
 
-
+		
 	}
 
 }

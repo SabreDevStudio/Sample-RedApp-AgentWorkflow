@@ -16,6 +16,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.sabre.stl.pos.srw.nextgen.flow.ext.utils.FlowExtPointCommandUtils;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.utils.FlowExtPointErrorFactory;
+import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtControlAction;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointCommand;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointDataOperation;
 import com.sabre.stl.pos.srw.nextgen.flow.ext.v2.FlowExtPointError;
@@ -40,7 +41,11 @@ public class BeforeShopManualHandler implements IBeforeShopManualHandler
 		
 		
 		boolean shouldListenBeforeShop=st.getBoolean(PreferenceConstants.P_BEF_SHOP_FLOW_EXT);
-		
+		boolean shouldCheckClientID = st.getBoolean(PreferenceConstants.P_BEF_SHOP_FLOW_EXT_1);
+		boolean bypassManual = true;
+
+		/*
+		//Before Shop not its "silent"
 		if(shouldListenBeforeShop){
     	
 			ManualExtensionPointEventData dtaToSend = new ManualExtensionPointEventData();
@@ -53,45 +58,38 @@ public class BeforeShopManualHandler implements IBeforeShopManualHandler
 			rsWrapper.setResponse(rsFlow);
 			
 			extPointCommand.getResponses().add(rsWrapper);
+		}*/
+		
+		if(shouldCheckClientID) {
+			ManualExtensionPointEventData dtaToSend = new ManualExtensionPointEventData();
+			dtaToSend.setEventId("BeforeShoppingGetClientID");
+			FlowExtPointResponse rsFlow = new FlowExtPointResponse();
+			rsFlow.setStructure(dtaToSend);
+			
+			FlowExtPointResponseWrapper rsWrapper = new FlowExtPointResponseWrapper();
+			rsWrapper.setOperation(FlowExtPointDataOperation.ADD);
+			rsWrapper.setResponse(rsFlow);
+			
+			extPointCommand.getResponses().add(rsWrapper);
+			
+			bypassManual = false;
 		}
 
-/*        Airline airline = new Airline();
-        airline.setIataCode("");
-        
-        boolean bypassManual = false;
-        
-        Optional <RedAppAirShoppingRq> airShoppingRqOptional =
-            fetchRequest(extPointCommand, RedAppAirShoppingRq.class);
 
-        if (airShoppingRqOptional.isPresent())
-        {
-            List <String> airlinesList =
-                airShoppingRqOptional.get().getAdvancedOptions().getPreferredCarriers();
-        	for (RedAppOriginDestinationInfo odInfo : airShoppingRqOptional.get().getOriginDestinationInfo()) {
-        		if(odInfo.getDestination().equalsIgnoreCase("LAS") || odInfo.getDestination().equalsIgnoreCase("NYC")){
-        			bypassManual = true;
-        		}
-			};
-            if (!airlinesList.isEmpty())
-            {
-                airline.setIataCode(airlinesList.get(0));
-            }
+        if(bypassManual){
+			ManualExtensionPointEventData dtaToSend = new ManualExtensionPointEventData();
+			dtaToSend.setEventId("BypassManual");
+			FlowExtPointResponse rsFlow = new FlowExtPointResponse();
+			rsFlow.setStructure(dtaToSend);
+			
+			FlowExtPointResponseWrapper rsWrapper = new FlowExtPointResponseWrapper();
+			rsWrapper.setOperation(FlowExtPointDataOperation.ADD);
+			rsWrapper.setResponse(rsFlow);
+			
+			extPointCommand.getResponses().add(rsWrapper);
         }
-
-        if(!bypassManual){
-	        FlowExtPointResponse response = new FlowExtPointResponse();
-	        response.setStructure(airline);
-	
-	        FlowExtPointResponseWrapper responseWrapper = new FlowExtPointResponseWrapper();
-	        responseWrapper.setOperation(FlowExtPointDataOperation.ADD);
-	        responseWrapper.setResponse(response);
-	        extPointCommand.getResponses().add(responseWrapper);
-        }else{
-        	FlowExtPointError err = new FlowExtPointError();
-        	err.setCode("FLOW_EXT_POINT_ERROR");
-        	FlowExtPointCommandUtils.addError(extPointCommand, err); 
-    	}*/
-        return extPointCommand;
+        
+		return extPointCommand;
     }
 
     private <T> Optional <T> fetchRequest(FlowExtPointCommand extPointCommand, Class <T> type)

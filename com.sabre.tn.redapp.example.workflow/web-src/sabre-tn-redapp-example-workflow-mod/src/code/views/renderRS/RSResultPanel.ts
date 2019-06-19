@@ -37,18 +37,18 @@ export class RSResultPanel extends Drawer<SampleResult> {
     selfShowPopupAction(){
             console.log('you clicked other hot action');
             getService(LayerService).showInModal(new RSActionPopup({model:this.getModel()}), {
-                title: 'popup',
+                title: 'Detailed View',
                 actions: [{
                     caption: 'Copy to PNR',
                     actionName: 'continue',
                     type: 'success',
                     cssClass: 'btn btn-success'
-                }, {
+                } as any, {
                     caption: 'Cancel',
                     actionName: 'cancel',
                     type: 'secondary',
                     cssClass: 'btn'
-                }]
+                } as any]
             }), {
                     display: 'areaView'
                 };

@@ -47,15 +47,30 @@ public class NudgeInit implements INudgeInit {
 					.concat(item.getEnd()!=null?item.getEnd().toString():"NO_END").concat("/");
 			Activator.getDefault().getLoggerService().info(entry);
 			
-			RedAppNudgeItem it = new RedAppNudgeItem();
-			it.setIcon("INFO");
-			it.setMessage(entry);
-			RedAppNudgeAction ac = new RedAppNudgeAction();
-			ac.setId("ACTIONFOR_" + item.getLocation().name());
-			ac.setLabel("ACTIONFOR_" + item.getLocation().name());
-			it.getAction().add(ac);
+			if(item.getLocation().name().equals("SHOPPING")){
+
+				RedAppNudgeItem it = new RedAppNudgeItem();
+				it.setIcon("INFO");
+				it.setMessage("THE NUDGE MESSAGE COMES FROM THE PROFILE SETTINGS");
+				RedAppNudgeAction ac = new RedAppNudgeAction();
+				ac.setId("ACTIONFOR_" + item.getLocation().name());
+				ac.setLabel("ACTIONFOR_" + item.getLocation().name());
+				it.getAction().add(ac);
+				retList.add(it);
+
+			}else{
+				
 			
-			retList.add(it);
+				RedAppNudgeItem it = new RedAppNudgeItem();
+				it.setIcon("INFO");
+				it.setMessage(entry);
+				RedAppNudgeAction ac = new RedAppNudgeAction();
+				ac.setId("ACTIONFOR_" + item.getLocation().name());
+				ac.setLabel("ACTIONFOR_" + item.getLocation().name());
+				it.getAction().add(ac);
+				retList.add(it);
+
+			}
 		}
 		return retList;
 		

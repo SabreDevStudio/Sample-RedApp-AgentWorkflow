@@ -21,11 +21,13 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.P_LISTEN_AVAIL, true);
 		store.setDefault(PreferenceConstants.P_LISTEN_SELL, true);
 		store.setDefault(PreferenceConstants.P_MODIFY_RCVDFROM, true);
-		store.setDefault(PreferenceConstants.P_BLOCK_ER, true);
+		store.setDefault(PreferenceConstants.P_BLOCK_ER, false);
 		store.setDefault(PreferenceConstants.P_BEF_SHOP_FLOW_EXT, true);
+		store.setDefault(PreferenceConstants.P_BEF_SHOP_FLOW_EXT_1, false);
 		store.setDefault(PreferenceConstants.P_DESTFILTER_SHOP_FLOW_EXT, "NYC");
 		store.setDefault(PreferenceConstants.P_AIRLINEFILTER_SHOP_FLOW_EXT, "DL");
 		store.setDefault(PreferenceConstants.P_BEF_END_FLOW_EXT, false);
+		store.setDefault(PreferenceConstants.P_BEF_END_FLOW_EXT, true);
 		
 
 	}

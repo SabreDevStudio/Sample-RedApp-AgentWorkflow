@@ -18,27 +18,34 @@ export class WorkFlowListener extends AbstractObject {
 
     dataReceivedHandler(data: Data, cf: CommandFlow): void {
         if (data instanceof ManualExtensionPointEventData) {
-            getService(LayerService).showInModal(new ExtPointManualView({model:data}), {
-                title: data.getEventId(),
-                actions: [{
-                    caption: 'Skip',
-                    actionName: 'skip',
-                    type: 'secondary',
-                    cssClass: 'btn'
-                }, {
-                    caption: 'Continue',
-                    actionName: 'continue',
-                    type: 'success',
-                    cssClass: 'btn btn-success'
-                }, {
-                    caption: 'Cancel',
-                    actionName: 'cancel',
-                    type: 'secondary',
-                    cssClass: 'btn'
-                }]
-            }), {
-                    display: 'areaView'
-                };
+            if(data.getEventId().toString()=="BypassManual"){
+                cf.getFlowControl().setFlowControlAction('SKIP');
+                cf.send();
+                
+            }else{
+                getService(LayerService).showInModal(new ExtPointManualView({model:data}), {
+                    title: data.getEventId().toString(),
+                    actions: [{
+                        caption: 'Skip',
+                        actionName: 'skip',
+                        type: 'secondary',
+                        cssClass: 'btn'
+                    } as any, {
+                        caption: 'Continue',
+                        actionName: 'continue',
+                        type: 'success',
+                        cssClass: 'btn btn-success'
+                    } as any, {
+                        caption: 'Cancel',
+                        actionName: 'cancel',
+                        type: 'secondary',
+                        cssClass: 'btn'
+                    } as any]
+                }), {
+                        display: 'areaView'
+                    };
+            }
+
         }
     }
 }

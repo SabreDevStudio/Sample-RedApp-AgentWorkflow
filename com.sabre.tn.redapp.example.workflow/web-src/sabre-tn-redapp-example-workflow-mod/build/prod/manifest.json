@@ -1,11 +1,13 @@
 {
   "name": "sabre-tn-redapp-example-workflow-mod",
-  "version": "4.7.4",
+  "version": "4.8.6",
   "meta": {},
   "dependencies": [
     "sabre-ngv-app",
     "sabre-ngv-core",
-    "sabre-ngv-xp"
+    "sabre-ngv-xp",
+    "sabre-ngv-hints",
+    "sabre-ngv-redAppSidePanel"
   ],
   "submodules": [
     "sabre-tn-redapp-example-workflow-mod/common/Consts",
@@ -30,6 +32,10 @@
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas",
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/State",
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/types",
+    "sabre-tn-redapp-example-workflow-mod/views/customFlows/HelperFlowsView",
+    "sabre-tn-redapp-example-workflow-mod/views/customFlows/MessageView",
+    "sabre-tn-redapp-example-workflow-mod/views/customFlows/QCCheckView",
+    "sabre-tn-redapp-example-workflow-mod/views/customFlows/ShellPnrView",
     "sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsDrawerTile",
     "sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsTilePopOver",
     "sabre-tn-redapp-example-workflow-mod/views/lfsResults/LfsDrawerTile",
@@ -39,6 +45,7 @@
     "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup",
     "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel",
     "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultRow",
+    "sabre-tn-redapp-example-workflow-mod/common/CQHint",
     "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/Form"
   ],
   "hasTemplates": true,

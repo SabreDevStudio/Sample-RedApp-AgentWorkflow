@@ -57,6 +57,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 define("sabre-tn-redapp-example-workflow-mod/Context", ["require", "exports", "sabre-ngv-core/modules/ModuleContext"], function (require, exports, ModuleContext_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    // Cannot use IModuleContext['something'] for types - it seems to break generics
+    // types are copied from IModuleContext
     /** @internal **/
     exports.context = new ModuleContext_1.ModuleContext();
     /** @internal **/
@@ -388,7 +390,7 @@ define("sabre-tn-redapp-example-workflow-mod/models/SearchFormRequestData", ["re
     }(RequestData_2.RequestData));
     exports.SearchFormRequestData = SearchFormRequestData;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["require", "exports", "redux-saga", "sabre-tn-redapp-example-workflow-mod/Context"], function (require, exports, redux_saga_1, Context_2) {
+define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["require", "exports", "redux-saga", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ"], function (require, exports, redux_saga_1, Context_2, CustomSvcRQData_2, CustomSvcRQ_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var takeEvery = redux_saga_1.effects.takeEvery, put = redux_saga_1.effects.put, call = redux_saga_1.effects.call, select = redux_saga_1.effects.select;
@@ -454,13 +456,17 @@ define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/sagas", ["requi
      * Submit action handler
      */
     function submitActionHandler(eventBus, action) {
-        var state, commandFlow;
+        var state, rq, commandFlow;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, select()];
                 case 1:
                     state = _a.sent();
+                    rq = new CustomSvcRQ_2.CustomSvcRQ();
+                    rq.actionCode = "dbQuery";
+                    rq.rqPayload = "";
                     commandFlow = Context_2.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+                        .addRequestDataObject(new CustomSvcRQData_2.CustomSvcRQData(rq))
                         .send();
                     //.addRequestDataObject(new SearchFormRequestData(state))
                     // clean and close form after submit
@@ -506,14 +512,6 @@ define("sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/Form", ["requir
                         React.createElement("div", { className: "form-group" },
                             React.createElement("label", { htmlFor: "exampleInputEmail1" }, "Email address"),
                             React.createElement("input", { type: "email", className: "form-control", id: "exampleInputEmail1", placeholder: "Email" })),
-                        React.createElement("div", { className: "form-group" },
-                            React.createElement("label", { htmlFor: "exampleFormControlSelect1" }, "Example select"),
-                            React.createElement("select", { className: "form-control", id: "exampleFormControlSelect1" },
-                                React.createElement("option", null, "1"),
-                                React.createElement("option", null, "2"),
-                                React.createElement("option", null, "3"),
-                                React.createElement("option", null, "4"),
-                                React.createElement("option", null, "5"))),
                         React.createElement("div", { className: 'tab-action-buttons' },
                             React.createElement("div", { className: 'action-buttons' },
                                 React.createElement("button", { className: 'cancel-button js_form-cancel btn btn-outline btn-success', onClick: this.props.handleCancel }, "Cancel"),
@@ -635,7 +633,7 @@ define("sabre-tn-redapp-example-workflow-mod/models/ManualExtensionPointEventDat
     ], ManualExtensionPointEventData);
     exports.ManualExtensionPointEventData = ManualExtensionPointEventData;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/I18nService", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/methods/Bound"], function (require, exports, AbstractView_3, Context_4, I18nService_2, CssClass_6, Initial_6, Template_3, Bound_1) {
+define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/I18nService", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/methods/Bound", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ"], function (require, exports, AbstractView_3, Context_4, I18nService_2, CssClass_6, Initial_6, Template_3, Bound_1, CustomSvcRQData_3, CustomSvcRQ_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var i18nService = Context_4.getService(I18nService_2.I18nService);
@@ -643,9 +641,20 @@ define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualVie
         __extends(ExtPointManualView, _super);
         function ExtPointManualView(options) {
             var _this = _super.call(this, options) || this;
-            _this.on('continue-action', _this._onContinueAction);
-            _this.on('skip-action', _this._onSkipAction);
-            _this.on('cancel-action', _this._onCancelAction);
+            console.log("aqui");
+            console.log(_this, _this.getModel());
+            var evtId = _this.getModel().getEventId().toString();
+            if (evtId == "BeforeShoppingGetClientID") {
+                _this.getModel().set('getClientID', true);
+                _this.on('continue-action', _this._onSaveAction);
+                _this.on('skip-action', _this._onSkipAction);
+                _this.on('cancel-action', _this._onCancelAction);
+            }
+            else {
+                _this.on('continue-action', _this._onContinueAction);
+                _this.on('skip-action', _this._onSkipAction);
+                _this.on('cancel-action', _this._onCancelAction);
+            }
             return _this;
         }
         ExtPointManualView.prototype._onCancelAction = function () {
@@ -673,9 +682,14 @@ define("sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualVie
             this.triggerOnEventBus('close-modal');
         };
         ExtPointManualView.prototype._onSaveAction = function () {
-            var iataCode = this.$el.find('#iataCode').val();
+            var corpId = this.$el.find('.txt-corp-id').val();
+            var actCode = this.$el.find('.txt-account-code').val();
             var model = this.getModel();
+            var rq = new CustomSvcRQ_3.CustomSvcRQ();
+            rq.actionCode = "addClientID";
+            rq.rqPayload = corpId + "#" + actCode;
             var commandFlow = model.getCF(); // .addRequestDataObject(new AirlineRequestData(iataCode));
+            commandFlow.addRequestDataObject(new CustomSvcRQData_3.CustomSvcRQData(rq));
             commandFlow.send();
             this.triggerOnEventBus('close-modal');
         };
@@ -738,27 +752,33 @@ define("sabre-tn-redapp-example-workflow-mod/common/WorkFlowListener", ["require
         };
         WorkFlowListener.prototype.dataReceivedHandler = function (data, cf) {
             if (data instanceof ManualExtensionPointEventData_1.ManualExtensionPointEventData) {
-                Context_5.getService(LayerService_1.LayerService).showInModal(new ExtPointManualView_1.ExtPointManualView({ model: data }), {
-                    title: data.getEventId(),
-                    actions: [{
-                            caption: 'Skip',
-                            actionName: 'skip',
-                            type: 'secondary',
-                            cssClass: 'btn'
-                        }, {
-                            caption: 'Continue',
-                            actionName: 'continue',
-                            type: 'success',
-                            cssClass: 'btn btn-success'
-                        }, {
-                            caption: 'Cancel',
-                            actionName: 'cancel',
-                            type: 'secondary',
-                            cssClass: 'btn'
-                        }]
-                }), {
-                    display: 'areaView'
-                };
+                if (data.getEventId().toString() == "BypassManual") {
+                    cf.getFlowControl().setFlowControlAction('SKIP');
+                    cf.send();
+                }
+                else {
+                    Context_5.getService(LayerService_1.LayerService).showInModal(new ExtPointManualView_1.ExtPointManualView({ model: data }), {
+                        title: data.getEventId().toString(),
+                        actions: [{
+                                caption: 'Skip',
+                                actionName: 'skip',
+                                type: 'secondary',
+                                cssClass: 'btn'
+                            }, {
+                                caption: 'Continue',
+                                actionName: 'continue',
+                                type: 'success',
+                                cssClass: 'btn btn-success'
+                            }, {
+                                caption: 'Cancel',
+                                actionName: 'cancel',
+                                type: 'secondary',
+                                cssClass: 'btn'
+                            }]
+                    }), {
+                        display: 'areaView'
+                    };
+                }
             }
         };
         return WorkFlowListener;
@@ -796,7 +816,7 @@ define("sabre-tn-redapp-example-workflow-mod/models/SampleResult", ["require", "
     ], SampleResult);
     exports.SampleResult = SampleResult;
 });
-define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/I18nService", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/methods/Bound", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData"], function (require, exports, AbstractView_4, Context_6, I18nService_3, CssClass_7, Initial_8, Template_4, Bound_2, CustomXTPointService_2, CustomSvcRQ_2, CustomSvcRQData_2) {
+define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/I18nService", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/methods/Bound", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData"], function (require, exports, AbstractView_4, Context_6, I18nService_3, CssClass_7, Initial_8, Template_4, Bound_2, CustomXTPointService_2, CustomSvcRQ_4, CustomSvcRQData_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var i18nService = Context_6.getService(I18nService_3.I18nService);
@@ -815,13 +835,14 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup", ["re
             this.triggerOnEventBus('close-modal');
         };
         RSActionPopup.prototype._onContinueAction = function () {
-            var rq = new CustomSvcRQ_2.CustomSvcRQ();
+            var rq = new CustomSvcRQ_4.CustomSvcRQ();
             var name = this.$el.find('.paxname').val();
             var surname = this.$el.find('.paxsurname').val();
+            var triptype = this.$el.find('.traveltype').val();
             // this.getModel().getField1();
             rq.actionCode = "copyname";
-            rq.rqPayload = name + "/" + surname;
-            Context_6.getService(CustomXTPointService_2.CustomXTPointService).fetchServiceData(new CustomSvcRQData_2.CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
+            rq.rqPayload = name + "/" + surname + "#" + triptype;
+            Context_6.getService(CustomXTPointService_2.CustomXTPointService).fetchServiceData(new CustomSvcRQData_4.CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
         };
         RSActionPopup.prototype.afterSomeActionResponse = function () {
             this.triggerOnEventBus('close-modal');
@@ -879,7 +900,7 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup", ["re
     exports.RSActionPopup = RSActionPopup;
 });
 ///<amd-module name="sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel" />
-define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel", ["require", "exports", "sabre-ngv-app/app/widgets/drawer/views/Drawer", "sabre-ngv-core/decorators/classes/Initial", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService", "sabre-ngv-core/services/LayerService", "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup"], function (require, exports, Drawer_1, Initial_9, Context_7, CustomSvcRQ_3, CustomSvcRQData_3, CustomXTPointService_3, LayerService_2, RSActionPopup_1) {
+define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel", ["require", "exports", "sabre-ngv-app/app/widgets/drawer/views/Drawer", "sabre-ngv-core/decorators/classes/Initial", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService", "sabre-ngv-core/services/LayerService", "sabre-tn-redapp-example-workflow-mod/views/renderRS/RSActionPopup"], function (require, exports, Drawer_1, Initial_9, Context_7, CustomSvcRQ_5, CustomSvcRQData_5, CustomXTPointService_3, LayerService_2, RSActionPopup_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var RSResultPanel = (function (_super) {
@@ -892,15 +913,15 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/RSResultPanel", ["re
         };
         RSResultPanel.prototype.selfCustomAction = function () {
             console.log('you clicked some action');
-            var rq = new CustomSvcRQ_3.CustomSvcRQ();
+            var rq = new CustomSvcRQ_5.CustomSvcRQ();
             var actCode = "resultButton";
             rq.actionCode = actCode;
-            Context_7.getService(CustomXTPointService_3.CustomXTPointService).fetchServiceData(new CustomSvcRQData_3.CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
+            Context_7.getService(CustomXTPointService_3.CustomXTPointService).fetchServiceData(new CustomSvcRQData_5.CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
         };
         RSResultPanel.prototype.selfShowPopupAction = function () {
             console.log('you clicked other hot action');
             Context_7.getService(LayerService_2.LayerService).showInModal(new RSActionPopup_1.RSActionPopup({ model: this.getModel() }), {
-                title: 'popup',
+                title: 'Detailed View',
                 actions: [{
                         caption: 'Copy to PNR',
                         actionName: 'continue',
@@ -999,9 +1020,305 @@ define("sabre-tn-redapp-example-workflow-mod/views/renderRS/REResultArea", ["req
     ], RSResultArea);
     exports.RSResultArea = RSResultArea;
 });
-define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabre-ngv-core/modules/Module", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/DtoService", "sabre-ngv-app/app/services/impl/DrawerService", "sabre-ngv-core/configs/drawer/LargeWidgetDrawerConfig", "sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsDrawerTile", "sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsTilePopOver", "sabre-tn-redapp-example-workflow-mod/views/lfsResults/LfsDrawerTile", "sabre-tn-redapp-example-workflow-mod/views/lfsResults/LfsTilePopOver", "sabre-ngv-xp/services/ExtensionPointService", "sabre-ngv-xp/configs/WidgetXPConfig", "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/CmdHelperButton", "sabre-tn-redapp-example-workflow-mod/models/ManualExtensionPointEventData", "sabre-tn-redapp-example-workflow-mod/views/modalDialog/ExtPointManualView", "sabre-tn-redapp-example-workflow-mod/common/WorkFlowListener", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRS", "sabre-tn-redapp-example-workflow-mod/views/renderRS/REResultArea", "sabre-tn-redapp-example-workflow-mod/models/SampleResults"], function (require, exports, Module_1, Context_8, Context_9, DtoService_1, DrawerService_1, LargeWidgetDrawerConfig_1, DsDrawerTile_1, DsTilePopOver_1, LfsDrawerTile_1, LfsTilePopOver_1, ExtensionPointService_1, WidgetXPConfig_1, CmdHelperButton_1, ManualExtensionPointEventData_2, ExtPointManualView_2, WorkFlowListener_1, CustomXTPointService_4, CustomSvcRS_2, REResultArea_1, SampleResults_1) {
+define("sabre-tn-redapp-example-workflow-mod/views/customFlows/HelperFlowsView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-app/app/services/impl/I18nService", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ"], function (require, exports, AbstractView_6, Template_7, Initial_13, I18nService_4, Context_8, CssClass_10, CustomSvcRQData_6, CustomSvcRQ_6) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var i18nService = Context_8.getService(I18nService_4.I18nService);
+    var HelperFlowsView = (function (_super) {
+        __extends(HelperFlowsView, _super);
+        function HelperFlowsView() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        HelperFlowsView.prototype.initialize = function (options) {
+            _super.prototype.initialize.call(this, options);
+            // this.getData();
+        };
+        HelperFlowsView.prototype.selfDoFlowAction = function () {
+            var _this = this;
+            console.log("aka");
+            console.log(this.$('#selFlow').val());
+            var rq = new CustomSvcRQ_6.CustomSvcRQ();
+            rq.actionCode = "doTask";
+            rq.rqPayload = this.$('#selFlow').val();
+            new Promise(function (resolve) {
+                var getFlows = Context_8.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+                    .addRequestDataObject(new CustomSvcRQData_6.CustomSvcRQData(rq))
+                    .setLocalPreference('silentRequest', true)
+                    .send();
+                getFlows.done(function (mcf) {
+                    _this.triggerOnEventBus('close-modal');
+                });
+            });
+        };
+        HelperFlowsView.prototype.getData = function () {
+            var _this = this;
+            var rq = new CustomSvcRQ_6.CustomSvcRQ();
+            rq.actionCode = "getFlows";
+            new Promise(function (resolve) {
+                var getFlows = Context_8.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+                    .addRequestDataObject(new CustomSvcRQData_6.CustomSvcRQData(rq))
+                    .send();
+                getFlows.done(function (mcf) {
+                    console.log(mcf.getDataStructs());
+                    console.log(mcf.getDataObjects());
+                    _this.render();
+                });
+            });
+        };
+        return HelperFlowsView;
+    }(AbstractView_6.AbstractView));
+    HelperFlowsView = __decorate([
+        Initial_13.Initial({
+            templateOptions: {
+                helpers: {
+                    _t: i18nService.getScopedHelper('sabre-ngv-wizard/translations')
+                }
+            }
+        }),
+        Template_7.Template('sabre-tn-redapp-example-workflow-mod:HelperFlowsView'),
+        CssClass_10.CssClass('profile-details-view')
+    ], HelperFlowsView);
+    exports.HelperFlowsView = HelperFlowsView;
+});
+define("sabre-tn-redapp-example-workflow-mod/views/customFlows/MessageView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-app/app/services/impl/I18nService", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-core/decorators/classes/view/CssClass"], function (require, exports, AbstractView_7, Template_8, Initial_14, I18nService_5, Context_9, CssClass_11) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var i18nService = Context_9.getService(I18nService_5.I18nService);
+    var MessageView = (function (_super) {
+        __extends(MessageView, _super);
+        function MessageView() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        MessageView.prototype.initialize = function (options) {
+            _super.prototype.initialize.call(this, options);
+        };
+        return MessageView;
+    }(AbstractView_7.AbstractView));
+    MessageView = __decorate([
+        Initial_14.Initial({
+            templateOptions: {
+                helpers: {
+                    _t: i18nService.getScopedHelper('sabre-ngv-wizard/translations')
+                }
+            }
+        }),
+        Template_8.Template('sabre-tn-redapp-example-workflow-mod:MessageView'),
+        CssClass_11.CssClass('profile-details-view')
+    ], MessageView);
+    exports.MessageView = MessageView;
+});
+define("sabre-tn-redapp-example-workflow-mod/views/customFlows/QCCheckView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-app/app/services/impl/I18nService", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/services/LayerService", "sabre-tn-redapp-example-workflow-mod/views/customFlows/MessageView"], function (require, exports, AbstractView_8, Template_9, Initial_15, I18nService_6, Context_10, Context_11, CssClass_12, LayerService_3, MessageView_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var i18nService = Context_10.getService(I18nService_6.I18nService);
+    var QCCheckView = (function (_super) {
+        __extends(QCCheckView, _super);
+        function QCCheckView() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        QCCheckView.prototype.initialize = function (options) {
+            _super.prototype.initialize.call(this, options);
+        };
+        QCCheckView.prototype.selfSubmitPnrAction = function (resolve) {
+            var _this = this;
+            var totChk = 0;
+            var size = this.$('.ack-field').length;
+            this.$('.ack-field').each(function (idx, fldFound) {
+                var fld = $(fldFound);
+                var cmd = fld.val();
+                var chk = fld.prop('checked');
+                var dis = fld.prop('disabled');
+                console.log(idx, fld, cmd, chk, dis);
+                if (!dis && chk) {
+                    Context_11.cf(cmd).send().done(function (cfResponse) {
+                        if (idx == 0) {
+                            if (!_this.checkIfUserLogged(cfResponse)) {
+                                resolve();
+                            }
+                        }
+                    }).fail(function () {
+                        _this.handleFailure('PNR');
+                    });
+                }
+                if (chk) {
+                    totChk++;
+                }
+            });
+            if (totChk >= size) {
+                Context_10.getService(LayerService_3.LayerService).showInModal(new MessageView_1.MessageView({
+                    model: { message: "QC Check complete" }
+                }), { title: "QC" }, { display: 'areaView' });
+            }
+            else {
+                this.triggerOnEventBus('close-modal');
+            }
+        };
+        QCCheckView.prototype.checkIfUserLogged = function (cfResponse) {
+            var responseText = cfResponse.getDataStructs()[0]['d.Screen']['d.Text'];
+            if (responseText.includes('SIGN IN') || responseText.includes('PROCESSING ERROR DETECTED - L1004')) {
+                Context_10.getService(LayerService_3.LayerService).showInModal(new MessageView_1.MessageView({
+                    model: { message: "Command failed, not signed in" }
+                }), { title: "PNR Status" }, { display: 'areaView' });
+                return false;
+            }
+            return true;
+        };
+        QCCheckView.prototype.handleFailure = function (segment) {
+            Context_10.getService(LayerService_3.LayerService).showInModal(new MessageView_1.MessageView({
+                model: { message: segment + " check failed" }
+            }), { title: "PNR Check" }, { display: 'areaView' });
+        };
+        return QCCheckView;
+    }(AbstractView_8.AbstractView));
+    QCCheckView = __decorate([
+        Initial_15.Initial({
+            templateOptions: {
+                helpers: {
+                    _t: i18nService.getScopedHelper('customworkflow-sabre-sdk-sample/translations')
+                }
+            }
+        }),
+        Template_9.Template('sabre-tn-redapp-example-workflow-mod:QCCheckView'),
+        CssClass_12.CssClass('profile-details-view')
+    ], QCCheckView);
+    exports.QCCheckView = QCCheckView;
+});
+define("sabre-tn-redapp-example-workflow-mod/common/CQHint", ["require", "exports", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-core/services/LayerService", "sabre-tn-redapp-example-workflow-mod/views/customFlows/QCCheckView", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService"], function (require, exports, Context_12, LayerService_4, QCCheckView_1, CustomSvcRQ_7, CustomSvcRQData_7, CustomXTPointService_4) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function hintACTCODE() {
+        var rq = new CustomSvcRQ_7.CustomSvcRQ();
+        rq.actionCode = "getFlows";
+        var qcOptions = {
+            title: 'Quality control tracker',
+            actions: [{
+                    className: 'app.common.views.Button',
+                    caption: 'Cancel',
+                    actionName: 'cancel',
+                    type: 'secondary'
+                }, {
+                    className: 'app.common.views.Button',
+                    caption: 'Submit',
+                    actionName: 'submit-pnr',
+                    type: 'secondary'
+                }]
+        };
+        //let tenDaysAheadFlight = '1' + datesService.getNow().add(10, 'days').format('DDMMM').toUpperCase() + 'LGWKRK';
+        Context_12.getService(CustomXTPointService_4.CustomXTPointService).fetchServiceData(new CustomSvcRQData_7.CustomSvcRQData(rq)).done(function (cfResponse) {
+            console.log('aqui');
+            console.log(cfResponse);
+            console.log(cfResponse.rsPayload);
+            console.log(cfResponse.getActionCode());
+            console.log(cfResponse.getRsPayload());
+            console.log(JSON.stringify(cfResponse));
+            var rsDta = JSON.parse(cfResponse.getRsPayload().toString());
+            //[{"id":"1","label":"label of flow","description":"description of policy","command":"51"},{"id":"2","label":"received from","description":"description of policy","command":"6MYSELF"}];
+            //rsDta = cfResponse.getDataStructs()['d.Structure']['o.ExtensionPoint_Summary'];
+            console.log(rsDta);
+            //console.log(cfResponse.getDataStructs());
+            Context_12.getService(LayerService_4.LayerService).showInModal(new QCCheckView_1.QCCheckView({
+                model: { flows: rsDta }
+            }), qcOptions, { display: 'areaView' });
+        });
+    }
+    exports.hintACTCODE = hintACTCODE;
+});
+define("sabre-tn-redapp-example-workflow-mod/views/customFlows/ShellPnrView", ["require", "exports", "sabre-ngv-app/app/AbstractView", "sabre-ngv-core/decorators/classes/view/Template", "sabre-ngv-core/decorators/classes/Initial", "sabre-ngv-app/app/services/impl/I18nService", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-core/decorators/classes/view/CssClass", "sabre-ngv-core/services/LayerService", "sabre-tn-redapp-example-workflow-mod/views/customFlows/MessageView"], function (require, exports, AbstractView_9, Template_10, Initial_16, I18nService_7, Context_13, Context_14, CssClass_13, LayerService_5, MessageView_2) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var i18nService = Context_13.getService(I18nService_7.I18nService);
+    var ShellPnrView = (function (_super) {
+        __extends(ShellPnrView, _super);
+        function ShellPnrView() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ShellPnrView.prototype.initialize = function (options) {
+            _super.prototype.initialize.call(this, options);
+        };
+        ShellPnrView.prototype.selfSubmitPnrAction = function (resolve) {
+            var _this = this;
+            new Promise(function () {
+                _this.triggerOnEventBus('close-modal');
+                var flight = _this.$('.flight-field').find('.flight-field-cl').val();
+                var ticket = _this.$('.ticket-field').find('.ticket-field-cl').val();
+                var name = _this.$('.name-field').find('.name-field-cl').val();
+                var agentInfo = _this.$('.agentinfo-field').find('.agentinfo-field-cl').val();
+                var phone = _this.$('.phone-field').find('.phone-field-cl').val();
+                var taw = _this.$('.taw-field').find('.taw-field-cl').val();
+                Context_14.cf("" + flight).send().done(function (cfResponse) {
+                    if (!_this.checkIfUserLogged(cfResponse)) {
+                        resolve();
+                    }
+                    Context_14.cf("" + ticket).send().done(function () {
+                        Context_14.cf("" + name).send().done(function () {
+                            Context_14.cf("" + agentInfo).send().done(function () {
+                                Context_14.cf("" + phone).send().done(function () {
+                                    Context_14.cf("" + taw).send().done(function () {
+                                        Context_14.cf('WP').send().done(function () {
+                                            Context_14.cf('PQ').send().done(function () {
+                                                Context_13.getService(LayerService_5.LayerService).showInModal(new MessageView_2.MessageView({
+                                                    model: { message: "PNR created" }
+                                                }), { title: "PNR Status" }, { display: 'areaView' });
+                                            }).fail(function () {
+                                                _this.handleFailure('PQ');
+                                            });
+                                        }).fail(function () {
+                                            _this.handleFailure('WP');
+                                        });
+                                    }).fail(function () {
+                                        _this.handleFailure('TAW');
+                                    });
+                                }).fail(function () {
+                                    _this.handleFailure('Phone');
+                                });
+                            }).fail(function () {
+                                _this.handleFailure('agentInfo');
+                            });
+                        }).fail(function () {
+                            _this.handleFailure('Name');
+                        });
+                    }).fail(function () {
+                        _this.handleFailure('Ticket');
+                    });
+                }).fail(function () {
+                    _this.handleFailure('PNR');
+                });
+            });
+        };
+        ShellPnrView.prototype.checkIfUserLogged = function (cfResponse) {
+            var responseText = cfResponse.getDataStructs()[0]['d.Screen']['d.Text'];
+            if (responseText.includes('SIGN IN') || responseText.includes('PROCESSING ERROR DETECTED - L1004')) {
+                Context_13.getService(LayerService_5.LayerService).showInModal(new MessageView_2.MessageView({
+                    model: { message: "Command failed, not signed in" }
+                }), { title: "PNR Status" }, { display: 'areaView' });
+                return false;
+            }
+            return true;
+        };
+        ShellPnrView.prototype.handleFailure = function (segment) {
+            Context_13.getService(LayerService_5.LayerService).showInModal(new MessageView_2.MessageView({
+                model: { message: segment + " creation failed" }
+            }), { title: "PNR Status" }, { display: 'areaView' });
+        };
+        return ShellPnrView;
+    }(AbstractView_9.AbstractView));
+    ShellPnrView = __decorate([
+        Initial_16.Initial({
+            templateOptions: {
+                helpers: {
+                    _t: i18nService.getScopedHelper('customworkflow-sabre-sdk-sample/translations')
+                }
+            }
+        }),
+        Template_10.Template('sabre-tn-redapp-example-workflow-mod:ShellPNRView'),
+        CssClass_13.CssClass('profile-details-view')
+    ], ShellPnrView);
+    exports.ShellPnrView = ShellPnrView;
+});
+define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabre-ngv-core/modules/Module", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-tn-redapp-example-workflow-mod/Context", "sabre-ngv-app/app/services/impl/DtoService", "sabre-ngv-app/app/services/impl/DrawerService", "sabre-ngv-core/configs/drawer/LargeWidgetDrawerConfig", "sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsDrawerTile", "sabre-tn-redapp-example-workflow-mod/views/decisionSupport/DsTilePopOver", "sabre-tn-redapp-example-workflow-mod/views/lfsResults/LfsDrawerTile", "sabre-tn-redapp-example-workflow-mod/views/lfsResults/LfsTilePopOver", "sabre-ngv-xp/services/ExtensionPointService", "sabre-ngv-xp/configs/WidgetXPConfig", "sabre-tn-redapp-example-workflow-mod/views/cmdHelperForm/CmdHelperButton", "sabre-tn-redapp-example-workflow-mod/models/ManualExtensionPointEventData", "sabre-tn-redapp-example-workflow-mod/common/WorkFlowListener", "sabre-tn-redapp-example-workflow-mod/common/CustomXTPointService", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRS", "sabre-tn-redapp-example-workflow-mod/views/renderRS/REResultArea", "sabre-tn-redapp-example-workflow-mod/models/SampleResults", "sabre-ngv-redAppSidePanel/models/RedAppSidePanelButton", "sabre-ngv-xp/configs/RedAppSidePanelConfig", "sabre-tn-redapp-example-workflow-mod/views/customFlows/HelperFlowsView", "sabre-ngv-core/services/LayerService", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQ", "sabre-tn-redapp-example-workflow-mod/models/CustomSvcRQData", "sabre-ngv-hints/HintXPConfig", "sabre-tn-redapp-example-workflow-mod/common/CQHint", "sabre-tn-redapp-example-workflow-mod/views/customFlows/ShellPnrView", "sabre-ngv-app/app/services/impl/DatesService", "sabre-tn-redapp-example-workflow-mod/views/customFlows/QCCheckView"], function (require, exports, Module_1, Context_15, Context_16, DtoService_1, DrawerService_1, LargeWidgetDrawerConfig_1, DsDrawerTile_1, DsTilePopOver_1, LfsDrawerTile_1, LfsTilePopOver_1, ExtensionPointService_1, WidgetXPConfig_1, CmdHelperButton_1, ManualExtensionPointEventData_2, WorkFlowListener_1, CustomXTPointService_5, CustomSvcRS_2, REResultArea_1, SampleResults_1, RedAppSidePanelButton_1, RedAppSidePanelConfig_1, HelperFlowsView_1, LayerService_6, CustomSvcRQ_8, CustomSvcRQData_8, HintXPConfig_1, CQHint_1, ShellPnrView_1, DatesService_1, QCCheckView_2) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var datesService = Context_15.getService(DatesService_1.DatesService);
     var Main = (function (_super) {
         __extends(Main, _super);
         function Main() {
@@ -1009,10 +1326,11 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
         }
         // protected autoExposeClasses = false;
         Main.prototype.init = function () {
+            var _this = this;
             _super.prototype.init.call(this);
             // initialize your module here
-            var dtoSvc = Context_8.getService(DtoService_1.DtoService);
-            var drwSvc = Context_8.getService(DrawerService_1.DrawerService);
+            var dtoSvc = Context_15.getService(DtoService_1.DtoService);
+            var drwSvc = Context_15.getService(DrawerService_1.DrawerService);
             var cfgAbstractViewOtions = {
                 title: 'AIR SEGMENT WIDGET',
                 maximized: true,
@@ -1044,7 +1362,8 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
             var decSupportWidget = new LargeWidgetDrawerConfig_1.LargeWidgetDrawerConfig(DsDrawerTile_1.DsDrawerTile, DsTilePopOver_1.DsTilePopOver, cfgAbstractViewOtionsNoAction);
             drwSvc.addConfig(['shopping-response'], decSupportWidget);
             //include DOCUMENTATION about available "tags" for configuring where the tile widget will appear
-            drwSvc.addConfig(['flight-segment-common'], lfsResultWidget);
+            //drwSvc.addConfig( ['flight-segment-common'], lfsResultWidget);
+            drwSvc.addConfig(['shopping-flight-segment'], lfsResultWidget);
             // command helper button contribution
             // FIXME!!!!!
             /*
@@ -1054,10 +1373,10 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
                 Change the impleentation to use only Abstractview and handlebars templates
     
             */
-            Context_8.getService(ExtensionPointService_1.ExtensionPointService).addConfig('novice-buttons', new WidgetXPConfig_1.WidgetXPConfig(CmdHelperButton_1.default, -1000));
+            Context_15.getService(ExtensionPointService_1.ExtensionPointService).addConfig('novice-buttons', new WidgetXPConfig_1.WidgetXPConfig(CmdHelperButton_1.default, -1000));
             dtoSvc.registerDataModel('[d.Structure][o.ExtensionPoint_Summary][workflowdata.RSResultSet][0]', SampleResults_1.SampleResults);
             dtoSvc.registerDataView(SampleResults_1.SampleResults, REResultArea_1.RSResultArea);
-            var drawer = Context_8.getService(DrawerService_1.DrawerService);
+            var drawer = Context_15.getService(DrawerService_1.DrawerService);
             drawer.addConfig('search-result', {
                 details: [
                     {
@@ -1075,14 +1394,14 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
                     }
                 ],
                 actions: [{
-                        caption: 'Action',
+                        caption: 'Backend Action',
                         actionName: 'custom',
                         type: 'secondary',
                         cssClass: 'btn',
                         className: 'app.common.views.Button'
                     },
                     {
-                        caption: 'Other Action',
+                        caption: 'Details and Copy',
                         actionName: 'show-popup',
                         type: 'success',
                         cssClass: 'btn',
@@ -1091,10 +1410,151 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
             });
             new WorkFlowListener_1.WorkFlowListener().registerListener();
             dtoSvc.registerDataModel('[d.Structure][o.ExtensionPoint_Summary][workflowdata.ManualExtensionPointEventData]', ManualExtensionPointEventData_2.ManualExtensionPointEventData);
-            dtoSvc.registerDataView(ManualExtensionPointEventData_2.ManualExtensionPointEventData, ExtPointManualView_2.ExtPointManualView);
+            //dtoSvc.registerDataView(ManualExtensionPointEventData, ExtPointManualView);
             //custome extension point service
-            Context_9.registerService(CustomXTPointService_4.CustomXTPointService);
+            Context_16.registerService(CustomXTPointService_5.CustomXTPointService);
             dtoSvc.registerDataModel('[d.Structure][o.ExtensionPoint_Summary][workflowdata.CustomSvcRS]', CustomSvcRS_2.CustomSvcRS);
+            var xp = Context_15.getService(ExtensionPointService_1.ExtensionPointService);
+            var mySidePanelConfig = new RedAppSidePanelConfig_1.RedAppSidePanelConfig([
+                //new RedAppSidePanelButton("HELPER FLOWS",'btn btn-secondary',() => this.afterGetFlows([{"id":"1","label":"customer info completed","command":"*A"},{"id":"2","label":"received from completed","command":"6MYSELF"}])),
+                new RedAppSidePanelButton_1.RedAppSidePanelButton("PNR SHELL", 'btn', function () { return _this.createPNR(); }),
+                new RedAppSidePanelButton_1.RedAppSidePanelButton("QC CHECK", 'btn', function () { return _this.doQCCheck(); }),
+                new RedAppSidePanelButton_1.RedAppSidePanelButton("RAISE EVT", 'btn btn-secondary', function () { return _this.doRaiseEvent(); })
+            ]);
+            xp.addConfig('redAppSidePanel', mySidePanelConfig);
+            xp.addConfig('hintACTCODE', new HintXPConfig_1.HintXPConfig(CQHint_1.hintACTCODE));
+        };
+        Main.prototype.showHelperFlows = function () {
+            //let rq: CustomSvcRQ = new CustomSvcRQ();
+            var _this = this;
+            // this.getModel().getField1();
+            //rq.actionCode = "getFlows";
+            //rq.rqPayload = "";
+            // getService(CustomXTPointService).fetchServiceData(new CustomSvcRQData(rq)).done(this.afterGetFlows.bind(this));
+            var rq = new CustomSvcRQ_8.CustomSvcRQ();
+            rq.actionCode = "getFlows";
+            new Promise(function (resolve) {
+                var getFlows = Context_15.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+                    .addRequestDataObject(new CustomSvcRQData_8.CustomSvcRQData(rq))
+                    .setLocalPreference('silentRequest', true)
+                    .send();
+                getFlows.done(function (mcf) {
+                    console.log(mcf.getDataStructs());
+                    console.log(mcf.getDataStructs()[0]);
+                    console.log(mcf.getDataStructs()[0]['d.Structure']['o.ExtensionPoint_Summary']);
+                    console.log(JSON.parse(mcf.getDataStructs()[0]['d.Structure']['o.ExtensionPoint_Summary']));
+                    //this.afterGetFlows(JSON.parse(mcf.getDataStructs()[0]['d.Structure']['o.ExtensionPoint_Summary']));
+                    _this.afterGetFlows([{ "id": "1", "label": "label of flow", "command": "*A" }, { "id": "2", "label": "received from", "command": "6MYSELF" }]);
+                });
+            });
+        };
+        Main.prototype.afterGetFlows = function (dta) {
+            var mdlOptions = {
+                title: "Helper Flows",
+                actions: [{
+                        className: 'app.common.views.Button',
+                        caption: 'Cancel',
+                        actionName: 'cancel',
+                        type: 'secondary'
+                    }, {
+                        className: 'app.common.views.Button',
+                        caption: 'Submit',
+                        actionName: 'do-flow',
+                        type: 'primary'
+                    }]
+            };
+            console.log(dta);
+            Context_15.getService(LayerService_6.LayerService).showInModal(new HelperFlowsView_1.HelperFlowsView({ model: { flows: dta } }), mdlOptions, { display: 'areaView' });
+        };
+        Main.prototype.createPNR = function () {
+            var pnrOptions = {
+                title: 'Add to PNR',
+                actions: [{
+                        className: 'app.common.views.Button',
+                        caption: 'Cancel',
+                        actionName: 'cancel',
+                        type: 'secondary'
+                    }, {
+                        className: 'app.common.views.Button',
+                        caption: 'Submit',
+                        actionName: 'submit-pnr',
+                        type: 'secondary'
+                    }]
+            };
+            var tenDaysAheadFlight = '1' + datesService.getNow().add(10, 'days').format('DDMMM').toUpperCase() + 'LGWKRK';
+            Context_15.getService(LayerService_6.LayerService).showInModal(new ShellPnrView_1.ShellPnrView({
+                model: { flight: tenDaysAheadFlight }
+            }), pnrOptions, { display: 'areaView' });
+        };
+        Main.prototype.doQCCheck = function () {
+            var rq = new CustomSvcRQ_8.CustomSvcRQ();
+            rq.actionCode = "getFlows";
+            var qcOptions = {
+                title: 'Quality control tracker',
+                actions: [{
+                        className: 'app.common.views.Button',
+                        caption: 'Cancel',
+                        actionName: 'cancel',
+                        type: 'secondary'
+                    }, {
+                        className: 'app.common.views.Button',
+                        caption: 'Submit',
+                        actionName: 'submit-pnr',
+                        type: 'secondary'
+                    }]
+            };
+            //let tenDaysAheadFlight = '1' + datesService.getNow().add(10, 'days').format('DDMMM').toUpperCase() + 'LGWKRK';
+            Context_15.getService(CustomXTPointService_5.CustomXTPointService).fetchServiceData(new CustomSvcRQData_8.CustomSvcRQData(rq)).done(function (cfResponse) {
+                console.log('aqui');
+                console.log(cfResponse);
+                console.log(cfResponse.rsPayload);
+                console.log(cfResponse.getActionCode());
+                console.log(cfResponse.getRsPayload());
+                console.log(JSON.stringify(cfResponse));
+                var rsDta = JSON.parse(cfResponse.getRsPayload().toString());
+                //[{"id":"1","label":"label of flow","description":"description of policy","command":"51"},{"id":"2","label":"received from","description":"description of policy","command":"6MYSELF"}];
+                //rsDta = cfResponse.getDataStructs()['d.Structure']['o.ExtensionPoint_Summary'];
+                console.log(rsDta);
+                //console.log(cfResponse.getDataStructs());
+                Context_15.getService(LayerService_6.LayerService).showInModal(new QCCheckView_2.QCCheckView({
+                    model: { flows: rsDta }
+                }), qcOptions, { display: 'areaView' });
+            });
+            /*
+             cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+             .setLocalPreference('silentRequest', true)
+             .addRequestDataObject(new CustomSvcRQData(rq))
+             .send()
+             .done((cfResponse) => {
+                 let rsDta = [{"id":"1","label":"label of flow","description":"description of policy","command":"51"},{"id":"2","label":"received from","description":"description of policy","command":"6MYSELF"}];
+                 //rsDta = cfResponse.getDataStructs()['d.Structure']['o.ExtensionPoint_Summary'];
+                 console.log('aqui');
+                 console.log(rsDta);
+                     console.log(cfResponse.getDataStructs());
+                     console.log(cfResponse);
+                 
+                 getService(LayerService).showInModal(new QCCheckView({
+                     model: {flows: rsDta} as any
+                 }), qcOptions , {display: 'areaView'});
+         
+             });
+             */
+        };
+        Main.prototype.doFileFinish = function () {
+            var rq = new CustomSvcRQ_8.CustomSvcRQ();
+            rq.actionCode = "fileFinish";
+            Context_15.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+                .setLocalPreference('silentRequest', true)
+                .addRequestDataObject(new CustomSvcRQData_8.CustomSvcRQData(rq))
+                .send();
+        };
+        Main.prototype.doRaiseEvent = function () {
+            var rq = new CustomSvcRQ_8.CustomSvcRQ();
+            rq.actionCode = "raiseEvent";
+            Context_15.cf('NGV://REDAPP/SERVICE/COM.SABRE.TN.REDAPP.EXAMPLE.WORKFLOW.XTPOINTSERVICES.INTERFACES.ICUSTOMSVC:EXECUTE')
+                .setLocalPreference('silentRequest', true)
+                .addRequestDataObject(new CustomSvcRQData_8.CustomSvcRQData(rq))
+                .send();
         };
         Main.prototype.selfCloseFromHereAction = function () {
             console.log('Ping from action');
@@ -1104,14 +1564,14 @@ define("sabre-tn-redapp-example-workflow-mod/Main", ["require", "exports", "sabr
     exports.Main = Main;
 });
 ///<amd-module name="sabre-tn-redapp-example-workflow-mod" />
-define("sabre-tn-redapp-example-workflow-mod", ["require", "exports", "sabre-tn-redapp-example-workflow-mod/Main", "sabre-tn-redapp-example-workflow-mod/Context"], function (require, exports, Main_1, Context_10) {
+define("sabre-tn-redapp-example-workflow-mod", ["require", "exports", "sabre-tn-redapp-example-workflow-mod/Main", "sabre-tn-redapp-example-workflow-mod/Context"], function (require, exports, Main_1, Context_17) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Module_sabre_tn_redapp_example_workflow_mod = (function (_super) {
         __extends(Module_sabre_tn_redapp_example_workflow_mod, _super);
         function Module_sabre_tn_redapp_example_workflow_mod(manifest) {
             var _this = _super.call(this, manifest) || this;
-            Context_10.context.setModule(_this);
+            Context_17.context.setModule(_this);
             return _this;
         }
         return Module_sabre_tn_redapp_example_workflow_mod;

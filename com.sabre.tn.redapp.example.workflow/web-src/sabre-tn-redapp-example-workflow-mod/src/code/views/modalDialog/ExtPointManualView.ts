@@ -11,6 +11,8 @@ import {AbstractModel} from  'sabre-ngv-app/app/AbstractModel';
 
 import {Bound} from 'sabre-ngv-core/decorators/methods/Bound';
 import { ManualExtensionPointEventData } from "../../models/ManualExtensionPointEventData";
+import { CustomSvcRQData } from '../../models/CustomSvcRQData';
+import { CustomSvcRQ } from '../../models/CustomSvcRQ';
 
 const i18nService: I18nService = getService(I18nService);
 
@@ -27,10 +29,21 @@ export class ExtPointManualView extends AbstractView<ManualExtensionPointEventDa
 
     constructor(options?: AbstractViewOptions) {
         super(options);
+        console.log("aqui");
+        console.log(this,this.getModel());
+        let evtId = this.getModel().getEventId().toString();
+        if(evtId=="BeforeShoppingGetClientID"){
+            this.getModel().set('getClientID', true);
+            this.on('continue-action', this._onSaveAction);
+            this.on('skip-action', this._onSkipAction);
+            this.on('cancel-action', this._onCancelAction);
+        }else{
+            this.on('continue-action', this._onContinueAction);
+            this.on('skip-action', this._onSkipAction);
+            this.on('cancel-action', this._onCancelAction);
+    
+        }
 
-        this.on('continue-action', this._onContinueAction);
-        this.on('skip-action', this._onSkipAction);
-        this.on('cancel-action', this._onCancelAction);
     }
 
     @Bound
@@ -71,11 +84,15 @@ export class ExtPointManualView extends AbstractView<ManualExtensionPointEventDa
 
     @Bound
     _onSaveAction() {
-        let iataCode = this.$el.find('#iataCode').val();
+        let corpId = this.$el.find('.txt-corp-id').val();
+        let actCode = this.$el.find('.txt-account-code').val();
         let model = this.getModel();
+        let rq = new CustomSvcRQ();
+        rq.actionCode = "addClientID";
+        rq.rqPayload = corpId+"#"+actCode;
 
         let commandFlow = model.getCF(); // .addRequestDataObject(new AirlineRequestData(iataCode));
-
+        commandFlow.addRequestDataObject(new CustomSvcRQData(rq));
         commandFlow.send();
         this.triggerOnEventBus('close-modal');
     }
