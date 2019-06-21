@@ -1,0 +1,13 @@
+{
+    "env-running":"test",
+    "nudge-recomendations":[{"dest-iata":"","recommended-airline":""}],
+    "nudge-conf-las":{"icon":"INFO","msg":"Las Vegas deserve a flight with AA","actionId":"","actionLabel":""},
+    "nudge-conf-nyc":{"icon":"INFO","msg":"Delta has very good promo for New York flights","actionId":"","actionLabel":""},
+
+	"travel-profiles":[{"id":"profile1","label":"business travel"},{"id":"profile2","label":"leisure travel"}],
+    "tasks-profile1":[{"id":"1","label":"label of flow","command":"*A"},{"id":"2","label":"received from","command":"6MYSELF"}],
+    "tasks-profile2":[{"id":"1","label":"label of flow","command":"*A"},{"id":"2","label":"received from","command":"6MYSELF"}]
+
+
+
+}

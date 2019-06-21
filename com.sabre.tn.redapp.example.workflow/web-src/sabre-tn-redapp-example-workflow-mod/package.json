@@ -21,6 +21,6 @@
       "sabre-ngv-hints": "*",
       "sabre-ngv-redAppSidePanel": "*"
     },
-    "concierge_version_min": "4.8.4"
+    "concierge_version_min": "4.8.7"
   }
 }

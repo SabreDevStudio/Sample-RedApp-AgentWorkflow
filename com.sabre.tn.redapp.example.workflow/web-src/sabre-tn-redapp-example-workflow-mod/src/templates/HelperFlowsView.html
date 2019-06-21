@@ -1,0 +1,17 @@
+<form>
+    <div class="flight-field form-group col-xs-6">
+        <label>Please select the task helper to execute</label>
+        <select id="selFlow">
+            {{#each flows}}
+            
+            <option value="{{id}}">
+                    {{label}}
+            </option>
+       
+
+            {{/each}}
+        </select>
+    </div>
+
+</form>
+

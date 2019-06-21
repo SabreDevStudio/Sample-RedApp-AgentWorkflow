@@ -22,7 +22,7 @@ import {AbstractServiceOptions} from "sabre-ngv-app/app/services/impl/AbstractSe
 // types are copied from IModuleContext
 
 /** @internal **/
-export const context: IModuleContext = new ModuleContext();
+export const context: IModuleContext = new ModuleContext("sabre-tn-redapp-example-workflow-mod");
 /** @internal **/
 export const cf: (command: Command) => CommandFlow = context.cf.bind(context);
 /** @internal **/

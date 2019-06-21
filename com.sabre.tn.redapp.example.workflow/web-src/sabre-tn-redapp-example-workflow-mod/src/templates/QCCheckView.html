@@ -1,0 +1,15 @@
+<form class="">
+    {{#each flows}}
+
+    <div class="flight-field form-group sabre_tn_redapp_example_workflow"> 
+        
+        <input type="checkbox" id="ack-field-{{id}}"
+               class="form-control input-form ack-field col-xs-2" 
+               {{checked}} {{disabled}}
+               value="{{command}}">
+        <label for="ack-field-{{id}}" class="col-xs-10 myClass">{{label}}</label>
+        <p class="col-xs-12">{{description}}</p>
+    </div>
+  
+    {{/each}}
+</form>

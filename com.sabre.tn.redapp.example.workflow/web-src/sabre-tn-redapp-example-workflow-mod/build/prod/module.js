@@ -60,7 +60,7 @@ define("sabre-tn-redapp-example-workflow-mod/Context", ["require", "exports", "s
     // Cannot use IModuleContext['something'] for types - it seems to break generics
     // types are copied from IModuleContext
     /** @internal **/
-    exports.context = new ModuleContext_1.ModuleContext();
+    exports.context = new ModuleContext_1.ModuleContext("sabre-tn-redapp-example-workflow-mod");
     /** @internal **/
     exports.cf = exports.context.cf.bind(exports.context);
     /** @internal **/
