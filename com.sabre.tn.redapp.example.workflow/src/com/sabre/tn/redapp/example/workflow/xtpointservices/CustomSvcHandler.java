@@ -10,11 +10,12 @@ import java.util.Random;
 
 
 
-
+/*
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+*/
 
 import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
 import com.sabre.edge.platform.optional.notifications.INotificationService;
@@ -316,7 +317,7 @@ public class CustomSvcHandler implements ICustomSvc {
             .filter(type::isInstance).map(type::cast).findFirst();
     }
     
-	
+	/*
 	public String getJSONValue(String key){
 		
 		JSONParser jp = new JSONParser();
@@ -360,5 +361,6 @@ public class CustomSvcHandler implements ICustomSvc {
 		
 		return null;
 	}
+	*/
 
 }
