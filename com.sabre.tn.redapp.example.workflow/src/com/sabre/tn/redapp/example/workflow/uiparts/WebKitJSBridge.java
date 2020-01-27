@@ -16,7 +16,7 @@ public class WebKitJSBridge {
 
 	
 	public String welcomeA (){
-		return "hello null" ; 
+		return "hello void" ; 
 	}
 	
 	public Object getAvAssistData(){

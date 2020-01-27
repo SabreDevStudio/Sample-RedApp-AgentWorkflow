@@ -45,11 +45,11 @@ public class BeforeEndHandler implements IBeforeEndHandler {
 					willRedisp = true;
 			}else{
 				if(extPointCommand.getRequests()!=null && !extPointCommand.getRequests().isEmpty()){
+			
 					Optional<RedAppEndTransactionRq> trq = fetchRequest(extPointCommand, RedAppEndTransactionRq.class);
 					if(trq.isPresent()){
 						willRedisp = trq.get().isRetrievePNR();
 					}
-					//extPointCommand.getRequests().get(1).
 				}
 			}
 			
@@ -103,8 +103,7 @@ public class BeforeEndHandler implements IBeforeEndHandler {
 				
 				rswpFlows1.setResponse(dataFlow1);
 				rswpFlows1.setOperation(FlowExtPointDataOperation.ADD);
-				
-				//extPointCommand.getResponseOutput().add(data);
+
 				extPointCommand.getResponses().add(rswpFlows1);
 
 				

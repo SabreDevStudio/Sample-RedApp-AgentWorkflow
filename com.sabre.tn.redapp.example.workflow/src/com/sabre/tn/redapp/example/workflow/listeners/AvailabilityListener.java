@@ -67,7 +67,6 @@ public class AvailabilityListener implements IEventListener {
 				
 				if(shouldListenAvailability && cmdTyped.startsWith("1")){
 					//availability command, show WebKit View
-					//OpenThingsHelper.closeView("com.sabre.tn.redapp.example.workflow.view.WebKitSampleView");
 					OpenThingsHelper.showAdvWebView("${plugin_resources}/resources/AvAssistant.html".concat(qsToPass!=null?"?".concat(qsToPass):""), "callOSGIServices()");
 					
 					

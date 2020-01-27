@@ -1,0 +1,32 @@
+{
+  "name": "com-sabre-tn-redapp-example-workflow-mod",
+  "version": "1.0.0",
+  "description": "NGV module",
+  "author": {
+    "name": "Alex Mene",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "ngv": {
+    "buildDependencies": {
+      "sabre-ngv-app": "*",
+      "sabre-ngv-core": "*",
+      "sabre-ngv-xp": "*",
+      "sabre-ngv-hints": "*",
+      "sabre-ngv-redAppSidePanel": "*"
+    },
+    "concierge_version_min": "4.8.7",
+    "buildInfo": {
+      "concierge_version": "5.0.0",
+      "date": "2019-12-19T12:56:10.525Z",
+      "ts": 1576760170525,
+      "rebuildHash": "f963b880ac385eebd685d7eb278b5ead"
+    }
+  }
+}

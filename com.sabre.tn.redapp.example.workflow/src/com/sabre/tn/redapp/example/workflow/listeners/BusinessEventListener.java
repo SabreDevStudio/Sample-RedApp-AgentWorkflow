@@ -90,11 +90,12 @@ public class BusinessEventListener implements IEventListener {
 			
 		}
 		
-		if(evt.getId().equalsIgnoreCase("EMU_RESPONSE")){
-			String pcc = CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getPcc();
-			Activator.getDefault().getLoggerService().info("Chenged Area"+pcc);
-			
-			//CfServicesHelper.executeInEmu("ER");
+		if(evt.getId().equalsIgnoreCase("PNR_CHANGE")){
+			String wa = CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getWorkAreaName();
+			if(!Activator.getDefault().getCurrentWorkarea().equalsIgnoreCase(wa)) {
+				Activator.getDefault().setCurrentWorkarea(wa);
+				Activator.getDefault().getLoggerService().info("Changed Area"+wa);
+			}
 		}
 
 		

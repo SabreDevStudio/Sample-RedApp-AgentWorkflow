@@ -11,24 +11,25 @@
 		<Event id="SAMPLE_WORKFLOW_EVENT" />
 	</RedApp>
 	
+	<!-- setup synchronous Services handlers -->
 	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CommandModificationService" action_code="6"/>
 	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CommandBlockService" action_code="E" />
-	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CommandBlockService" action_code="X" />
+	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CommandBlockService" action_code="0" />
 
 	<Service name="EMU_COMMAND" handler_name="com.sabre.tn.redapp.example.workflow.listeners.CustomCommandService" action_code="CUSTOMCMD" />
 
+	<!-- setup asynchronous Event listeners -->
     <!-- EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.EventListener" state="POST" action_code="" /-->
     <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.AvailabilityListener" state="POST" action_code="1" />
     <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.SellListener" state="POST" action_code="0" />
-    <!-- EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" state="POST" action_code="" /-->
-	<!-- EventListener event_filter="HOST_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.HostResponseListener" state="POST" desc="" /-->
 
-	<!--  EventListener event_filter="END_TRANSACTION" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="PRE" action_code="" /-->
+    <EventListener event_filter="EMU_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" state="POST" action_code="" />
+	<EventListener event_filter="HOST_RESPONSE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.HostResponseListener" state="POST" desc="" />
+
     
-	<!-- Business Events for nSRW 	-->
-	
-	<!--  EventListener event_filter="PNR_CHANGE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="PRE" /-->
-
-	<!--EventListener event_filter="SP_COPY_TO_PNR" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="POST" /-->	
+	<!--setup Business Events for nSRW 	-->
+	<EventListener event_filter="PNR_CHANGE" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="PRE" />
+	<!--  EventListener event_filter="END_TRANSACTION" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="PRE"/-->
+	<EventListener event_filter="SP_COPY_TO_PNR" handler_class="com.sabre.tn.redapp.example.workflow.listeners.BusinessEventListener" desc="" state="POST" />	
 	
 </CFBundle>

@@ -50,14 +50,15 @@ public class Activator extends AbstractEdgeBasePlugin {
 	public static final String PLUGIN_ID = "com.sabre.tn.redapp.example.workflow";
 
 	// The plug-in name
-	public static final String PLUGIN_NAME = "ShowCase RedApp";
+	public static final String PLUGIN_NAME = "Private Sabre Agency Workflow Demo";
 	
-	public static final String REDAPP_ID = "5bL09l4OQk-0KlGdzId9tg";
+	public static final String REDAPP_ID = "UW9EcWbqiUSZX7Quq6ciDw";
 
 	// The shared instance
 	private static Activator plugin;
 
 	private TravelProfile currentProfile;
+	private String currentWorkarea="";
 	/**
 	 * {@inheritDoc}
 	 */
@@ -93,5 +94,13 @@ public class Activator extends AbstractEdgeBasePlugin {
 		IAuthenticationTokenService tkService = getDefault().getServiceReference(IAuthenticationTokenService.class);
 		return tkService.getToken();
 		
+	}
+
+	public String getCurrentWorkarea() {
+		return currentWorkarea;
+	}
+
+	public void setCurrentWorkarea(String currentWorkarea) {
+		this.currentWorkarea = currentWorkarea;
 	}
 }

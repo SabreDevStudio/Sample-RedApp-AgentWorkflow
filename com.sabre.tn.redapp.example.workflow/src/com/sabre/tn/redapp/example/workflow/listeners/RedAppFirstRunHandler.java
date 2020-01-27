@@ -45,7 +45,7 @@ public class RedAppFirstRunHandler extends AbstractFirstRunWorker {
 		
 		
 		//in order to clear the first run "flag", this method must return true, for demo purposes we're not reseting it
-		return false;
+		return true;
 	}
 
 }

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ShowCase RedApp
+Bundle-Name: Private Sabre Agency Workflow Demo
 Bundle-SymbolicName: com.sabre.tn.redapp.example.workflow;singleton:=true
 Bundle-Version: 1.0.4.qualifier
 Bundle-Activator: com.sabre.tn.redapp.example.workflow.Activator

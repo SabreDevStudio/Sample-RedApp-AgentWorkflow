@@ -14,7 +14,7 @@ import com.sabre.edge.cf.model.IService;
 import com.sabre.edge.cf.model.IServiceContext;
 import com.sabre.edge.cf.model.ServiceStatus;
 import com.sabre.edge.cf.model.element.ServiceContext;
-import com.sabre.edge.dynamo.transformer.ITransformer;
+//import com.sabre.edge.dynamo.transformer.ITransformer;
 import com.sabre.edge.platform.core.sso.base.IAgentProfileService;
 import com.sabre.edge.platform.core.ui.handlers.OpenViewHandler;
 import com.sabre.edge.platform.core.ui.threading.UiThreadInvoker;
@@ -28,8 +28,8 @@ import com.sabre.tn.redapp.example.workflow.uiparts.OpenThingsHelper;
 
 public class CustomCommandService implements IService {
 	
-    private ITransformer transformer = Activator.getDefault().getServiceReference(
-            ITransformer.class);
+    /*private ITransformer transformer = Activator.getDefault().getServiceReference(
+            ITransformer.class);*/
 	
 	final String[] quotes = {
 			"“All journeys have secret destinations of which the traveler is unaware.” — Martin Buber",

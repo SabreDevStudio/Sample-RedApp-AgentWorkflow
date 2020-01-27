@@ -74,20 +74,20 @@ public class CommandBlockService implements IService {
 					}
 					
 				} else if(format.startsWith("X")){
-					Activator.getDefault().getLoggerService().info("############ HOT TYPED");
 					//Validate if the X command must be blocked, depending on ther logic implied by customer 
 					//Make use of GetPNR access the itinerary (read segments) and check the one about to be deleted
-					
-					//if they want to block execution, use pattern bellow
-					EmulatorCommandResponse cmdResponse = new EmulatorCommandResponse();
-					((ServiceContext) context).setResponse(cmdResponse);
-					
-					//if there feedback to the user, show a "message"
-				
-					CfServicesHelper.showInEmu("MESSAGE TO SHOW in EMU");
-					if(format.equalsIgnoreCase("HOT") && PnrChecks.hasRecLoc()){
-						Activator.getDefault().getLoggerService().info("########## READ PNR");	
+
+					if(format.equalsIgnoreCase("X*")){
+						Activator.getDefault().getLoggerService().info("########## DELETE ALL SEGMENTS");	
+						//if they want to block execution, use pattern bellow
+						EmulatorCommandResponse cmdResponse = new EmulatorCommandResponse();
+						((ServiceContext) context).setResponse(cmdResponse);
+						
+						//if there feedback to the user, show a "message"
+						CfServicesHelper.showInEmu("MESSAGE TO SHOW in EMU");
+
 					}
+
 				}
 			}
 		}

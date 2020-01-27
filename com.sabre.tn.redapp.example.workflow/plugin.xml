@@ -205,7 +205,7 @@
    
       <extension point="com.sabre.edge.dynamo.web.module">
 		<modules>
-           <module id="sabre-tn-redapp-example-workflow-mod" />
+           <module id="com-sabre-tn-redapp-example-workflow-mod" />
         </modules>
    </extension>
    
@@ -244,15 +244,15 @@
                flowId="dynamo.pnr.end">
          </flowExtensionPoint>
       </extension>
-      <!--extension
+      <extension
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
          <flowExtensionPoint
-               callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndManualHandler:execute"
-               extensionPointId="beforePricingRequest"
-               flowId="dynamo.pricing.advanced">
+               callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler:execute"
+               extensionPointId="beforeIgnoreCommand"
+               flowId="dynamo.pnr.ignore">
                
          </flowExtensionPoint>
-      </extension-->  
+      </extension>  
       
       
     <!-- Nudge Extensions -->  

@@ -30,17 +30,7 @@ public class OpenThingsHelper {
 						
 					}
 					
-/*
-					if(jToPass!=null){
-						try {
-							//url = url.concat( "?" + URLEncoder.encode(dtToPass.toString(),"UTF-8"));
-							url = url.concat( "?" + dtToPass.toString());
-						} catch (Exception e) {
-							
-							e.printStackTrace();
-						}
-					}*/
-					
+				
 					LauncherParams pmtsToOpenView = new LauncherParams.LauncherParamsBuilder(
 							"com.sabre.tn.redapp.example.workflow.view.WebKitSampleView", 
 							"Advanced WebBrowser View", 
@@ -74,13 +64,7 @@ public class OpenThingsHelper {
 				if(url.indexOf("${plugin_resources}")>=0){
 					url = url.replace("${plugin_resources}", Activator.getDefault().getDataDirectory(Activator.PLUGIN_ID).toURI().toString() );
 				}
-				
-/*				LauncherParams pmtsToOpenEditor = new LauncherParams.LauncherParamsBuilder(
-						"com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor", 
-						"Advanced WebBrowser Editor", 
-						Activator.PLUGIN_ID)
-					.url(url)
-					.build();*/
+
 				LauncherParams pmtsToOpenEditor = new LauncherParams.LauncherParamsBuilder(
 						"com.sabre.tn.redapp.example.workflow.webkiteditor.command", 
 						"Advanced WebBrowser Editor", 

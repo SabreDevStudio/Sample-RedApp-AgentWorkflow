@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "outFile": "./build/tsc/module.js",
+    "removeComments": false,
+    "stripInternal": true,
+    "preserveConstEnums": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noFallthroughCasesInSwitch": true,
+    "pretty": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "noImplicitReturns": false,
+    "newLine": "LF",
+    "noEmitOnError": true,
+    "moduleResolution": "node",
+    "keyofStringsOnly": true
+  },
+  "include": [
+    "./src/code/**/*.ts",
+    "./src/code/**/*.tsx",
+    "./node_modules/*/module.d.ts",
+    "./node_modules/*/module-protected.d.ts"
+  ],
+  "exclude": [
+    "./node_modules/sabre-ngv-skeleton/**/*"
+  ]
+}
