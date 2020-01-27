@@ -24,89 +24,89 @@
 	- Embedding existing websites inside SR360 Desktop
 	- SR360 Graphical UI Widgets
 
-### Walk trough an PNR creation workflow and get insights on how SDK capabilities could be leveraged to better fit the use case
+### Walk trough over a PNR creation workflow and get insights on how SDK capabilities could be leveraged to fit different use cases.
 
 - Travel Consultant (TC) signs into SR360 and create a session using Sabre Communication gateways, common proccess is to create a "Passenger Name Record" or simply a "PNR" using a workflow know as PRINT thats to add minimal data to reserve a trip for given passenger and itinerary (Phone field, Received from, Itinerary, Passenger Names, Ticketing limit),. Using Red App SDK, developers have a set of APIs to interact with SR360 Runtime Services and the user session on the front end.
 
-1. Add a passenger to PNR => TC uses Red App to query a local database for Travelers, after searching for specific email address he selects a passenger and copy passenger data to the PNR.
-	Select Command Helper flows
-	Push "DB Query" button and submit a query
-	Select a passenger from the query results display, expand the passenger panel allowing access to actions and details.
-	Push Backend Action button, this should display a Notification triggered by the SR3600 runtime services
-	Push Details Copy to PNR button, this will pop a view with Passenger details and Type.
-	Fill-up any additional data and select "Copy to PNR" to add the passnger to the trip.
+#### 1. Add a passenger to PNR => TC uses Red App to query a local database for Travelers, after searching for specific email address he selects a passenger and copy passenger data to the PNR.
+	- Select Command Helper flows
+	- Push "DB Query" button and submit a query
+	- Select a passenger from the query results display, expand the passenger panel allowing access to actions and details.
+	- Push Backend Action button, this should display a Notification triggered by the SR3600 runtime services
+	- Push Details Copy to PNR button, this will pop a view with Passenger details and Type.
+	- Fill-up any additional data and select "Copy to PNR" to add the passnger to the trip.
 	 
-2. Itinerary, Air shopping => TC uses an customized Air Shopping flow to search and book flights for one passenger , one way, from Dalls (DFW) to New York (NYC), Red App captures aditional parameters about the Traveler Company and apply filter to preferred airlines depending on the Destination.
-	Select Command Helper Flows.
-	Select Air button and Air Shopping Tab.
-	Fill in Air Shopping form with origin as DFW Airport and destination*** at NYC, few days ahead, ONE-WAY... press "Shop Airfare".
-	First custom pop-up appears to capture additional information to be added to the Shopping Request, if you have any specific Account Code or Corporate ID fill it, then press continue.
-	When results are displayed, and destination matches RedApp settings, the Shopping results should be filtered to a specific*** carrier (defaults to DL)
+#### 2. Itinerary, Air shopping => TC uses an customized Air Shopping flow to search and book flights for one passenger , one way, from Dalls (DFW) to New York (NYC), Red App captures aditional parameters about the Traveler Company and apply filter to preferred airlines depending on the Destination.
+	- Select Command Helper Flows.
+	- Select Air button and Air Shopping Tab.
+	- Fill in Air Shopping form with origin as DFW Airport and destination*** at NYC, few days ahead, ONE-WAY... press "Shop Airfare".
+	- First custom pop-up appears to capture additional information to be added to the Shopping Request, if you have any specific Account Code or Corporate ID fill it, then press continue.
+	- When results are displayed, and destination matches RedApp settings, the Shopping results should be filtered to a specific*** carrier (defaults to DL)
+
 	***those values could be configured on the RedApp settings panel.
 
-3. Itinerary, Air shopping, Decision support => TC uses a customized widget on Air Shopping results display that will , based on the Shopping results payload, support shopping decision process.
-	Expand the Decision Support Bar by clicking on the chevron button to the right side.
-	Click on the widget titled "TILE WIDGET"
-	The different Tabs on the pop-up presents data available for the widget to consume, as well common UI elements that can used to present the data model and interact with the TC (or backend systems). Click Close button after investigating the widget and lets move ahead with Shopping flow.
+#### 3. Itinerary, Air shopping, Decision support => TC uses a customized widget on Air Shopping results display that will , based on the Shopping results payload, support shopping decision process.
+	- Expand the Decision Support Bar by clicking on the chevron button to the right side.
+	- Click on the widget titled "TILE WIDGET"
+	- The different Tabs on the pop-up presents data available for the widget to consume, as well common UI elements that can used to present the data model and interact with the TC (or backend systems). Click Close button after investigating the widget and lets move ahead with Shopping flow.
 
-4. Itinerary, Air shopping, UPSell / Content generation => TC uses a customized wiget on Shopping Results panel that will, based on the Air Segment payload, access/offer custom content to the Trip, which are then registered on the PNR as specific type of Segment.
-	Choose a flight from the results rows
-	Expand its panel and locate the widget titled "TILE WIDGET", click over.
-	The different TAB presented on the pop-up illustrates the data available for the widget to consume, as well commo UI elements that can used to present the data model and interact with the TC (or backend systems).
-	On the Use Cases Tab, select ADD-OTH option, and click on the Action button. You should see a new segment (type OTH) on the Trip Summary panel.
-	On the Use Cases Tab, select openWeb option, and click on the Action button. You should see a new "full screen" Editor panel, showing a external URL Embedded on the SR360 workspace.
-	CLick CANCEL button and lets "Sell" the selected Air Segment. 
+#### 4. Itinerary, Air shopping, UPSell / Content generation => TC uses a customized wiget on Shopping Results panel that will, based on the Air Segment payload, access/offer custom content to the Trip, which are then registered on the PNR as specific type of Segment.
+	- Choose a flight from the results rows
+	- Expand its panel and locate the widget titled "TILE WIDGET", click over.
+	- The different TAB presented on the pop-up illustrates the data available for the widget to consume, as well commo UI elements that can used to present the data model and interact with the TC (or backend systems).
+	- On the Use Cases Tab, select ADD-OTH option, and click on the Action button. You should see a new segment (type OTH) on the Trip Summary panel.
+	- On the Use Cases Tab, select openWeb option, and click on the Action button. You should see a new "full screen" Editor panel, showing a external URL Embedded on the SR360 workspace.
+	- CLick CANCEL button and lets "Sell" the selected Air Segment. 
 
-5. Itinerary, Air shopping, Book => TC selects and books a flight returned from Air Shopping results.
-	Choose a flight from the results rows, expand its panel to access details, widgets and actions.
-	click on the "Sell & Save Price" button located on the the panel footer.
-	if the flight was successfuly "reserved" you should have a "Price quote" displayed on the view, open the PQ panel for details, widgets and actions related to the selection.
+#### 5. Itinerary, Air shopping, Book => TC selects and books a flight returned from Air Shopping results.
+	- Choose a flight from the results rows, expand its panel to access details, widgets and actions.
+	- click on the "Sell & Save Price" button located on the the panel footer.
+	- if the flight was successfuly "reserved" you should have a "Price quote" displayed on the view, open the PQ panel for details, widgets and actions related to the selection.
 
-6. Itinerary, Air, Manual Availability => TC issues a Sabre Format to look for flights to return from NYC to DFW. RedApp show additional information about the avalability on a side panel.
-	Select "Manual Command" flows
-	TC issues 1[DDMMM][ORIG APT][DEST APT] format, for example : 105FEBNYCDFW
-	On the Availability results, a RedApp will display an Web Application side by side the SR360 view, which compliments the information and actions presented to the TC, but without "disturbing" its main workflow and the resuts displayed on the screen.  
-	The Web applcation has access the SR360 runtime services which allow full integration with the worskpace (and the PNR in session):
+#### 6. Itinerary, Air, Manual Availability => TC issues a Sabre Format to look for flights to return from NYC to DFW. RedApp show additional information about the avalability on a side panel.
+	- Select "Manual Command" flows
+	- TC issues 1[DDMMM][ORIG APT][DEST APT] format, for example : 105FEBNYCDFW
+	- On the Availability results, a RedApp will display an Web Application side by side the SR360 view, which compliments the information and actions presented to the TC, but without "disturbing" its main workflow and the resuts displayed on the screen.  
+	- The Web applcation has access the SR360 runtime services which allow full integration with the worskpace (and the PNR in session):
 		- Agent Profile
 		- Command Payload
 		- Response Payload
 		- Direct HOST communication
 		- Javascript Utils
-	Navigate on the availaility results, check some panels for details, widgests and actions, the lets "Book" an return to home fly.
+	- Navigate on the availaility results, check some panels for details, widgests and actions, the lets "Book" an return to home fly.
 
-7. Itinerary, Air, Manual Sell => TC issues a Sabre Format to Select and Book a flight returned by the availability command, the RedApp displays an notification to let user interact and divert to customized workflow to apply Quality control procedures and or file finishing to the PNR.
-	Still on the "Manual Command" flow, Air Availability results display active.
-	TC issues Sell format : 0[LINE#][CLASS][QUANT], for example 01Y1.
-	After the command is issued and returned from processing, the RedApp pops a notification on the SR360 workspace, which alloww TC switch to a Web Application in a "full screen" Editor tab on the SR360 workspace.
-	The Web applcation has access the SR360 runtime services which allow full integration with the worskpace (and the PNR in session):
+#### 7. Itinerary, Air, Manual Sell => TC issues a Sabre Format to Select and Book a flight returned by the availability command, the RedApp displays an notification to let user interact and divert to customized workflow to apply Quality control procedures and or file finishing to the PNR.
+	- Still on the "Manual Command" flow, Air Availability results display active.
+	- TC issues Sell format : 0[LINE#][CLASS][QUANT], for example 01Y1.
+	- After the command is issued and returned from processing, the RedApp pops a notification on the SR360 workspace, which alloww TC switch to a Web Application in a "full screen" Editor tab on the SR360 workspace.
+	- The Web applcation has access the SR360 runtime services which allow full integration with the worskpace (and the PNR in session):
 		- Execute in EMULATOR (add Phone Field, Ticketing Limit elements to the PNR)
 		- Command Payload
 		- Response Payload
 		- Javascript Utils
-	if the Booking was sucessfull, TC has the Sell results displayed, opening the panel allows access to details, widgets and actions.
+	- if the Booking was sucessfull, TC has the Sell results displayed, opening the panel allows access to details, widgets and actions.
 	
-8. Received From, Command Modification => TC issues a partial format which is automatically filled on the backend with data from the Travel Consultant.
-	Select "Manual Command" flows
-	TC issues "Received From" format : 6[TC SIGNATURE], for example 6, the RedApp will query Agent Profile services on the back-end and fill the Travel consultant name automatically, then continue the format processing flow normally as if the user typed the entire of it.
+#### 8. Received From, Command Modification => TC issues a partial format which is automatically filled by the backend with data from the Travel Consultant.
+	- Select "Manual Command" flows
+	- TC issues "Received From" format : 6[TC SIGNATURE], for example 6, the - RedApp will query Agent Profile services on the back-end and fill the Travel consultant name automatically, then continue the format processing flow normally as if the user typed the entire of it.
 
-9. Command Block => TC issues a "END PNR" format, RedApp ensures Quality control logic to the PNR commit proccess, if not compliant the manual command typed by the TC is never sent for processing on the backend.
-	Select "Manual Command" flows
-	TC can issue E or ER to commit a PNR, RedApp ensures that formats that will not redisplay the PNR after execution are in conformance with policies. 
+#### 9. Command Block => TC issues an "END PNR" format, RedApp ensures Quality control logic to the PNR commit proccess, if not compliant the manual command typed by the TC is never sent for processing on the backend.
+	- Select "Manual Command" flows
+	- TC can issue E or ER to commit a PNR, RedApp ensures that formats that will not redisplay the PNR after execution are in conformance with policies. 
 
-10. Workflow Extensions => TC starts a "END PNR" Workflow, no matter if using Manual Commands or Graphical widgets on the SR360 UI, RedApp ensures Quality control logic to the PRN commit proccess, if not compliant, the Workflow execution is halted and a prompting action displayed to the user.
-	Expand the "Trip Summary" panel, by clicking on the briefcase sit at top right.
-	
-	Try issuing an "End", by expanding the End & Retrieve green button, and then selecting "End PNR".
-	Try issuing an "End & Retrieve", but without going through "QC CHECK" Custom Workflow.
-
-
-11. Custom Workflows => TC starts a Web Module RedApp from the "Workflows" panel, then use widgets that integrates on the main SR360 UI
-	Expand the "Workflow Initializer" panel, by clicking on the "run/play" button on the right sidebar.
-	Locate and click on the button labeled "QC CHECK"
-	Acknowledge to the policies and click Submit to commit acceptance to the PNR (using REMARKS fields)
+#### 10. Workflow Extensions => TC starts a "END PNR" Workflow, no matter if using Manual Commands or Graphical widgets on the SR360 UI, RedApp ensures Quality control logic to the PRN commit proccess, if not compliant, the Workflow execution is halted and a prompting action displayed to the user.
+	- Expand the "Trip Summary" panel, by clicking on the briefcase sit at top right.
+	- Try issuing an "End", by expanding the End & Retrieve green button, and then selecting "End PNR".
+	- Try issuing an "End & Retrieve", but without going through "QC CHECK" Custom Workflow.
 
 
-###It would help Developers to :
+#### 11. Custom Workflows => TC starts a Web Module RedApp from the "Workflows" panel, then use widgets that integrates on the main SR360 UI
+	- Expand the "Workflow Initializer" panel, by clicking on the "run/play" button on the right sidebar.
+	- Locate and click on the button labeled "QC CHECK"
+	- Acknowledge to the policies and click Submit to commit acceptance to the PNR (using REMARKS fields)
+
+
+### It would help Developers to :
 
 - Have a sandbox environment where he can play with the main pillars under RedApp SDK development and SR360 customization
 - Get access to source code and best practices when implementing the most common SDK APIs and Services.
