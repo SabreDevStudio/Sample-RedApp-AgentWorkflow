@@ -66,7 +66,7 @@ public class BusinessEventListener implements IEventListener {
 		};
 		
 		invoker.asyncExec();
-		
+		/*
 
 		if(evt.getId().equalsIgnoreCase("SP_COPY_TO_PNR")){
 			LockManager lm = new LockManager(Activator.getDefault().getServiceReference(ISRWCommunication.class),Activator.getDefault().getLoggerService());
@@ -96,7 +96,7 @@ public class BusinessEventListener implements IEventListener {
 				Activator.getDefault().setCurrentWorkarea(wa);
 				Activator.getDefault().getLoggerService().info("Changed Area"+wa);
 			}
-		}
+		}*/
 
 		
 

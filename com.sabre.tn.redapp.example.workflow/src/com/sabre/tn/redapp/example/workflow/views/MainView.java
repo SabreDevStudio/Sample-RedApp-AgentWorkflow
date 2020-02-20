@@ -1,6 +1,7 @@
 package com.sabre.tn.redapp.example.workflow.views;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -14,6 +15,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.sabre.edge.platform.optional.jxbrowser.chromium.JxBrowserSecureSimpleFormatter;
 import com.sabre.edge.platform.optional.jxbrowser.chromium.SwtSwingBrowser;
+import com.sabre.tn.redapp.example.workflow.Activator;
 import com.sabre.tn.redapp.example.workflow.uiparts.CoreServicesHelper;
 
 
@@ -37,6 +39,14 @@ public class MainView extends ViewPart {
 		Composite compMain = new Composite(parent, SWT.NONE);
 		compMain.setLayout(new GridLayout(1, true));
 		
+		Browser brs = new Browser(compMain, SWT.WRAP);
+		String url = Activator.getDefault().getDataDirectory(Activator.PLUGIN_ID).toURI().toString();
+		url = url.concat("resources/readmemd.html");
+		brs.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		brs.setUrl(url);
+		
+		
+		/*
 		Label txtContent = new Label(compMain,SWT.WRAP );
 		txtContent.setText("About this App" + CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getPcc()+" "+CoreServicesHelper.getWorkAreaService().getWorkAreaInUse().getAaaPcc());
 		txtContent.setAlignment(SWT.CENTER);
@@ -63,7 +73,7 @@ public class MainView extends ViewPart {
 		Link txtContent5 = new Link(compMain, SWT.WRAP );
 		txtContent5.setText("Core Services\r\n\t- First Run event handler\r\n\t- Red App Settings\r\n\t- Plugin Resources\r\n\t- Logging");
 		txtContent5.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false));
-
+		*/
 		
 	}
 

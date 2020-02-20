@@ -1,30 +1,65 @@
-# Agent Workflow, showcase Red App
-## Red App for demonstrating purposes only, showcasing SR360 customization capabilities available on the RedApp SDK in an interactive way.
+# Sabre Red 360 Developers Toolkit - Showcase Project
 
-### It would help Account Manages and Sales Rep to :
+# Key Concepts
+
+- **GDS** the technical infra-structure to support travel business
+- **PNR**, a "database record" hosted at GDS which upholds all travel related data necessary to support the entirety chain needs to service and control a travel itinerary, its passengers and all related assets (air, hotel, car, ...).
+- **Sabre Red 360**, aka SR360, the main tool used by Travel Consultants to Shop, Book, Ticket Itineraries in favor of its customers (Travelers)
+- **EMULATOR**, EMU, the window to the interact with a PNR, supporting Command based communication with underlying systems. 
+- **Scribe**, a simple scripting language to allow automation of EMU routine operations 
+- **Eclipse OSGI**, the specification that support SR360 Desktop implementation (window manager), as well with open / standarized plug-in architacture.  
+
+- **Red App**, plug-in based architecture that allow Java Developers using Eclipse IDE to customize Sabre Red 360 User experience and its operational virtues.
+- **Web View**, NGV, the modern / current window to the PNR, supporting Rich Data models and Sabre APIs to provide broader content (NDC, CSL) and a "graphical" and more intuitive user experience.  
+- **Sabre Red 360 Web**, the cloud based window to the PNR, acessed through Web Browser
+
+- **SR360 Runtime Services**, allow plug-ins to consume Communication foundation APIs (HOST,EMU,Sabre APIs REST / SOAP), as well desktop / user configuration utilities.
+
+- **Command Flow**, the protocol on which messages are sent through the Web view and the underlying systems supporting sr3600 runtime.
+- **Workflow**, a set of messages swaped with back end services to fullfill a specific activity regarding travel business.
+- **Workflow extension point**, pre-defined "listening" ports to the Command Flow that allow Developers to inspect and modify the underlying data and well to control the workflow execution.
+
+- **Web Module**, a plug-in based architecture that allow Developers to customize the Web View user interface.
+- **Widgets**, UX elements shared from Web View Library that could be implemented by Developers using Typescript language.
+
+- **Active listening**, the ability to subscribe and interact with SR360 runtime events.
+
+- **View and Editor**, the "windows" that can be appended to SR360 Desktop to present Red App user interface, respectivelly side by side the Web View and "full screen" Tabbed windows.
+- **Notification**, an un-obtrusive pop-up that can be configured to display custom messages to the user.
+- **Dialog**, an "lock screen" pop-up that captures user input.
+
+- **Web Wrapping**, browser component (View, Editor) exposed for the Red Apps that allow bringing extisting Web content inside the SR360 Desktop, and take advantage on Runtime Services exposed using Javascript language.
+ 
+
+# About Showcase RedApp
+- Red App for demonstrating purposes only, showcasing SR360 customization capabilities available on the RedApp SDK in an interactive way.
+	
+## It would help PTCs and Sales Rep to :
 - Understanding how a RedApp could help customize the travel consultant work flow
 
-	One very common design pattern utilized by Red App develoopers is the ability to intercept and analyze user actions, understand the context (or position on the workflow) and leverage this capabilty to compliment and enrich the SR360 functionality this could be by acting silently on the back-end to enforce business rules or interacting with End user using UI elements available. 
+One very common design pattern utilized by Red App develoopers is the ability to intercept and analyze user actions, understand the context (or position on the workflow) and leverage this capabilty to compliment and enrich the SR360 functionality this could be by acting silently on the back-end to enforce business rules or interacting with End user using UI elements available. 
 	
-	- Actively listening for commands typed and parsing responses as they are shown to the screen.
-	- Ability to intercept, modify or cancel execution of formats typed on manual command flow.
-	- Using pre-defined workflow extension points to interact with Command helper flows and graphical operations done on SR360
-	- Subscribe for contextual Busines Events that are triggered by user actions
+- Actively listening for commands typed and parsing responses as they are shown to the screen.
+- Ability to intercept, modify or cancel execution of formats typed on manual command flow.
+- Using pre-defined workflow extension points to interact with Command helper flows and graphical operations done on SR360
+- Subscribe for contextual Busines Events that are triggered by user actions
 
-	 During event handling, developer has access to runtime services and choice of development languages to implement their use cases
+During event handling, developer has access to runtime services and choice of development languages to implement their use cases
 
-	- Consume Communication Foundation services offered by SR360 runtime (HOST, EMULATOR, SOAP/REST APIs).
-	- Using custom workflow extensions to integrate SR360 custom front end application with the Java backend.
-	- Connect to back end systems.
-	- Programatically invoke UI elements and contribute the SR360 Desktop and its Main UI (NGV). 
+- Consume Communication Foundation services offered by SR360 runtime (HOST, EMULATOR, SOAP/REST APIs).
+- Using custom workflow extensions to integrate SR360 custom front end application with the Java backend.
+- Connect to back end systems.
+- Programatically invoke UI elements and contribute the SR360 Desktop and its Main UI (NGV). 
 
-	Knowing the context of the user during a workflow and  the most common User Interface elements offered to SDK Developers
-	
-	- Views , Editors and Notifications
-	- Embedding existing websites inside SR360 Desktop
-	- SR360 Graphical UI Widgets
+Knowing the context of the user during a workflow and  the most common User Interface elements offered to SDK Developers
 
-### Walk trough over a PNR creation workflow and get insights on how SDK capabilities could be leveraged to fit different use cases.
+- Views , Editors and Notifications
+- Embedding existing websites inside SR360 Desktop
+- SR360 Graphical UI Widgets
+
+## Walk through USE Cases
+
+### Simple PNR creation workflow and get insights on how SDK capabilities could be leveraged to fit different use cases.
 
 - Travel Consultant (TC) signs into SR360 and create a session using Sabre Communication gateways, common proccess is to create a "Passenger Name Record" or simply a "PNR" using a workflow know as PRINT thats to add minimal data to reserve a trip for given passenger and itinerary (Phone field, Received from, Itinerary, Passenger Names, Ticketing limit),. Using Red App SDK, developers have a set of APIs to interact with SR360 Runtime Services and the user session on the front end.
 
@@ -34,7 +69,7 @@
 	- Select a passenger from the query results display, expand the passenger panel allowing access to actions and details.
 	- Push Backend Action button, this should display a Notification triggered by the SR3600 runtime services
 	- Push Details Copy to PNR button, this will pop a view with Passenger details and Type.
-	- Fill-up any additional data and select "Copy to PNR" to add the passnger to the trip.
+	- Fill-up any additional data and select "Copy to PNR" to add the passenger to the trip.
 	 
 #### 2. Itinerary, Air shopping => TC uses an customized Air Shopping flow to search and book flights for one passenger , one way, from Dalls (DFW) to New York (NYC), Red App captures aditional parameters about the Traveler Company and apply filter to preferred airlines depending on the Destination.
 	- Select Command Helper Flows.
@@ -105,8 +140,29 @@
 	- Locate and click on the button labeled "QC CHECK"
 	- Acknowledge to the policies and click Submit to commit acceptance to the PNR (using REMARKS fields)
 
+## RedApp availability at Sabre Red App Centre
+- Let know when available for Download
+- How provisioning would be done
 
-### It would help Developers to :
+# For Developers buiding solutions to Sabre Red 360 Framework  :
+
+## Red App Developers Wanted
+
+- Notions about Eclipse OSGI specification
+- Basic Java development skills (Eclipse IDE, OSGI plugin creation, Swing/SWT components) 
+- Web development (javascript, HTML, CSS)
+- Advanced Web development (NodeJS, Typescript, React/Redux, JQuery, Handlebars, MVC frameworks and patterns)
+
+- Getting started (where to go, where to find support)
+	- Register at developer.sabre.com
+	- Download SDK Distribution file and unzip it on a local folder.
+	- Open [SDK extract folder]/documentation/index.html file using your preferred Web-Browser.
+	- Navigate to the session Entitled Getting Started -> Getting Started with Red Apps -> Setup for Red App Development, or you could navigate directly to the subject : [SDK extract folder]/documentation/htmls/redapp-dev-get-started-setup.html
+	- Complete all Development Enironment Setup
+	- Import a existing Red App project to the Eclipse IDE
+	- Run/Debug Developer Instance of SR360 under Eclipse IDE
+
+## It would help Developers to :
 
 - Have a sandbox environment where he can play with the main pillars under RedApp SDK development and SR360 customization
 - Get access to source code and best practices when implementing the most common SDK APIs and Services.
@@ -149,15 +205,11 @@
 	- Internationalization
 	- Config.properties
 
-It would help a more general audience to :
--	Know more about SR360 customization capabilities
--	Understand the features exposed in a clean and consistent way, aligned with Marketing and Product Management Teams.
--   To have a fearless interaction with RedApps and help bring new customization ideas for fulfilling different use cases 
 
 
-## Running RedApp on Eclipse Plugin development
+## Running RedApp on Eclipse Development Environment
 
-this RedApp project can be imported and used on developer environment to serve as sample code and also as sandbox to know better the main capabilities of the Sabre Red Developer Toolkit (SDK)
+This RedApp project can be imported and used on developer environment to serve as sample code and also as sandbox to know better the main capabilities of the Sabre Red Developer Toolkit (SDK)
 In order to do that, any developer could download the Sabre Red Developer Toolkit and from there configure the Eclipse IDE (dev environment) and a Target platform that will "emulate" Sabre Red Workspace Desktop to run on developer machine. Thats the same environmnet that thousands of Travel consultants use worlwide to SHOP, BOOK, PRICE and FULFILL Travel arrangments.
 
 for more information please navigate to Sabre Dev Studio developer portal, register yourself, and follow the Sabre Red 360 Developer Toolkit links to download resource and get more instruction on configurations settings. (https://developer.sabre.com/guides/travel-agency/sdks/sabre-red-360-developer-kit)

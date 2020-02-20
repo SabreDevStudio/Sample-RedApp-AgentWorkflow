@@ -186,6 +186,10 @@
                override="true"
                path="resources/configs.json">
          </file>
+         <file
+               override="true"
+               path="resources/readmemd.html">
+         </file>
       </files>
    </extension>
    <!--extension point="com.sabre.edge.platform.optional.firstrun">
@@ -244,7 +248,7 @@
                flowId="dynamo.pnr.end">
          </flowExtensionPoint>
       </extension>
-      <extension
+      <!--extension
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
          <flowExtensionPoint
                callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler:execute"
@@ -252,7 +256,7 @@
                flowId="dynamo.pnr.ignore">
                
          </flowExtensionPoint>
-      </extension>  
+      </extension-->  
       
       
     <!-- Nudge Extensions -->  
