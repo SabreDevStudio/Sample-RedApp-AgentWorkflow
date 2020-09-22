@@ -8,9 +8,9 @@
             class="com.sabre.edge.platform.optional.webkit.editors.DefaultWebkitEditor"
             default="false"
             icon="images/editor_icon.png"
-            id="com.sabre.tn.redapp.example.workflow.webkiteditor.command"
+            id="com.sabre.tn.redapp.example.showcase.webkiteditor.command"
             
-            name="Advanced WebBrowser Editorcom.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor">
+            name="Advanced WebBrowser Editorcom.sabre.tn.redapp.example.showcase.editor.CustomBrowserEditor">
       </editor>
    </extension>
 
@@ -18,7 +18,7 @@
       <editorApp
             class="com.sabre.edge.platform.optional.webkit.editors.DefaultWebkitEditor"
             constraintStartup="0"
-            editorId="com.sabre.tn.redapp.example.workflow.editor.CustomBrowserEditor"
+            editorId="com.sabre.tn.redapp.example.showcase.editor.CustomBrowserEditor"
             name="Advanced WebBrowser Editor"
             toolTipText="Sample of Default Browser Editor using Advanced Browser Engine">
       </editorApp>
@@ -29,16 +29,16 @@
    <extension point="org.eclipse.ui.views">
       <view allowMultiple="true" 
       category="com.sabre.edge.app.ui.category" 
-      class="com.sabre.tn.redapp.example.workflow.views.MainView" 
+      class="com.sabre.tn.redapp.example.showcase.views.MainView" 
       icon="images/redapp_view_icon.png" 
-      id="com.sabre.tn.redapp.example.workflow.redapp.view"
+      id="com.sabre.tn.redapp.example.showcase.redapp.view"
       name="ShowCase Red App"/>
       
         <view
 			allowMultiple="true"
 			class="com.sabre.edge.platform.optional.webkit.views.WebkitView"
 			icon="images/icon.png"
-			id="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView"
+			id="com.sabre.tn.redapp.example.showcase.view.WebKitSampleView"
 			name="Advanced WebBrowser View"
 			restorable="false">
 	  	</view>
@@ -48,7 +48,7 @@
       <perspectiveExtension targetID="com.sabre.edge.app.ui.perspective">
          <view 
          	closeable="true" 
-         	id="com.sabre.tn.redapp.example.workflow.redapp.view:*" 
+         	id="com.sabre.tn.redapp.example.showcase.redapp.view:*" 
          	minimized="false" 
          	moveable="false" 
          	ratio="0.70" 
@@ -63,7 +63,7 @@
    
    <extension point="org.eclipse.ui.commands">
 	   <command 
-	   		id="com.sabre.tn.redapp.example.workflow.redapp.view.command" 
+	   		id="com.sabre.tn.redapp.example.showcase.redapp.view.command" 
 	   		name="Open RedApp View">
        <commandParameter 
        		id="viewId" 
@@ -73,7 +73,7 @@
 
 	   <command 
 	   		defaultHandler="com.sabre.edge.platform.optional.webkit.handlers.OpenWebkitViewHandler"
-	   		id="com.sabre.tn.redapp.example.workflow.redapp.webkitview.command" 
+	   		id="com.sabre.tn.redapp.example.showcase.redapp.webkitview.command" 
 	   		name="Open RedApp WebKitView">
        <commandParameter 
        		id="viewId" 
@@ -83,7 +83,7 @@
       
       <command 
        defaultHandler="com.sabre.edge.platform.optional.webkit.handlers.FocusOrOpenWebkitEditorHandler" 
-       id="com.sabre.tn.redapp.example.workflow.webkiteditor.command"
+       id="com.sabre.tn.redapp.example.showcase.webkiteditor.command"
        name="Open Webkit Editor">
 
       <commandParameter 
@@ -100,7 +100,7 @@
    <extension point="org.eclipse.ui.handlers">
    		<handler 
    			class="com.sabre.edge.platform.core.ui.handlers.OpenViewHandler" 
-   			commandId="com.sabre.tn.redapp.example.workflow.redapp.view.command"/>
+   			commandId="com.sabre.tn.redapp.example.showcase.redapp.view.command"/>
 
    </extension>
    
@@ -112,7 +112,7 @@
 <extension point="com.sabre.edge.platform.core.ui.viewApp">
 	<viewApp
 	   browserURL="${plugin_resources}/resources/AvAssistant.html"
-	   viewId="com.sabre.tn.redapp.example.workflow.view.WebKitSampleView" />
+	   viewId="com.sabre.tn.redapp.example.showcase.view.WebKitSampleView" />
 </extension>
 
 
@@ -127,14 +127,14 @@
 
    <menuContribution locationURI="toolbar:com.sabre.edge.toolbar.sidebar">
          <command 
-         	commandId="com.sabre.tn.redapp.example.workflow.redapp.view.command" 
+         	commandId="com.sabre.tn.redapp.example.showcase.redapp.view.command" 
          	icon="images/redapp_view_icon.png" 
          	label="About ShowCase RedApp" 
          	style="push" 
          	tooltip="Just information about this sample Red App">
             <parameter 
             	name="viewId" 
-            	value="com.sabre.tn.redapp.example.workflow.redapp.view"/>
+            	value="com.sabre.tn.redapp.example.showcase.redapp.view"/>
          </command>
       </menuContribution>
 
@@ -154,13 +154,13 @@
    <extension point="org.eclipse.ui.preferencePages">
       <page 
       	category="com.sabre.edge.cf.core.preferences.RedAppsSettings" 
-      	class="com.sabre.tn.redapp.example.workflow.preferences.AppPreferencePage" 
-      	id="com.sabre.tn.redapp.example.workflow.preferences.AppPreferencePage" 
+      	class="com.sabre.tn.redapp.example.showcase.preferences.AppPreferencePage" 
+      	id="com.sabre.tn.redapp.example.showcase.preferences.AppPreferencePage" 
       	name="ShowCase RedApp Preferences">
       </page>
    </extension>
    <extension point="org.eclipse.core.runtime.preferences">
-      <initializer class="com.sabre.tn.redapp.example.workflow.preferences.PreferenceInitializer">
+      <initializer class="com.sabre.tn.redapp.example.showcase.preferences.PreferenceInitializer">
       </initializer>
    </extension>
 
@@ -194,14 +194,14 @@
    </extension>
    <!--extension point="com.sabre.edge.platform.optional.firstrun">
 	  <client
-	  	class="com.sabre.tn.redapp.example.workflow.listeners.RedAppFirstRunHandler"
+	  	class="com.sabre.tn.redapp.example.showcase.listeners.RedAppFirstRunHandler"
 	    versionId="1">
 	  </client>
    </extension-->
    <extension
          point="com.sabre.edge.platform.optional.webkit.js.handler">
       <handler
-            class="com.sabre.tn.redapp.example.workflow.uiparts.WebKitJSBridge"
+            class="com.sabre.tn.redapp.example.showcase.uiparts.WebKitJSBridge"
             jsVarReferenceName="javaBridge">
       </handler>
    </extension>
@@ -209,7 +209,7 @@
    
       <extension point="com.sabre.edge.dynamo.web.module">
 		<modules>
-           <module id="com-sabre-tn-redapp-example-workflow-mod" />
+           <module id="com-sabre-tn-redapp-example-showcase-mod" />
         </modules>
    </extension>
    
@@ -217,7 +217,7 @@
 <extension
          point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
       <flowExtensionPoint
-            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.ICustomSvc:execute"
+            callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.ICustomSvc:execute"
             extensionPointId="execute"
             flowId="dynamo.api.executor">
       </flowExtensionPoint>
@@ -226,7 +226,7 @@
    <extension
          point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
       <flowExtensionPoint
-            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopManualHandler:execute"
+            callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.IBeforeShopManualHandler:execute"
             flowId="dynamo.air.lowfareshopping"
             extensionPointId="beforeShoppingRequest"
 			type="manual">
@@ -235,7 +235,7 @@
       <extension
          point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
       <flowExtensionPoint
-            callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopHandler:execute"
+            callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.IBeforeShopHandler:execute"
             flowId="dynamo.air.lowfareshopping"
             extensionPointId="beforeShoppingRequest">
       </flowExtensionPoint>
@@ -243,7 +243,7 @@
       <extension
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
          <flowExtensionPoint
-               callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler:execute"
+               callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.IBeforeEndHandler:execute"
                extensionPointId="beforeEndCommand"
                flowId="dynamo.pnr.end">
          </flowExtensionPoint>
@@ -251,7 +251,7 @@
       <!--extension
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
          <flowExtensionPoint
-               callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeEndHandler:execute"
+               callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.IBeforeEndHandler:execute"
                extensionPointId="beforeIgnoreCommand"
                flowId="dynamo.pnr.ignore">
                
@@ -263,12 +263,12 @@
   	<extension
             point="com.sabre.edge.dynamo.flow.flowextpoint.registry">
         <flowExtensionPoint
-                callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.INudgeInit:execute"
+                callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.INudgeInit:execute"
                 extensionPointId="nudgeInitCommand"
                 flowId="dynamo.nudge">
         </flowExtensionPoint>
         <flowExtensionPoint
-                callbackService="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.INudgeAction:execute"
+                callbackService="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.INudgeAction:execute"
                 extensionPointId="nudgeActionCommand"
                 flowId="dynamo.nudge">
         </flowExtensionPoint>

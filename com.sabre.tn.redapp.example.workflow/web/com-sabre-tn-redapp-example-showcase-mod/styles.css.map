@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.less"],"names":[],"mappings":"AACA,mDAEQ,QAAA","file":"styles.css","sourcesContent":["// Provide styles below\r\n.com-sabre-tn-redapp-example-showcase-mod {\r\n    .myClass {\r\n        display: inline;\r\n    }\r\n}"]}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.sabre.tn.redapp.example.workflow.xtpointservices.BeforeShopManualHandler">
-   <implementation class="com.sabre.tn.redapp.example.workflow.xtpointservices.BeforeShopManualHandler"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.sabre.tn.redapp.example.showcase.xtpointservices.BeforeShopManualHandler">
+   <implementation class="com.sabre.tn.redapp.example.showcase.xtpointservices.BeforeShopManualHandler"/>
    <service>
-      <provide interface="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.IBeforeShopManualHandler"/>
+      <provide interface="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.IBeforeShopManualHandler"/>
    </service>
 </scr:component>

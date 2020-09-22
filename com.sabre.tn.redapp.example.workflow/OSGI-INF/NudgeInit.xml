@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.sabre.tn.redapp.example.workflow.xtpointservices.NudgeInit">
-   <implementation class="com.sabre.tn.redapp.example.workflow.xtpointservices.NudgeInit"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.sabre.tn.redapp.example.showcase.xtpointservices.NudgeInit">
+   <implementation class="com.sabre.tn.redapp.example.showcase.xtpointservices.NudgeInit"/>
    <service>
-      <provide interface="com.sabre.tn.redapp.example.workflow.xtpointservices.interfaces.INudgeInit"/>
+      <provide interface="com.sabre.tn.redapp.example.showcase.xtpointservices.interfaces.INudgeInit"/>
    </service>
 </scr:component>

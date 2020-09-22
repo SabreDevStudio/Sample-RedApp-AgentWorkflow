@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Private Sabre Agency Workflow Demo
-Bundle-SymbolicName: com.sabre.tn.redapp.example.workflow;singleton:=true
+Bundle-Name: Showcase Red App
+Bundle-SymbolicName: com.sabre.tn.redapp.example.showcase;singleton:=true
 Bundle-Version: 1.0.5.qualifier
-Bundle-Activator: com.sabre.tn.redapp.example.workflow.Activator
+Bundle-Activator: com.sabre.tn.redapp.example.showcase.Activator
 Bundle-Vendor: Sabre Travel Network
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,28 +12,28 @@ Require-Bundle: org.eclipse.ui,
  com.sabre.edge.platform.core.editor,
  com.sabre.edge.platform.core.ui,
  com.sabre.edge.redapp.contactdetails,
- com.sabre.edge.cf.common;bundle-version="1.0.7",
+ com.sabre.edge.cf.common,
  com.sabre.edge.cf.emu,
- com.sabre.edge.cf.core;bundle-version="1.0.15",
- com.sabre.edge.cf.sws;bundle-version="1.0.5",
- com.sabre.edge.platform.optional.notifications;bundle-version="1.1.11",
+ com.sabre.edge.cf.core,
+ com.sabre.edge.cf.sws,
+ com.sabre.edge.platform.optional.notifications,
  org.eclipse.jface,
- com.sabre.edge.redapp.pluginresources;bundle-version="1.0.1",
- com.sabre.edge.platform.optional.firstrun;bundle-version="1.0.1",
- com.sabre.edge.platform.optional.browser;bundle-version="2.2.6",
- com.sabre.edge.platform.optional.webkit;bundle-version="1.0.8",
- com.sabre.edge.dynamo.ext.cdm;bundle-version="3.4.24";resolution:=optional,
- com.sabre.edge.dynamo.transformer;bundle-version="3.4.33";resolution:=optional,
- com.sabre.edge.dynamo.flow;bundle-version="1.0.0";resolution:=optional,
- com.sabre.edge.dynamo.cdm;bundle-version="3.4.33";resolution:=optional,
- com.sabre.edge.dynamo.services.impl;bundle-version="3.4.33";resolution:=optional,
+ com.sabre.edge.redapp.pluginresources,
+ com.sabre.edge.platform.optional.firstrun,
+ com.sabre.edge.platform.optional.browser,
+ com.sabre.edge.platform.optional.webkit,
+ com.sabre.edge.dynamo.ext.cdm;resolution:=optional,
+ com.sabre.edge.dynamo.transformer;resolution:=optional,
+ com.sabre.edge.dynamo.flow;resolution:=optional,
+ com.sabre.edge.dynamo.cdm;resolution:=optional,
+ com.sabre.edge.dynamo.services.impl;resolution:=optional,
  com.sabre.edge.dynamo.cf;resolution:=optional,
  com.sabre.edge.dynamo.redapp.cdm;resolution:=optional,
- com.sabre.edge.dynamo.pnr.cdm;bundle-version="3.4.53";resolution:=optional
+ com.sabre.edge.dynamo.pnr.cdm;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/CustomCFService.xml, OSGI-INF/BeforeShopHandler.xml, OSGI-INF/BeforeShopManualHandler.xml, OSGI-INF/BeforeEndHandler.xml, OSGI-INF/BeforeEndManualHandler.xml, OSGI-INF/NudgeInit.xml, OSGI-INF/NudgeAction.xml
 Eclipse-RegisterBuddy: com.sabre.edge.dynamo.transformer
-Export-Package: com.sabre.tn.redapp.example.workflow.xtpointservices
+Export-Package: com.sabre.tn.redapp.example.showcase.xtpointservices
 Bundle-ClassPath: lib/json-simple-1.1.jar,
  .

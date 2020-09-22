@@ -1,0 +1,59 @@
+import {Template} from 'sabre-ngv-core/decorators/classes/view/Template';
+import {AbstractView} from "sabre-ngv-app/app/AbstractView";
+import {ShoppingData} from "sabre-ngv-app/app/responses/shopping/models/ShoppingData";
+import {AbstractModel} from "sabre-ngv-app/app/AbstractModel";
+import {getService} from "../../Context";
+import {FlightSegment} from "sabre-ngv-app/app/common/data/flight/FlightSegment";
+import {SrwSyncApi} from "sabre-ngv-app/app/services/impl/SrwSyncApi";
+// import {SampleDrawerService} from '../services/SampleDrawerService';
+import {SrwAsyncApi} from "sabre-ngv-app/app/services/impl/SrwAsyncApi";
+import {ExternalServiceConnector} from "sabre-ngv-app/app/services/impl/ExternalServiceConnector";
+import {Bound} from 'sabre-ngv-core/decorators/methods/Bound';
+import {CssClass} from 'sabre-ngv-core/decorators/classes/view/CssClass';
+import { CustomXTPointService } from "../../common/CustomXTPointService";
+import { CustomSvcRQ } from "../../models/CustomSvcRQ";
+import { CustomSvcRQData } from "../../models/CustomSvcRQData";
+import { CustomSvcRS } from "../../models/CustomSvcRS";
+import { Initial } from "sabre-ngv-core/decorators/classes/Initial";
+import { AbstractViewOptions } from "sabre-ngv-app/app/AbstractViewOptions";
+
+
+/*
+@Initial<AbstractViewOptions>({
+    title: 'Brand Package',
+    events: {
+        'click .bf-select': 'selectColumn',
+        'click .bf-column-title ::stop-event': 'selectColumn',
+        'click .cp-passenger-row': 'updateActionButtons',
+        'input input[name="cp-travel-date"]' : 'enableSell'
+     }
+})*/
+@CssClass('decisionsupport-widgetview')
+@Template('com-sabre-tn-redapp-example-showcase-mod:Example')
+export class LfsTilePopOver extends AbstractView<FlightSegment> {
+
+    selfDrawerContextModelPropagated(availData: FlightSegment) {
+        this.getModel().set('availData', JSON.stringify(availData));
+        this.getModel().set('ctSEG', true);
+        this.getModel().set('ucList', {uc:[{id:'addOTH',desc:'adds OTH segment to current PNR',ft:'HOST, Refresh Trip Summmary'},{id:'openWeb',desc:'Open WebKit View',ft:'JXBrowser, OpenView'}]})
+        this.render();
+    }
+
+    selfSomeAction() {
+
+        let rq: CustomSvcRQ = new CustomSvcRQ();
+        let actCode = this.$el.find('input[name=optionsUC]:checked').val();
+        rq.actionCode = actCode;
+
+        getService(CustomXTPointService).fetchServiceData(new CustomSvcRQData(rq)).done(this.afterSomeActionResponse.bind(this));
+
+        
+    }
+
+    afterSomeActionResponse(dtaResponse: CustomSvcRS) {
+        this.getModel().set('availData', JSON.stringify(dtaResponse));
+        this.render();
+     }
+
+
+}
